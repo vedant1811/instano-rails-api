@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_key: MyString
+  address: MyText
+  latitude: 9.99
+  longitude: 9.99
+  phone: MyString
+  rating: 1
+
+two:
+  api_key: MyString
+  address: MyText
+  latitude: 9.99
+  longitude: 9.99
+  phone: MyString
+  rating: 1
