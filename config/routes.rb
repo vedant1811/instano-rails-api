@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  namespace :v1 do resources :devices, except: [:new, :edit] end
   namespace :v1, defaults: {format: 'json'} do
     resources :sellers # secure this. as of now :new, :edit work without any authentication
   end
