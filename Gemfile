@@ -24,3 +24,7 @@ gem 'jbuilder'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+gem 'xmpp4r'
+
+gem 'delayed_job_active_record'
