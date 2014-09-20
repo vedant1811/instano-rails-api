@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  buyer_id: 1
+  search_string: MyString
+  brands: MyString
+  price_range: MyString
+
+two:
+  buyer_id: 1
+  search_string: MyString
+  brands: MyString
+  price_range: MyString
