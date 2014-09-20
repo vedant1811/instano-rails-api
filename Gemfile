@@ -28,3 +28,5 @@ gem 'jbuilder'
 gem 'xmpp4r'
 
 gem 'delayed_job_active_record'
+
+gem 'thin', :group => :development

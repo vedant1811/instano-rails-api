@@ -1,19 +1,4 @@
-require 'xmpp4r'
-require 'xmpp4r/client'
-include Jabber
-
-SERVER = 'gcm.googleapis.com'
-PORT = 5235
-
-GCM_ID = 187047464172 # project number in goole developer console
-API_KEY = 'AIzaSyDmnplvDn5Lpz88ovLLH3rYvXyOgR53O_I'
-
 class V1::DevicesController < ApplicationController
-
-  attr_reader :client
-
-  before_filter :connect
-
 
   # GET /v1/devices
   # GET /v1/devices.json
@@ -63,27 +48,4 @@ class V1::DevicesController < ApplicationController
 
     head :no_content
   end
-
-  private
-    # chaning friendly
-    def connect
-      if !@client.nil? && @client.isConnected?
-	return
-      end
-      @jabber_id = GCM_ID
-      @jabber_password = API_KEY
-      jid = JID.new(@jabber_id)
-      @client = Client.new jid
-      Jabber::debug = true
-      @client.connect(SERVER, PORT)
-      @client.auth @jabber_password # Throws ClientAuthenticationFailure
-    end
-
-    def send_message message
-      template = ("<message><gcm xmlns='google:mobile:data'>{1}</gcm></message>")
-
-      message = Message.new(nil, messageString)
-      message.type = :chat
-      @client.send(message)
-    end
 end
