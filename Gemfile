@@ -17,7 +17,7 @@ gem 'sqlite3'
 gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano', '2.15.5', :group => :development
