@@ -7,6 +7,13 @@ class V1::QuotesController < ApplicationController
     render json: @v1_quotes
   end
 
+#   TODO:
+#   def for_seller
+#     seller_api_key = params.require(:api_key)
+#     seller = V1::Seller.find(seller_api_key)
+#     quotes_for_seller = Quote.where(
+#   end
+
   # GET /v1/quotes/1
   # GET /v1/quotes/1.json
   def show
@@ -18,7 +25,7 @@ class V1::QuotesController < ApplicationController
   # POST /v1/quotes
   # POST /v1/quotes.json
   def create
-    @v1_quote = V1::Quote.new(params[:v1_quote])
+    @v1_quote = V1::Quote.new(quote_params)
 
     if @v1_quote.save
       render json: @v1_quote, status: :created, location: @v1_quote
@@ -46,5 +53,10 @@ class V1::QuotesController < ApplicationController
     @v1_quote.destroy
 
     head :no_content
+  end
+
+private
+  def quote_params
+    params.require(:quote).permit(:buyer_id, :search_string, :brands, :price_range)
   end
 end

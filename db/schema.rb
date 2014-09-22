@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920191713) do
+ActiveRecord::Schema.define(version: 20140922061632) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20140920191713) do
     t.datetime "updated_at"
   end
 
+  create_table "v1_quotations", force: true do |t|
+    t.string   "name_of_product"
+    t.integer  "price"
+    t.text     "description"
+    t.string   "seller_api_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "quote_id"
+  end
+
   create_table "v1_quotes", force: true do |t|
     t.integer  "buyer_id"
     t.string   "search_string"
@@ -75,6 +85,7 @@ ActiveRecord::Schema.define(version: 20140920191713) do
     t.datetime "updated_at"
     t.string   "name_of_shop"
     t.string   "name_of_seller"
+    t.string   "email"
   end
 
 end

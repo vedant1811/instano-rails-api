@@ -19,7 +19,7 @@ class V1::DevicesController < ApplicationController
   # POST /v1/devices
   # POST /v1/devices.json
   def create
-    @v1_device = V1::Device.new(params[:v1_device])
+    @v1_device = V1::Device.new(device_params)
 
     if @v1_device.save
       render json: @v1_device, status: :created, location: @v1_device
@@ -47,5 +47,10 @@ class V1::DevicesController < ApplicationController
     @v1_device.destroy
 
     head :no_content
+  end
+
+private
+  def device_params
+#     params.require(:de
   end
 end
