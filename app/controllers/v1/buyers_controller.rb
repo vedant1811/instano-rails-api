@@ -18,7 +18,7 @@ class V1::BuyersController < ApplicationController
   # POST /v1/buyers
   # POST /v1/buyers.json
   def create
-    @v1_buyer = V1::Buyer.new(buyer_params)
+    @v1_buyer = V1::Buyer.new(params[:id])
 
     if @v1_buyer.save
       render json: @v1_buyer, status: :created, location: @v1_buyer
