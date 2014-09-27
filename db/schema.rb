@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923191333) do
+ActiveRecord::Schema.define(version: 20140927115742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,36 +43,36 @@ ActiveRecord::Schema.define(version: 20140923191333) do
   end
 
   create_table "v1_quotations", force: true do |t|
-    t.string   "name_of_product"
-    t.integer  "price"
-    t.text     "description"
+    t.string   "name_of_product",              null: false
+    t.integer  "price",                        null: false
+    t.text     "description",     default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "quote_id"
-    t.integer  "seller_id"
+    t.integer  "quote_id",                     null: false
+    t.integer  "seller_id",                    null: false
   end
 
   create_table "v1_quotes", force: true do |t|
-    t.integer  "buyer_id"
-    t.string   "search_string"
-    t.string   "brands"
-    t.string   "price_range"
+    t.integer  "buyer_id",                   null: false
+    t.string   "search_string",              null: false
+    t.string   "brands",        default: "", null: false
+    t.string   "price_range",   default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "v1_sellers", force: true do |t|
     t.string   "api_key"
-    t.text     "address"
-    t.decimal  "latitude",       precision: 10, scale: 6
-    t.decimal  "longitude",      precision: 10, scale: 6
-    t.string   "phone"
-    t.integer  "rating"
+    t.text     "address",                                                   null: false
+    t.decimal  "latitude",       precision: 10, scale: 6, default: -1000.0, null: false
+    t.decimal  "longitude",      precision: 10, scale: 6, default: -1000.0, null: false
+    t.string   "phone",                                                     null: false
+    t.integer  "rating",                                  default: -1,      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name_of_shop"
-    t.string   "name_of_seller"
-    t.string   "email"
+    t.string   "name_of_shop",                                              null: false
+    t.string   "name_of_seller",                                            null: false
+    t.string   "email",                                                     null: false
   end
 
 end
