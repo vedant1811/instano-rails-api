@@ -1,4 +1,13 @@
 class V1::Seller < ActiveRecord::Base
+
+  enum product_category: [ :unspecified, :others,
+                   :refrigerators,
+                   :TVs,
+                   :'washing machnies',
+                   :'microwave ovens',
+                   :'home theatres',
+                   :'air coolers' ]
+
   before_create :generate_api_key
 
 private

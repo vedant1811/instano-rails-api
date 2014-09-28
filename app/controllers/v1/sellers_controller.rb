@@ -48,10 +48,16 @@ class V1::SellersController < ApplicationController
     head :no_content
   end
 
+  # GET /v1/product_categories
+  # GET /v1/product_categories.json
+  def product_categories
+    render json: V1::Seller.product_categories
+  end
+
 private
 
   def seller_params # TODO make this stronger to require instead of permit
-    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email)
+    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :product_categories => [])
   end
 
 end
