@@ -6,7 +6,8 @@ class V1::Seller < ActiveRecord::Base
                    :'washing machnies',
                    :'microwave ovens',
                    :'home theatres',
-                   :'air coolers' ]
+                   :'air coolers',
+                   :mobiles ]
 
   before_create :generate_api_key
 
