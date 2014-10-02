@@ -7,6 +7,13 @@ class V1::QuotationsController < ApplicationController
     render json: @v1_quotations
   end
 
+  def for_buyer
+    buyer_id = params.require(:id)
+
+    @v1_quotations_for_buyer_id = V1::Quotation.where(quote_id: V1::Quote.select(:id).where(buyer_id: buyer_id))
+    render json: @v1_quotations_for_buyer_id
+  end
+
   # GET /v1/quotations/1
   # GET /v1/quotations/1.json
   def show

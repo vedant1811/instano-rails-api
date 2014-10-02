@@ -7,12 +7,11 @@ class V1::QuotesController < ApplicationController
     render json: @v1_quotes
   end
 
-#   TODO:
-#   def for_seller
-#     seller_api_key = params.require(:api_key)
-#     seller = V1::Seller.find(seller_api_key)
-#     quotes_for_seller = Quote.where(
-#   end
+  def for_seller
+    seller_id = params.require(:id)
+    @v1_quotes_for_seller = V1::Quote.with_seller_id(seller_id)
+    render json: @v1_quotes_for_seller
+  end
 
   # GET /v1/quotes/1
   # GET /v1/quotes/1.json

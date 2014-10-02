@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930144351) do
+ActiveRecord::Schema.define(version: 20141001112628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20140930144351) do
     t.integer  "product_category", default: 0,   null: false
     t.integer  "seller_ids",       default: [0], null: false, array: true
   end
+
+  add_index "v1_quotes", ["seller_ids"], name: "index_v1_quotes_on_seller_ids", using: :gin
 
   create_table "v1_sellers", force: true do |t|
     t.string   "api_key"

@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  namespace :v1 do resources :quotes, except: [:new, :edit] end
-  namespace :v1 do resources :buyers, except: [:new, :edit] end
-  namespace :v1 do resources :devices, except: [:new, :edit] end
-  namespace :v1 do resources :quotations, except: [:new, :edit] end
   namespace :v1, defaults: {format: 'json'} do
     resources :sellers # secure this. as of now :new, :edit work without any authentication
+    resources :quotations, except: [:new, :edit]
+    resources :devices, except: [:new, :edit]
+    resources :buyers, except: [:new, :edit]
+    resources :quotes, except: [:new, :edit]
+
     get 'product_categories' => 'sellers#product_categories'
+    post 'quotes/for_seller' => 'quotes#for_seller'
+    post 'quotations/for_buyer' => 'quotations#for_buyer'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
