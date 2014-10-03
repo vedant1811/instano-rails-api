@@ -21,7 +21,7 @@ class V1::SellersController < ApplicationController
     @v1_seller = V1::Seller.new(seller_params)
 
     if @v1_seller.save
-      render json: { :id => @v1_seller.id, :api_key => @v1_seller.api_key }, status: :created, location: @v1_seller
+      render json: @v1_seller
     else
       render json: @v1_seller.errors, status: :unprocessable_entity
     end
