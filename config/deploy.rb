@@ -6,7 +6,7 @@
 require "bundler/capistrano"
 require "rvm/capistrano"
 
-server "ec2-54-68-27-25.us-west-2.compute.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
+server "ec2-54-69-81-124.us-west-2.compute.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
 # set :stages, %w{testing production}
 # set :default_stage, "production"
 set :application, "instano-api"
