@@ -32,7 +32,7 @@ class V1::SellersController < ApplicationController
   def update
     @v1_seller = V1::Seller.find(params[:id])
 
-    if @v1_seller.update(params[:v1_seller])
+    if @v1_seller.update(seller_params)
       head :no_content
     else
       render json: @v1_seller.errors, status: :unprocessable_entity
@@ -55,6 +55,9 @@ class V1::SellersController < ApplicationController
   end
 
 private
+
+  def seller_registration_params
+  end
 
   def seller_params # TODO make this stronger to require instead of permit
     params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :product_categories => [])
