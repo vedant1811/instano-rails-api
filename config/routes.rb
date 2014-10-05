@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   post 'v1/visitors' => 'application#new_visitor'
   root 'application#index'
+  get 'staging' => 'application#staging'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

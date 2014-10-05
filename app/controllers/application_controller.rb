@@ -1,6 +1,12 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
   def index
-    render 'index.html'
+    render 'public/homepage/index.html'
+  end
+
+  def staging
+    render 'public/homepage/staging.html'
   end
 
   def new_visitor
