@@ -21,6 +21,6 @@ class ApplicationController < ActionController::Base
   private
 
   def visitor_params
-    params.require(:visitor).permit(:name, :phone, :email, :message)
+    params.permit(:name, :phone, :email, :message)
   end
 end
