@@ -1,10 +1,4 @@
 class V1::Seller < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :trackable, :validatable,
-# 	  :rememberable,
-	 :confirmable, :lockable
 
   enum product_category: [ :unspecified, :others,
                    :refrigerators,
@@ -16,6 +10,8 @@ class V1::Seller < ActiveRecord::Base
                    :mobiles ]
 
   before_create :generate_api_key
+
+  has_secure_password
 
 private
 

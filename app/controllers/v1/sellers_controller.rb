@@ -1,4 +1,5 @@
 class V1::SellersController < ApplicationController
+
   # GET /v1/sellers
   # GET /v1/sellers.json
   def index
@@ -13,6 +14,10 @@ class V1::SellersController < ApplicationController
     @v1_seller = V1::Seller.find(params[:id])
 
     render json: @v1_seller
+  end
+
+  def exists
+    render json: { exists: V1::Seller.exists?(:email => params.require(:email)) }
   end
 
   # POST /v1/sellers
@@ -56,11 +61,8 @@ class V1::SellersController < ApplicationController
 
 private
 
-  def seller_registration_params
-  end
-
   def seller_params # TODO make this stronger to require instead of permit
-    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :product_categories => [])
+    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password, :product_categories => [])
   end
 
 end

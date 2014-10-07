@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :sellers, class_name: "V1::Seller"
   namespace :v1, defaults: {format: 'json'} do
     resources :sellers # secure this. as of now :new, :edit work without any authentication
+    post 'sellers/exists'
+
     resources :quotations, except: [:new, :edit]
     resources :devices, except: [:new, :edit]
     resources :buyers, except: [:new, :edit]
@@ -10,7 +12,6 @@ Rails.application.routes.draw do
     get 'product_categories' => 'sellers#product_categories'
     post 'quotes/for_seller' => 'quotes#for_seller'
     post 'quotations/for_buyer' => 'quotations#for_buyer'
-
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
