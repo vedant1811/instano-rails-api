@@ -10,9 +10,11 @@ Rails.application.routes.draw do
     resources :buyers, except: [:new, :edit]
     resources :quotes, except: [:new, :edit]
 
-    get 'product_categories' => 'sellers#product_categories'
     post 'quotes/for_seller' => 'quotes#for_seller'
     post 'quotations/for_buyer' => 'quotations#for_buyer'
+
+    get 'product_categories' => 'product_categories#index'
+
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
