@@ -1,4 +1,5 @@
 class V1::Seller < ActiveRecord::Base
+  has_one :brands_categories, :class_name => 'V1::BrandCategory'
 
   before_create :generate_api_key
 

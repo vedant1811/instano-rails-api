@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post 'quotes/for_seller' => 'quotes#for_seller'
     post 'quotations/for_buyer' => 'quotations#for_buyer'
 
-    get 'product_categories' => 'product_categories#index'
+    get 'brands_categories' => 'brands_categories#index'
 
   end
   # The priority is based upon order of creation: first created -> highest priority.

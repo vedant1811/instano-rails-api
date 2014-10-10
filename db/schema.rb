@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006154735) do
+ActiveRecord::Schema.define(version: 20141010021508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,9 +32,23 @@ ActiveRecord::Schema.define(version: 20141006154735) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "v1_brands", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "v1_brands_categories", id: false, force: true do |t|
+    t.integer "brand_id"
+    t.integer "category_id"
+    t.integer "seller_id"
+  end
+
   create_table "v1_buyers", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "v1_categories", force: true do |t|
+    t.string "name"
   end
 
   create_table "v1_devices", force: true do |t|
@@ -67,20 +81,21 @@ ActiveRecord::Schema.define(version: 20141006154735) do
 
   create_table "v1_sellers", force: true do |t|
     t.string   "api_key"
-    t.text     "address",                                                       null: false
-    t.decimal  "latitude",           precision: 10, scale: 6, default: -1000.0, null: false
-    t.decimal  "longitude",          precision: 10, scale: 6, default: -1000.0, null: false
-    t.string   "phone",                                                         null: false
-    t.integer  "rating",                                      default: -1,      null: false
+    t.text     "address",                                                         null: false
+    t.decimal  "latitude",             precision: 10, scale: 6, default: -1000.0, null: false
+    t.decimal  "longitude",            precision: 10, scale: 6, default: -1000.0, null: false
+    t.string   "phone",                                                           null: false
+    t.integer  "rating",                                        default: -1,      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name_of_shop",                                                  null: false
-    t.string   "name_of_seller",                                                null: false
-    t.string   "email",                                       default: "",      null: false
-    t.integer  "product_categories",                          default: [0],     null: false, array: true
+    t.string   "name_of_shop",                                                    null: false
+    t.string   "name_of_seller",                                                  null: false
+    t.string   "email",                                         default: "",      null: false
     t.string   "password_digest"
+    t.integer  "brands_categories_id"
   end
 
+  add_index "v1_sellers", ["brands_categories_id"], name: "index_v1_sellers_on_brands_categories_id", using: :btree
   add_index "v1_sellers", ["email"], name: "index_v1_sellers_on_email", unique: true, using: :btree
 
   create_table "v1_visitors", force: true do |t|
