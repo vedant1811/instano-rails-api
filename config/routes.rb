@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     post 'quotations/for_buyer' => 'quotations#for_buyer'
 
     get 'brands_categories' => 'brands_categories#index'
+    post 'brands_categories' => 'brands_categories#add_category'
 
   end
   # The priority is based upon order of creation: first created -> highest priority.

@@ -4,18 +4,16 @@ class V1::BrandsCategoriesController < ApplicationController
   end
 
   def add_category
-    params.require(:category, :brands => [])
-
-    brands = []
-
-    params[:brands].each do |brand|
-      brands << V1::Brand.find_or_create_by(name: brand)
-    end
+    params.require(:category)
+    params.require(:brands)
 
     category = V1::Category.find_or_create_by(name: params[:category])
 
-    category.brands = brands
-    render json: category.save
+    params[:brands].each do |brand|
+      category.brands << V1::Brand.find_or_create_by(name: brand)
+    end
+
+    render json: category
 
   end
 

@@ -31,3 +31,5 @@ gem 'delayed_job_active_record'
 gem 'thin', :group => :development
 
 gem 'devise'
+
+gem 'active_model_serializers'
