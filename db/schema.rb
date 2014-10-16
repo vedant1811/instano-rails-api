@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(version: 20141013072510) do
     t.integer  "brand_categories_id"
   end
 
-  add_index "v1_sellers", ["brand_categories_id"], name: "index_v1_sellers_on_brand_categories_id", using: :btree
   add_index "v1_sellers", ["email"], name: "index_v1_sellers_on_email", unique: true, using: :btree
 
   create_table "v1_visitors", force: true do |t|

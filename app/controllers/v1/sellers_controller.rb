@@ -68,7 +68,7 @@ class V1::SellersController < ApplicationController
 private
 
   def seller_params # TODO make this stronger to require instead of permit
-    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password, :product_categories => [])
+    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password)
   end
 
   def authenticate_params

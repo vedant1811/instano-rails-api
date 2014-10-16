@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     get 'brands_categories' => 'brands_categories#index'
     post 'brands_categories' => 'brands_categories#add_category'
+    post 'brands_categories/register_seller' => 'brands_categories#assign_to_seller'
 
   end
   # The priority is based upon order of creation: first created -> highest priority.
