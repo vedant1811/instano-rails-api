@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013072510) do
+ActiveRecord::Schema.define(version: 20141017090741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,18 +81,17 @@ ActiveRecord::Schema.define(version: 20141013072510) do
 
   create_table "v1_sellers", force: true do |t|
     t.string   "api_key"
-    t.text     "address",                                                        null: false
-    t.decimal  "latitude",            precision: 10, scale: 6, default: -1000.0, null: false
-    t.decimal  "longitude",           precision: 10, scale: 6, default: -1000.0, null: false
-    t.string   "phone",                                                          null: false
-    t.integer  "rating",                                       default: -1,      null: false
+    t.text     "address",                                                    null: false
+    t.decimal  "latitude",        precision: 10, scale: 6, default: -1000.0, null: false
+    t.decimal  "longitude",       precision: 10, scale: 6, default: -1000.0, null: false
+    t.string   "phone",                                                      null: false
+    t.integer  "rating",                                   default: -1,      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name_of_shop",                                                   null: false
-    t.string   "name_of_seller",                                                 null: false
-    t.string   "email",                                        default: "",      null: false
+    t.string   "name_of_shop",                                               null: false
+    t.string   "name_of_seller",                                             null: false
+    t.string   "email",                                    default: "",      null: false
     t.string   "password_digest"
-    t.integer  "brand_categories_id"
   end
 
   add_index "v1_sellers", ["email"], name: "index_v1_sellers_on_email", unique: true, using: :btree
