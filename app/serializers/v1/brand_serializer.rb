@@ -1,3 +1,3 @@
 class V1::BrandSerializer < ActiveModel::Serializer
-  attributes :name
+  has_one :brand_name, :class_name => 'V1::BrandName'
 end

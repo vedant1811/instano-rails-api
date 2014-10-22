@@ -17,23 +17,45 @@ class CreateInitialTables < ActiveRecord::Migration
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "v1_brand_categories", force: true do |t|
-    t.integer "brand_id"
-    t.integer "category_id"
-    t.integer "seller_id"
+  create_table "v1_sellers", force: true do |t|
+    t.string   "api_key"
+    t.text     "address",                                                        null: false
+    t.decimal  "latitude",            precision: 10, scale: 6, default: -1000.0, null: false
+    t.decimal  "longitude",           precision: 10, scale: 6, default: -1000.0, null: false
+    t.string   "phone",                                                          null: false
+    t.integer  "rating",                                       default: -1,      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name_of_shop",                                                   null: false
+    t.string   "name_of_seller",                                                 null: false
+    t.string   "email",                                        default: "",      null: false
+    t.string   "password_digest"
+  end
+
+  add_index "v1_sellers", ["email"], name: "index_v1_sellers_on_email", unique: true, using: :btree
+
+  create_table "v1_category_names", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "v1_brand_names", force: true do |t|
+    t.string "name"
+    t.belongs_to "category_name", :class_name => 'V1::CategoryName'
+  end
+
+  create_table "v1_categories", force: true do |t|
+    t.belongs_to "category_name", :class_name => 'V1::CategoryName'
+    t.belongs_to "seller", :class_name => 'V1::Seller'
   end
 
   create_table "v1_brands", force: true do |t|
-    t.string "name"
+    t.belongs_to "brand_name", :class_name => 'V1::BrandName'
+    t.belongs_to "category", :class_name => 'V1::Category'
   end
 
   create_table "v1_buyers", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "v1_categories", force: true do |t|
-    t.string "name"
   end
 
   create_table "v1_devices", force: true do |t|
@@ -63,25 +85,6 @@ class CreateInitialTables < ActiveRecord::Migration
   end
 
   add_index "v1_quotes", ["seller_ids"], name: "index_v1_quotes_on_seller_ids", using: :gin
-
-  create_table "v1_sellers", force: true do |t|
-    t.string   "api_key"
-    t.text     "address",                                                        null: false
-    t.decimal  "latitude",            precision: 10, scale: 6, default: -1000.0, null: false
-    t.decimal  "longitude",           precision: 10, scale: 6, default: -1000.0, null: false
-    t.string   "phone",                                                          null: false
-    t.integer  "rating",                                       default: -1,      null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name_of_shop",                                                   null: false
-    t.string   "name_of_seller",                                                 null: false
-    t.string   "email",                                        default: "",      null: false
-    t.string   "password_digest"
-    t.integer  "brand_categories_id"
-  end
-
-  add_index "v1_sellers", ["brand_categories_id"], name: "index_v1_sellers_on_brand_categories_id", using: :btree
-  add_index "v1_sellers", ["email"], name: "index_v1_sellers_on_email", unique: true, using: :btree
 
   create_table "v1_visitors", force: true do |t|
     t.string   "name"

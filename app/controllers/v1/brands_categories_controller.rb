@@ -1,23 +1,20 @@
 class V1::BrandsCategoriesController < ApplicationController
 
   def index
-    render json: V1::Category.where(id: V1::BrandCategory.where(seller_id: nil).select(:category_id).distinct)
+    render json: V1::CategoryName.all
   end
 
   def add_category
     params.require(:category)
     params.require(:brands)
 
-    category = V1::Category.find_or_create_by(name: params[:category])
+    category_name = V1::CategoryName.find_or_create_by(name: params[:category])
 
     params[:brands].each do |brand_name|
-      begin
-        category.brands << V1::Brand.find_or_create_by(name: brand_name) unless category.brands.exists?(name: brand_name)
-      rescue ActiveRecord::RecordInvalid
-      end
+      category_name.brand_names.create(name: brand_name)
     end
 
-    render json: category
+    render json: category_name
 
   end
 
@@ -28,22 +25,25 @@ class V1::BrandsCategoriesController < ApplicationController
 
     seller = V1::Seller.find(params[:seller_id])
 
+    seller.categories.eager_load(:category_name).where(v1_category_names: {name: "xyz"})
+
     params[:categories].each do |c|
       category_name = c[:name]
-      if seller.categories.exists?(name: category_name)
-        category = seller.categories.find_by(name: category_name)
+      category_relation = seller.categories.eager_load(:category_name)
+          .where(v1_category_names: {name: category_name})
+      if category_relation.empty?
+        category = V1::Category.new
+        category.category_name = V1::CategoryName.find_by(name: category_name)
+        category.seller = seller
+        category.save
       else
-        if V1::Category.exists?(name: category_name)
-          category = V1::Category.new(name: category_name)
-        else
-          next # category is invalid
-        end
+        category = category_relation.first
       end
-      seller.categories << category
       c[:brands].each do |b|
         begin
-          category.brands << V1::Brand.find_by(name: b)
-        rescue ActiveRecord::RecordInvalid, ActiveRecord::AssociationTypeMismatch
+          category.brand_names << V1::BrandName.find_by(name: b)
+        rescue ActiveRecord::RecordInvalid
+          # skip it
         end
       end
     end

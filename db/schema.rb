@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017090741) do
+ActiveRecord::Schema.define(version: 20141013072510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(version: 20141017090741) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "v1_brand_categories", force: true do |t|
-    t.integer "brand_id"
-    t.integer "category_id"
-    t.integer "seller_id"
+  create_table "v1_brand_names", force: true do |t|
+    t.string  "name"
+    t.integer "category_name_id"
   end
 
   create_table "v1_brands", force: true do |t|
-    t.string "name"
+    t.integer "brand_name_id"
+    t.integer "category_id"
   end
 
   create_table "v1_buyers", force: true do |t|
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(version: 20141017090741) do
   end
 
   create_table "v1_categories", force: true do |t|
+    t.integer "category_name_id"
+    t.integer "seller_id"
+  end
+
+  create_table "v1_category_names", force: true do |t|
     t.string "name"
   end
 

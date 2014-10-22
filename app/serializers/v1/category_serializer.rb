@@ -1,5 +1,4 @@
 class V1::CategorySerializer < ActiveModel::Serializer
-  attributes :name
-
-  has_many :brands, :class_name => 'V1::Brand', through: :brand_categories
+  has_one :category_name, :class_name => 'V1::CategoryName'
+  has_many :brands, :class_name => 'V1::Brand'
 end

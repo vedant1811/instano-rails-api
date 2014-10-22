@@ -1,6 +1,6 @@
 class V1::Brand < ActiveRecord::Base
-  has_many :brand_categories, :class_name => 'V1::BrandCategory'
-  has_many :categories, :class_name => 'V1::Category', through: :brand_categories
+  belongs_to :brand_name, :class_name => 'V1::BrandName'
+  belongs_to :category, :class_name => 'V1::Category'
 
-  validates :name, :uniqueness: true
+  validates :category, :uniqueness => {:scope => [:brand_name, :category]}
 end
