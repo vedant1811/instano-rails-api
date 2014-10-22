@@ -29,6 +29,8 @@ class V1::BrandsCategoriesController < ApplicationController
 
     params[:categories].each do |c|
       category_name = c[:name]
+
+      # get the category if it already exists for the seller
       category_relation = seller.categories.eager_load(:category_name)
           .where(v1_category_names: {name: category_name})
       if category_relation.empty?
@@ -43,7 +45,7 @@ class V1::BrandsCategoriesController < ApplicationController
         begin
           category.brand_names << V1::BrandName.find_by(name: b)
         rescue ActiveRecord::RecordInvalid
-          # skip it
+          # skip it. May happen if brand is already added to the particular category
         end
       end
     end
