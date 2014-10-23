@@ -25,8 +25,6 @@ class V1::BrandsCategoriesController < ApplicationController
 
     seller = V1::Seller.find(params[:seller_id])
 
-    seller.categories.eager_load(:category_name).where(v1_category_names: {name: "xyz"})
-
     params[:categories].each do |c|
       category_name = c[:name]
 

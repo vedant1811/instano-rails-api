@@ -32,7 +32,8 @@ class V1::SellersController < ApplicationController
     @v1_seller = V1::Seller.new(seller_params)
 
     if @v1_seller.save
-      render json: @v1_seller
+      @v1_seller.assign_categories(params)
+      render json: @v1_seller.reload
     else
       render json: @v1_seller.errors, status: :unprocessable_entity
     end
@@ -44,7 +45,8 @@ class V1::SellersController < ApplicationController
     @v1_seller = V1::Seller.find(params[:id])
 
     if @v1_seller.update(seller_params)
-      head :no_content
+      @v1_seller.assign_categories(params)
+      render json: @v1_seller.reload
     else
       render json: @v1_seller.errors, status: :unprocessable_entity
     end
@@ -57,12 +59,6 @@ class V1::SellersController < ApplicationController
     @v1_seller.destroy
 
     head :no_content
-  end
-
-  # GET /v1/product_categories
-  # GET /v1/product_categories.json
-  def product_categories
-    render json: V1::Seller.product_categories
   end
 
 private
