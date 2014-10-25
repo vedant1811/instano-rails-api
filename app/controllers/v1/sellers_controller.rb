@@ -5,7 +5,7 @@ class V1::SellersController < ApplicationController
   def index
     @v1_sellers = V1::Seller.all
 
-    render json: @v1_sellers
+    render json: @v1_sellers, root: false
   end
 
   # GET /v1/sellers/1
@@ -13,7 +13,7 @@ class V1::SellersController < ApplicationController
   def show
     @v1_seller = V1::Seller.find(params[:id])
 
-    render json: @v1_seller
+    render json: @v1_seller, root: false
   end
 
   def exists
@@ -33,7 +33,7 @@ class V1::SellersController < ApplicationController
 
     if @v1_seller.save
       @v1_seller.assign_categories(params)
-      render json: @v1_seller.reload
+      render json: @v1_seller.reload, root: false
     else
       render json: @v1_seller.errors, status: :unprocessable_entity
     end
@@ -46,7 +46,7 @@ class V1::SellersController < ApplicationController
 
     if @v1_seller.update(seller_params)
       @v1_seller.assign_categories(params)
-      render json: @v1_seller.reload
+      render json: @v1_seller.reload, root: false
     else
       render json: @v1_seller.errors, status: :unprocessable_entity
     end

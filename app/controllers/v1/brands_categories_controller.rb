@@ -1,7 +1,7 @@
 class V1::BrandsCategoriesController < ApplicationController
 
   def index
-    render json: V1::CategoryName.all
+    render json: V1::CategoryName.all, root: "categories"
   end
 
   def add_category
