@@ -18,7 +18,10 @@ class V1::BuyersController < ApplicationController
   # POST /v1/buyers
   # POST /v1/buyers.json
   def create
-    @v1_buyer = V1::Buyer.new(params[:id])
+    @v1_buyer = V1::Buyer.find_by(api_key: buyer_params[:api_key])
+    if @v1_buyer.nil?
+      @v1_buyer = V1::Buyer.new
+    end
 
     if @v1_buyer.save
       render json: @v1_buyer, status: :created, location: @v1_buyer
@@ -50,6 +53,6 @@ class V1::BuyersController < ApplicationController
 
 private
   def buyer_params
-    params.require(:buyer)
+    params.require(:buyer).permit(:api_key)
   end
 end
