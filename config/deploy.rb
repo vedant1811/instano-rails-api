@@ -34,6 +34,7 @@ ssh_options[:keys] = ["/home/vedant/.ssh/vedant-k53sm.pem"]
 
 set :rvm_ruby_string, :local        # use the same ruby as used locally for deployment
 
+# Does't work anyway:
 # before 'deploy', 'rvm:install_rvm'  # install/update RVM
 before 'deploy', 'rvm:install_ruby' # install Ruby and create gemset (both if missing)
 
