@@ -3,5 +3,6 @@ class V1::BrandName < ActiveRecord::Base
   belongs_to :category_name, :class_name => 'V1::CategoryName'
 
   validates :category_name, :uniqueness => {:scope => [:category_name, :name]}
+  validates :category_name, presence: true
 end
 

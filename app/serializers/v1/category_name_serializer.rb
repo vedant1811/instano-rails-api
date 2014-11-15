@@ -1,5 +1,5 @@
 class V1::CategoryNameSerializer < ActiveModel::Serializer
-  attributes :category, :brands
+  attributes :category, :variants, :brands
 
   def category
     object.name

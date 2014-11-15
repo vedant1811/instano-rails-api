@@ -10,9 +10,13 @@ class V1::BrandsCategoriesController < ApplicationController
 
     category_name = V1::CategoryName.find_or_create_by(name: params[:category])
 
+    category_name.update(params.permit(:variants => []))
+
     params[:brands].each do |brand_name|
       category_name.brand_names.create(name: brand_name)
     end
+
+    category_name.reload
 
     render json: category_name
 
