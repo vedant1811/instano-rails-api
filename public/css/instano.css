@@ -1,0 +1,317 @@
+.navbar-fixed-top + section{
+	padding-top: 70px;
+}
+.appear{
+	visibility: hidden;
+}
+.animated{
+	-webkit-animation-duration:1s;
+	-moz-animation-duration:1s;
+	-ms-animation-duration:1s;
+	-o-animation-duration:1s;
+	animation-duration:1s;
+}
+
+.h1{font-size: 30px}
+h3{font-size: 30px;font-weight: 300}
+
+.navbar{
+	padding: 10px 0;
+	border: none;
+	-webkit-transition: padding ease-in-out 0.2s;
+    transition: padding ease-in-out 0.2s;
+}
+.navbar-brand img{
+	max-height: 40px;
+}
+.navbar.affix{
+	padding: 0;
+}
+.navbar-nav > li > a{
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+.navbar-nav .dropdown-submenu .dropdown-menu{
+	left: 0;
+	top: 100%;
+	border: none;
+	background-color: #f5f5f5;
+	min-width: 220px;
+}
+
+.intro{
+	background: url(../images/intro.jpg) center top no-repeat;
+	background-size: cover;
+}
+
+.phone-img{
+	margin: 40px auto;
+	max-width: 420px;
+}
+
+.home {
+	line-height: 25px;
+}
+
+/*phone*/
+@media (max-width: 767px) {
+	.navbar-fixed-top + section{
+		padding-top: 50px;
+	}
+	.navbar.affix-top{
+		padding: 0;
+	}
+	.navbar-brand{
+		float: left !important;
+	}
+	.h1{font-size: 20px}
+}
+
+/* Google maps */
+
+.google-map{	
+	background: #333;
+}
+#map-canvas{
+	height: 300px;
+	background-color: #000000;
+}
+.gm-style-cc{
+	display: none !important;
+}
+.gm-style-iw div{
+	color: #777;
+}
+
+.btn-full{
+	width:100%;
+	height: 38px;
+	font-size: 11px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+/* Contacts form */ 
+.contact-overspace{
+	margin-top: -30px;
+	height: 30px;
+	background: #fff;
+	
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+.contact-form-wrap{
+	padding: 0 30px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.contact-form{
+	max-width: 570px;
+	margin: 0 auto;
+}
+
+/* ==============================
+   Forms fields
+   ============================== */
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="phone"],
+.form input[type="url"],
+.form input[type="search"],
+.form input[type="tel"],
+.form input[type="password"],
+.form select{
+	height: 38px;
+	font-size: 11px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #777;
+	border: 1px solid #e9e9e9;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+.form input[type="text"]:hover,
+.form input[type="email"]:hover,
+.form input[type="phone"]:hover,
+.form input[type="url"]:hover,
+.form input[type="search"]:hover,
+.form input[type="tel"]:hover,
+.form input[type="password"]:hover,
+.form select:hover{
+	border-color: #ccc;
+}
+.form input[type="text"]:focus,
+.form input[type="email"]:focus,
+.form input[type="phone"]:focus,
+.form input[type="url"]:focus,
+.form input[type="search"]:focus,
+.form input[type="tel"]:focus,
+.form input[type="password"]:focus,
+.form select:focus{
+	color: #151515;
+	border-color: #151515;
+	-webkit-box-shadow: 0 0 3px rgba(21,21,21, .3);
+	-moz-box-shadow: 0 0 3px rgba(21,21,21, .3);
+	box-shadow: 0 0 3px rgba(21,21,21, .3);
+}
+.form input[type="text"].input-lg,
+.form input[type="email"].input-lg,
+.form input[type="phone"].input-lg,
+.form input[type="url"].input-lg,
+.form input[type="search"].input-lg,
+.form input[type="tel"].input-lg,
+.form input[type="password"].input-lg,
+.form select.input-lg{
+	height: 48px;
+}
+.form input[type="text"].input-sm,
+.form input[type="email"].input-sm,
+.form input[type="phone"].input-sm,
+.form input[type="url"].input-sm,
+.form input[type="search"].input-sm,
+.form input[type="tel"].input-sm,
+.form input[type="password"].input-sm,
+.form select.input-sm{
+	height: 28px;
+}
+.form textarea{
+	font-size: 11px;
+	font-weight: 400;
+	text-transform: uppercase !important;
+	letter-spacing: 1px;
+	color: #777;
+	border-color: #e9e9e9;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+.form textarea:hover{
+	border-color: #ccc;
+}
+.form textarea:focus{
+	color: #151515;
+	border-color: #151515;
+	-webkit-box-shadow: 0 0 3px rgba(21,21,21, .3);
+	-moz-box-shadow: 0 0 3px rgba(21,21,21, .3);
+	box-shadow: 0 0 3px rgba(21,21,21, .3);
+}
+
+.form .small-section-heading{
+	margin-bottom: 30px;
+}
+.form .form-group{
+	margin-bottom: 10px;
+}
+.form-success{
+	display: none;
+	max-width: 570px;
+	margin: 0 auto 10px;
+	padding: 20px; 
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 1px solid #a9e2c2;
+	font-size: 13px;
+	text-transform: uppercase;
+	color: #36a367;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.team-member {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.team-member img {
+    width: 140px;
+	height: 140px;
+	border-radius: 100px;
+	display: inline-block;
+	margin-bottom: 10px;
+	border: 3px solid #fff;
+	box-shadow: 0px 0px 2px #888;
+}
+
+.team-member h4 {
+	text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.team-member p {
+    margin-top: 0;
+}
+
+.social a i{
+   display:inline-block;
+   width:30px;
+   height:30px;
+   font-size:14px !important;
+   line-height:30px;
+   border-radius:100px !important;
+   text-decoration:none;
+   text-align:center;
+   margin-right:5px;
+   color:#fff;
+   -webkit-transition: background 2s ease;
+   -moz-transition: background 2s ease;
+   -o-transition: background 2s ease;
+   -ms-transition: background 2s ease;
+   transition: background 2s ease;
+}
+
+.social a:hover i{
+   -webkit-transition: background 2s ease;
+   -moz-transition: background 2s ease;
+   -o-transition: background 2s ease;
+   -ms-transition: background 2s ease;
+   transition: background 2s ease;
+}
+
+.social a, .social a:hover{
+   border:0px;
+   text-decoration:none;
+}
+
+.social a.facebook i{
+	background:#1e78ae;
+}
+
+.social a.twitter i{
+	background:#1ba1e2;
+}
+
+.social a.google-plus i{
+	background:#f22d0c;
+}
+
+.social a.linkedin i{
+	background:#2d93cf;
+}
+
+.social a.pinterest i{
+	background:#dd1617;
+}
+
+.social a:hover i{
+   background:#222;
+}
