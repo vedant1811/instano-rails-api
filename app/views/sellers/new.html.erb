@@ -1,0 +1,43 @@
+<%= form_for :seller, url: sellers_path do |f| %>
+
+  <p>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    <%= f.label :retype_password %><br>
+    <%= f.password_field :password_confirmation %>
+  </p>
+
+  <p>
+    <%= f.label :name_of_shop %><br>
+    <%= f.text_field :name_of_shop %>
+  </p>
+
+  <p>
+    <%= f.label :name_of_seller %><br>
+    <%= f.text_field :name_of_seller %>
+  </p>
+
+  <p>
+    <%= f.label :address %><br>
+    <%= f.text_area :address %>
+  </p>
+
+  <p>
+    <%= f.label :phone %><br>
+    <%= f.telephone_field :phone %>
+  </p>
+
+  <p>
+    <%= f.submit :save %>
+  </p>
+<% end %>
+
+<!-- :name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password) -->

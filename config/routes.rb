@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   root 'application#index'
   get 'staging' => 'application#staging'
 
+  resource :sellers
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
