@@ -24,12 +24,8 @@ gem 'rvm-capistrano', :group => :development
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem 'xmpp4r'
-
 gem 'delayed_job_active_record'
 
 gem 'thin', :group => :development
-
-gem 'devise'
 
 gem 'active_model_serializers'
