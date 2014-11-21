@@ -1,6 +1,7 @@
 class SellersController < ApplicationController
 
   def new
+    @seller = V1::Seller.new
   end
 
   # GET /v1/sellers/1
@@ -9,11 +10,6 @@ class SellersController < ApplicationController
 
     render json: @seller
   end
-
-
-#   def exists
-#     render json: { exists: V1::Seller.exists?(:email => params.require(:email)) }
-#   end
 
   def sign_in
     seller = V1::Seller.find_by(:email => authenticate_params.require(:email))
@@ -26,12 +22,19 @@ class SellersController < ApplicationController
   def create
     @seller = V1::Seller.new(seller_params)
 
+#     if @seller.save
+#       @seller.assign_categories(params)
+#       render json: @seller.reload
+#     else
+#       render json: @seller.errors, status: :unprocessable_entity
+#     end
+
     if @seller.save
-      @seller.assign_categories(params)
-      render json: @seller.reload
+      redirect_to @seller
     else
-      render json: @seller.errors, status: :unprocessable_entity
+      render 'new'
     end
+
   end
 
   # PATCH/PUT /v1/sellers/1

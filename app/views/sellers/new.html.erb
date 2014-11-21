@@ -1,5 +1,17 @@
 <%= form_for :seller, url: sellers_path do |f| %>
 
+  <% if @seller.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@seller.errors.count, "error") %> prohibited
+      this article from being saved:</h2>
+    <ul>
+    <% @seller.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
   <p>
     <%= f.label :email %><br>
     <%= f.text_field :email %>
@@ -39,5 +51,3 @@
     <%= f.submit :save %>
   </p>
 <% end %>
-
-<!-- :name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password) -->

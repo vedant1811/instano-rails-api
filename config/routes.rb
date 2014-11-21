@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   resource :sellers
 
+  get 'sellers/sign_in'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
