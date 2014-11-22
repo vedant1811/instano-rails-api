@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :v1, defaults: {format: 'json'} do
     resources :sellers # secure this. as of now :new, :edit work without any authentication
     post 'sellers/exists'
@@ -26,9 +27,13 @@ Rails.application.routes.draw do
   root 'application#index'
   get 'staging' => 'application#staging'
 
-  resource :sellers
+#   get "sellers" => "sellers#index", :as => "sellers_root"
 
-  get 'sellers/sign_in'
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "sign_up" => "sellers#new", :as => "sign_up"
+  resources :sellers
+  resources :sessions
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

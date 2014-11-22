@@ -4,6 +4,9 @@ class SellersController < ApplicationController
     @seller = V1::Seller.new
   end
 
+  def index
+  end
+
   # GET /v1/sellers/1
   def show
     @seller = V1::Seller.find(params[:id])
@@ -11,26 +14,13 @@ class SellersController < ApplicationController
     render json: @seller
   end
 
-  def sign_in
-    seller = V1::Seller.find_by(:email => authenticate_params.require(:email))
-    authenticated = seller.authenticate(authenticate_params.require(:password))
-    render json: authenticated
-  end
-
   # POST /v1/sellers
   # POST /v1/sellers.json
   def create
     @seller = V1::Seller.new(seller_params)
 
-#     if @seller.save
-#       @seller.assign_categories(params)
-#       render json: @seller.reload
-#     else
-#       render json: @seller.errors, status: :unprocessable_entity
-#     end
-
     if @seller.save
-      redirect_to @seller
+      render 'index', :notice => "Signed up!"
     else
       render 'new'
     end

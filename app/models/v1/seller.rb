@@ -8,6 +8,15 @@ class V1::Seller < ActiveRecord::Base
 
   has_secure_password
 
+  def self.authenticate(email, password)
+    seller = find_by_email(email)
+    if seller && seller.authenticate(password)
+      seller
+    else
+      nil
+    end
+  end
+
   def assign_categories(params)
     begin
       params.require(:seller).require(:categories)
