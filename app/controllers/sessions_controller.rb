@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
+    reset_session # security measure. see http://guides.rubyonrails.org/security.html#session-fixation-countermeasures
     @seller = V1::Seller.authenticate(params[:email], params[:password])
     if @seller
       session[:seller_id] = @seller.id
