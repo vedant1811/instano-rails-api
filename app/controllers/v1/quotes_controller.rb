@@ -13,6 +13,12 @@ class V1::QuotesController < ApplicationController
     render json: @v1_quotes_for_seller
   end
 
+  def for_buyer
+    buyer_id = params.require(:id)
+    @v1_quotes_for_buyer = V1::Quote.where(buyer_id: buyer_id)
+    render json: @v1_quotes_for_buyer
+  end
+
   # GET /v1/quotes/1
   # GET /v1/quotes/1.json
   def show

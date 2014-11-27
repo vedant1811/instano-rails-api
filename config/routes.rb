@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     resources :buyers, except: [:new, :edit]
     resources :quotes, except: [:new, :edit]
 
-    post 'quotes/for_seller' => 'quotes#for_seller'
+    post 'quotes/for_seller'
+    post 'quotes/for_buyer'
+
     post 'quotations/for_buyer' => 'quotations#for_buyer'
 
     get 'brands_categories' => 'brands_categories#index'
