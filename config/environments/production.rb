@@ -81,6 +81,15 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.action_mailer.default_url_options = {:host => 'instano.in'}
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => "localhost", :port => 587 }
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.instano.in",
+    :port => 587,
+    :domain => "instano.in",
+    :authentication => :login,
+    :user_name => "ranjan.rajesh004@gmail.com",
+    :password => "abhiraj.5102006"
+  }
+
 end
