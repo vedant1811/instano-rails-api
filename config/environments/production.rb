@@ -84,11 +84,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {:host => 'instano.in'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :tls => true,
     :address => "smtp.instano.in",
     :port => 587,
     :domain => "instano.in",
-    :authentication => :login,
+    :authentication => :plain,
     :user_name => "ranjan.rajesh004@gmail.com",
     :password => "abhiraj.5102006"
   }
