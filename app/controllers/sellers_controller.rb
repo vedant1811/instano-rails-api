@@ -20,7 +20,7 @@ class SellersController < ApplicationController
     @seller = V1::Seller.new(seller_params)
 
     if @seller.save
-      render 'index', :notice => "Signed up!"
+      redirect_to log_in_url, :notice => "Signed up!"
     else
       render 'new'
     end
