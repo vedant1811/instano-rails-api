@@ -1,6 +1,6 @@
-class V1::VisitorsController < ApplicationController
+class VisitorsController < ApplicationController
 
-  def new_visitor
+  def new
     @v1_visitor = V1::Visitor.new(visitor_params)
 
     if @v1_visitor.save

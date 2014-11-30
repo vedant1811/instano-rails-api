@@ -23,11 +23,8 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  get 'v1/visitors' => 'v1/visitors#new_visitor'
-  get 'v1/visitors/index'
-  root 'application#index'
-  get 'staging' => 'application#staging'
+  root 'welcome#index'
+  get 'staging' => 'welcome#staging'
 
 #   get "sellers" => "sellers#index", :as => "sellers_root"
 
@@ -36,6 +33,7 @@ Rails.application.routes.draw do
   get "sign_up" => "sellers#new", :as => "sign_up"
   resources :sellers
   resources :sessions
+  resources :visitors
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

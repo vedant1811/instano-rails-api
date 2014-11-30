@@ -89,8 +89,8 @@ Rails.application.configure do
     :port => 587,
     :domain => "instano.in",
     :authentication => :plain,
-    :user_name => "ranjan.rajesh004@gmail.com",
-    :password => "abhiraj.5102006"
+    :user_name => "business@instano.in",
+    :password => "bIWU$fF6"
   }
 
 end
