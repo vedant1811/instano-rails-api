@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   post 'welcome/test_mail'
   post '/subscribe' => 'welcome#subscribe'
+  post '/contact' => 'welcome#contact'
 
 #   get "sellers" => "sellers#index", :as => "sellers_root"
 

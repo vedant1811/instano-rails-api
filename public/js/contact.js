@@ -18,8 +18,8 @@ $(function () {
             }
             console.log(name);
             $.ajax({
-                url: "http://ec2-54-69-81-124.us-west-2.compute.amazonaws.com/v1/visitors",
-                type: "GET",
+                url: "/subscribe",
+                type: "POST",
                 data: {
                     name: name,
                     email: email,

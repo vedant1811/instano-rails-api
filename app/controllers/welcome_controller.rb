@@ -10,6 +10,11 @@ class WelcomeController < ApplicationController
     render 'subscribe', formats: [:js]
   end
 
+  def contact
+    visitor = V1::Visitor.create(visitor_params)
+    render 'contact', formats: [:js]
+  end
+
   private
 
   def visitor_params
