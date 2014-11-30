@@ -473,12 +473,14 @@
                                 <div class="aside-xl inline">
 
                                     <div class="input-group">
-                                        <input type="text" id="address" name="address" class="form-control btn-rounded" placeholder="Your email">
-                                        <span class="input-group-btn">
-                                            <%= link_to 'Subscribe', subscribe_path, class: "btn btn-default btn-rounded", id: "submit", remote: true %>
-                                        </span>
+                                        <%= form_tag(subscribe_path, remote: true) do %>
+                                            <%= email_field_tag :email, nil, class: "form-control btn-rounded", placeholder: "Your email" %>
+                                            <span class="input-group-btn">
+                                                <%= submit_tag 'Subscribe', class: "btn btn-default btn-rounded", id: "modal-subscribe-submit" %>
+                                            </span>
+                                        <%end%>
                                     </div>
-
+                                    <!-- <p class="visitor-message"></p> -->
                                 </div>
 
                             </form>
