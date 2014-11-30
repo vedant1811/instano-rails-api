@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get 'staging' => 'welcome#staging'
 
+  post 'welcome/test_mail'
+
 #   get "sellers" => "sellers#index", :as => "sellers_root"
 
   get "log_out" => "sessions#destroy", :as => "log_out"
