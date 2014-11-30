@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'staging' => 'welcome#staging'
 
   post 'welcome/test_mail'
+  post '/subscribe' => 'welcome#subscribe'
 
 #   get "sellers" => "sellers#index", :as => "sellers_root"
 
