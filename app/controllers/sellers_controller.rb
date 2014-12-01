@@ -5,6 +5,16 @@ class SellersController < ApplicationController
   end
 
   def index
+    @seller = current_seller
+    if @seller
+      @quotes_for_seller = V1::Quote.with_seller_id(@seller.id)
+    end
+  end
+
+  def profile
+  end
+
+  def categories
   end
 
   # GET /v1/sellers/1
@@ -21,6 +31,7 @@ class SellersController < ApplicationController
 
     if @seller.save
       redirect_to log_in_url, :notice => "Signed up!"
+      # TODO: perform sign in instead and goto profile update
     else
       render 'new'
     end

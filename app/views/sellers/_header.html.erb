@@ -1,0 +1,50 @@
+<header class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
+    
+    <div class="navbar-header aside dk">
+        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
+            <i class="fa fa-bars"></i>
+        </a>
+        <a href=<%= sellers_path %> class="navbar-brand">
+            <img src="images/logo.png" class="m-r-sm" alt="instano">
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+            <i class="fa fa-cog"></i>
+        </a>
+    </div>
+
+    
+    <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+        
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="thumb-sm avatar pull-left">
+                    <img src="images/1.jpg" alt="...">
+                </span>
+                <%= current_seller.name_of_seller %> <b class="caret"></b>
+            </a>
+
+            <ul class="dropdown-menu animated fadeInRight">            
+                <li>
+                    <span class="arrow top"></span>
+                    <%= link_to "Dashboard", sellers_path %>
+                </li>
+                
+                <li>
+                    <%= link_to "Profile", profile_path %>
+                </li>
+                
+                <li>
+                    <%= link_to "Categories", categories_path %>
+                </li>
+                
+                <li class="divider"></li>
+                
+                <li>
+                    <a href="signin.html">Logout</a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>      
+
+</header>

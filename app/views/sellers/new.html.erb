@@ -1,53 +1,88 @@
-<%= form_for :seller, url: sellers_path do |f| %>
+<!DOCTYPE html>
+<html lang="en" class="app">
 
-  <% if @seller.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@seller.errors.count, "error") %> prohibited
-      this article from being saved:</h2>
-    <ul>
-    <% @seller.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+    <body class="intro">
 
-  <p>
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </p>
+        <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
 
-  <p>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </p>
+            <div class="container aside-xl">
+                <a class="navbar-brand block" href="index.html"><img src="images/logo.png" class="m-r-sm" alt="instano"></a>
 
-  <p>
-    <%= f.label :retype_password %><br>
-    <%= f.password_field :password_confirmation %>
-  </p>
+                <section class="m-b-lg">
 
-  <p>
-    <%= f.label :name_of_shop %><br>
-    <%= f.text_field :name_of_shop %>
-  </p>
+                    <header class="wrapper text-center">
+                        <strong>Sign up to setup your virtual store</strong>
+                    </header>
 
-  <p>
-    <%= f.label :name_of_seller %><br>
-    <%= f.text_field :name_of_seller %>
-  </p>
+                        <% if @seller.errors.any? %>
+                        <div id="error_explanation">
+                          <h3><%= pluralize(@seller.errors.count, "error") %> prohibited
+                            this article from being saved:</h3>
+                          <ul>
+                          <% @seller.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                          <% end %>
+                          </ul>
+                        </div>
+                        <% end %>
 
-  <p>
-    <%= f.label :address %><br>
-    <%= f.text_area :address %>
-  </p>
+                    <%= form_for :seller, url: sellers_path do |f| %>
 
-  <p>
-    <%= f.label :phone %><br>
-    <%= f.telephone_field :phone %>
-  </p>
+                        <div class="list-group">
 
-  <p>
-    <%= f.submit :save %>
-  </p>
-<% end %>
+                            <div class="list-group-item">
+                                <%= f.text_field :name_of_seller,  placeholder: "Name", class: "form-control no-border" %>
+                            </div>
+
+                            <div class="list-group-item">
+                                <%= f.email_field :email,  placeholder: "email", class: "form-control no-border" %>
+                            </div>
+
+                            <div class="list-group-item">
+                                <%= f.password_field :password, placeholder: "Password", class: "form-control no-border" %>
+                            </div>
+
+                        </div>
+<!-- 
+                        <div class="checkbox m-b">
+                            <label>
+                                <input type="checkbox">I agree to the <a href="#">terms and policy</a>
+                            </label>
+                        </div>
+
+ -->                        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up</button>
+
+                        <div class="line line-dashed"></div>
+
+                        <p class="text-muted text-center"><small>Already have an account?</small></p>
+                        <%= link_to "Sign In", log_in_path, class: "btn btn-lg btn-default btn-block" %>
+
+                    <% end %>
+
+                </section>
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+
+            <div class="text-center padder">
+                Copyright &copy; <b>Instano</b> 2014
+            </div>
+
+        </footer>
+
+        <!-- JS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+
+        <script src="js/app.js"></script>
+        <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="js/app.plugin.js"></script>
+
+
+    </body>
+
+</html>

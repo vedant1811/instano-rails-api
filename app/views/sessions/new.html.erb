@@ -1,17 +1,72 @@
-<h1>Log in</h1>
+<!DOCTYPE html>
+<html lang="en" class="app">
 
-<%= form_tag sessions_path do %>
-  <p>
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email, params[:email] %>
-  </p>
-  <p>
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
-  </p>
-  <p class="button"><%= submit_tag "Log in" %></p>
-<% end %>
+    <body class="intro">
+        
+        <section id="content" class="m-t-lg wrapper-md animated fadeInUp">    
+            
+            <div class="container aside-xl">
+                <a class="navbar-brand block" href="index.html"><img src="images/logo.png" class="m-r-sm" alt="instano"></a>
+                
+                <% flash.each do |name, msg| %>
+                  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+                <% end %>
 
-<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" %>
-<% end %>
+                <section class="m-b-lg">
+                    
+                    <header class="wrapper text-center">
+                        <strong>Sign in to your virtual store</strong>
+                    </header>
+                    
+                    <%= form_tag sessions_path do %>
+                        
+                        <div class="list-group">
+                        
+                            <div class="list-group-item">
+                               <%= email_field_tag :email, params[:email],  placeholder: "Email", class: "form-control no-border" %>
+                            </div>
+                        
+                            <div class="list-group-item">
+                                <%= password_field_tag :password, params[:password],  placeholder: "Password", class: "form-control no-border" %>
+                            </div>
+                        
+                        </div>
+                        
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign In</button>
+                        
+                        <div class="text-center m-t m-b"><a href="#"><small>Forgot Password?</small></a></div>
+                        
+                        <div class="line line-dashed"></div>
+                        
+                        <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                        <%= link_to "Create an account", sign_up_path, class: "btn btn-lg btn-default btn-block" %>
+                    
+                    <% end %>
+                
+                </section>
+            
+            </div>
+        
+        </section>
+        
+        <!-- Footer -->
+        <footer id="footer">
+        
+            <div class="text-center padder">
+                Copyright &copy; <b>Instano</b> 2014
+            </div>
+        
+        </footer>
+
+        <!-- JS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+
+        <script src="js/app.js"></script>  
+        <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="js/app.plugin.js"></script>
+
+
+    </body>
+
+</html>
