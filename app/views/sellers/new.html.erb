@@ -1,88 +1,70 @@
-<!DOCTYPE html>
-<html lang="en" class="app">
+<section id="content" class="m-t-lg wrapper-md animated fadeInUp">
 
-    <body class="intro">
+    <div class="container aside-xl">
+        <a class="navbar-brand block" href="index.html"><img src="images/logo.png" class="m-r-sm" alt="instano"></a>
 
-        <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+        <section class="m-b-lg">
 
-            <div class="container aside-xl">
-                <a class="navbar-brand block" href="index.html"><img src="images/logo.png" class="m-r-sm" alt="instano"></a>
+            <header class="wrapper text-center">
+                <strong>Sign up to setup your virtual store</strong>
+            </header>
 
-                <section class="m-b-lg">
+                <% if @seller.errors.any? %>
+                <div id="error_explanation">
+                  <h3><%= pluralize(@seller.errors.count, "error") %> prohibited
+                    this article from being saved:</h3>
+                  <ul>
+                  <% @seller.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                  </ul>
+                </div>
+                <% end %>
 
-                    <header class="wrapper text-center">
-                        <strong>Sign up to setup your virtual store</strong>
-                    </header>
+            <%= form_for :seller, url: sellers_path do |f| %>
 
-                        <% if @seller.errors.any? %>
-                        <div id="error_explanation">
-                          <h3><%= pluralize(@seller.errors.count, "error") %> prohibited
-                            this article from being saved:</h3>
-                          <ul>
-                          <% @seller.errors.full_messages.each do |msg| %>
-                            <li><%= msg %></li>
-                          <% end %>
-                          </ul>
-                        </div>
-                        <% end %>
+                <div class="list-group">
 
-                    <%= form_for :seller, url: sellers_path do |f| %>
+                    <div class="list-group-item">
+                        <%= f.text_field :name_of_seller,  placeholder: "Name", class: "form-control no-border" %>
+                    </div>
 
-                        <div class="list-group">
+                    <div class="list-group-item">
+                        <%= f.email_field :email,  placeholder: "email", class: "form-control no-border" %>
+                    </div>
 
-                            <div class="list-group-item">
-                                <%= f.text_field :name_of_seller,  placeholder: "Name", class: "form-control no-border" %>
-                            </div>
+                    <div class="list-group-item">
+                        <%= f.password_field :password, placeholder: "Password", class: "form-control no-border" %>
+                    </div>
 
-                            <div class="list-group-item">
-                                <%= f.email_field :email,  placeholder: "email", class: "form-control no-border" %>
-                            </div>
-
-                            <div class="list-group-item">
-                                <%= f.password_field :password, placeholder: "Password", class: "form-control no-border" %>
-                            </div>
-
-                        </div>
+                </div>
 <!-- 
-                        <div class="checkbox m-b">
-                            <label>
-                                <input type="checkbox">I agree to the <a href="#">terms and policy</a>
-                            </label>
-                        </div>
+                <div class="checkbox m-b">
+                    <label>
+                        <input type="checkbox">I agree to the <a href="#">terms and policy</a>
+                    </label>
+                </div>
 
- -->                        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up</button>
+-->                        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up</button>
 
-                        <div class="line line-dashed"></div>
+                <div class="line line-dashed"></div>
 
-                        <p class="text-muted text-center"><small>Already have an account?</small></p>
-                        <%= link_to "Sign In", log_in_path, class: "btn btn-lg btn-default btn-block" %>
+                <p class="text-muted text-center"><small>Already have an account?</small></p>
+                <%= link_to "Sign In", log_in_path, class: "btn btn-lg btn-default btn-block" %>
 
-                    <% end %>
-
-                </section>
-
-            </div>
+            <% end %>
 
         </section>
 
-        <!-- Footer -->
-        <footer id="footer">
+    </div>
 
-            <div class="text-center padder">
-                Copyright &copy; <b>Instano</b> 2014
-            </div>
+</section>
 
-        </footer>
+<!-- Footer -->
+<footer id="footer">
 
-        <!-- JS -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.js"></script>
+    <div class="text-center padder">
+        Copyright &copy; <b>Instano</b> 2014
+    </div>
 
-        <script src="js/app.js"></script>
-        <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="js/app.plugin.js"></script>
-
-
-    </body>
-
-</html>
+</footer>

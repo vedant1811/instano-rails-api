@@ -1,282 +1,107 @@
-<!DOCTYPE html>
-<html>
+<!-- Header -->
+<header id="header" class="navbar navbar-fixed-top bg-primary" data-spy="affix" data-offset-top="1">
 
-    <body class="" data-spy=scroll data-target=#header>
+    <div class="container">
+        <div class="navbar-header">
+            <a href="./" class="navbar-brand m-r-lg"><img src="images/logo.png" class="m-r-sm"></a>
 
-        <!-- Header -->
-        <header id="header" class="navbar navbar-fixed-top bg-primary" data-spy="affix" data-offset-top="1">
+            <button class="btn btn-primary btn-emtpy visible-xs" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
 
-            <div class="container">
-                <div class="navbar-header">
-                    <a href="./" class="navbar-brand m-r-lg"><img src="images/logo.png" class="m-r-sm"></a>
+        </div>
 
-                    <button class="btn btn-primary btn-emtpy visible-xs" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a href="#howitworks" data-ride="scroll">How it works</a> </li>
+                <li> <a href="#features" data-ride="scroll">Features</a> </li>
+                <li> <a href="#retail" data-ride="scroll">Instano Retail</a> </li>
+                <li> <a href="#getinstano" data-ride="scroll">Get Instano</a> </li>
+                <li> <a href="#contact" data-ride="scroll">Contact</a> </li>
+            </ul>
+        </div>
 
+    </div>
+
+</header>
+<!-- Header Ends -->
+
+<section id="content">
+
+    <!-- Home -->
+    <div class="bg-primary dk intro">
+
+        <div class="container">
+
+            <div class="row m-t-xxl m-b-xxl">
+
+                <div class="col-sm-6 wrapper-xl">
+                    <h3 class="text-lt text-u-c">Introducing <b>INSTANO</b></h3>
+                    <h4 class="text-lt m-t-lg m-b-lg home">Instano is a virtual shopping platform that provides a common place for shoppers and retailers to close the best deal subject to customers preferences: Price and Proximity.</h4>
+
+                    <a href="#howitworks" data-ride="scroll" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
+                        <i class="fa fa-compass fa-3x pull-left m-l-sm"></i>
+                        <span class="block clear m-t-xs text-left m-r m-l">
+                            Discover <b class="text-lg block font-bold">Instano</b>
+                        </span>
+                    </a>
+
+                    <a href="#modal-form" data-toggle="modal" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
+                        <i class="fa fa-android fa-3x pull-left m-l-sm"></i>
+                        <span class="block clear m-t-xs text-left m-r m-l">
+                            Get it on <b class="text-lg block font-bold">Google Play</b>
+                        </span>
+                    </a>
                 </div>
 
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li> <a href="#howitworks" data-ride="scroll">How it works</a> </li>
-                        <li> <a href="#features" data-ride="scroll">Features</a> </li>
-                        <li> <a href="#retail" data-ride="scroll">Instano Retail</a> </li>
-                        <li> <a href="#getinstano" data-ride="scroll">Get Instano</a> </li>
-                        <li> <a href="#contact" data-ride="scroll">Contact</a> </li>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Home Ends -->
+
+    <!-- How It Works -->
+    <div id="howitworks" class="bg-light">
+
+        <div class="container">
+
+            <div class="row m-t-xl m-b-xl">
+                <div class="col-sm-6" data-ride="animated" data-animation="fadeInLeft" data-delay="300">
+                    <div class="phone-img">
+                        <img src="images/phone-1.png" class="img-responsive">
+                    </div>
+                </div>
+
+                <div class="col-sm-6 wrapper-xl">
+                    <h3 class="text-dark text-u-c">How It <b>WORKS</b></h3>
+                    <p>Instano lets you connect with the right store and negotiate quotations virtually with the dealer without any third-party interference. </p>
+
+                    <ul class="list-unstyled m-t-xl">
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="300">
+                            <i class="fa fa-download fa-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Download Mobile App</b><br/>Download the Instano Mobile App to get started. </p>
+                        </li>
+
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="600">
+                            <i class="fa fa-spinner fa-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Search Products</b><br/>Search for a product you seek to get a list of stores in your proximity. </p>
+                        </li>
+
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="900">
+                            <i class="i i-stats i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Get Quotes</b><br/>Get real time prices for the products offered by various stores nearby. </p>
+                        </li>
+
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="1100">
+                            <i class="fa fa-shopping-cart fa-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Go Shopping</b><br/>A lot of time is saved by finding the right shop offering the best deal. </p>
+                        </li>
+
                     </ul>
-                </div>
+                    <p>Currently we are live only for consumer electronics stores. Stay tuned to get further updates. For an early access preview share your email with us. </p>
 
-            </div>
-
-        </header>
-        <!-- Header Ends -->
-
-        <section id="content">
-
-            <!-- Home -->
-            <div class="bg-primary dk intro">
-
-                <div class="container">
-
-                    <div class="row m-t-xxl m-b-xxl">
-
-                        <div class="col-sm-6 wrapper-xl">
-                            <h3 class="text-lt text-u-c">Introducing <b>INSTANO</b></h3>
-                            <h4 class="text-lt m-t-lg m-b-lg home">Instano is a virtual shopping platform that provides a common place for shoppers and retailers to close the best deal subject to customers preferences: Price and Proximity.</h4>
-
-                            <a href="#howitworks" data-ride="scroll" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
-                                <i class="fa fa-compass fa-3x pull-left m-l-sm"></i>
-                                <span class="block clear m-t-xs text-left m-r m-l">
-                                    Discover <b class="text-lg block font-bold">Instano</b>
-                                </span>
-                            </a>
-
-                            <a href="#modal-form" data-toggle="modal" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
-                                <i class="fa fa-android fa-3x pull-left m-l-sm"></i>
-                                <span class="block clear m-t-xs text-left m-r m-l">
-                                    Get it on <b class="text-lg block font-bold">Google Play</b>
-                                </span>
-                            </a>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- Home Ends -->
-
-            <!-- How It Works -->
-            <div id="howitworks" class="bg-light">
-
-                <div class="container">
-
-                    <div class="row m-t-xl m-b-xl">
-                        <div class="col-sm-6" data-ride="animated" data-animation="fadeInLeft" data-delay="300">
-                            <div class="phone-img">
-                                <img src="images/phone-1.png" class="img-responsive">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 wrapper-xl">
-                            <h3 class="text-dark text-u-c">How It <b>WORKS</b></h3>
-                            <p>Instano lets you connect with the right store and negotiate quotations virtually with the dealer without any third-party interference. </p>
-
-                            <ul class="list-unstyled m-t-xl">
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="300">
-                                    <i class="fa fa-download fa-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Download Mobile App</b><br/>Download the Instano Mobile App to get started. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="600">
-                                    <i class="fa fa-spinner fa-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Search Products</b><br/>Search for a product you seek to get a list of stores in your proximity. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="900">
-                                    <i class="i i-stats i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Get Quotes</b><br/>Get real time prices for the products offered by various stores nearby. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="1100">
-                                    <i class="fa fa-shopping-cart fa-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Go Shopping</b><br/>A lot of time is saved by finding the right shop offering the best deal. </p>
-                                </li>
-
-                            </ul>
-                            <p>Currently we are live only for consumer electronics stores. Stay tuned to get further updates. For an early access preview share your email with us. </p>
-
-                            <form class="form-inline m-t-lg m-b-xl text-center" action="mail/subscribe.php">
-
-                                <div class="aside-xl inline">
-
-                                    <div class="input-group">
-                                        <input type="text" id="address" name="address" class="form-control btn-rounded" placeholder="Your email">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default btn-rounded" type="submit">Subscribe</button>
-                                        </span>
-                                    </div>
-
-                                </div>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- How It Works Ends -->
-
-            <!-- Features -->
-            <div id="features" class="bg-dark">
-
-                <div class="container">
-
-                    <div class="row m-t-xl m-b-xl">
-
-                        <div class="col-sm-6 wrapper-xl">
-                            <h3 class="text-lt text-u-c">The <b>Features</b> You'll Love</h3>
-                            <p>Instano comes with a lot of features to enhance your virtual shopping experience.</p>
-
-                            <ul class="list-unstyled m-t-xl">
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="600">
-                                    <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
-                                        <i class="i i-hexagon2-o i-s-base text-info"></i>
-                                        <i class="i i-plus2 i-1x text-muted"></i>
-                                    </span>
-                                    <p class="clear m-b-lg"><b>Location Based Shopping</b><br/>Get access to all the local stores in the area. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="900">
-                                    <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
-                                        <i class="i i-hexagon2-o i-s-base text-info"></i>
-                                        <i class="i i-infinity i-sm text-muted"></i>
-                                    </span>
-                                    <p class="clear m-b-lg"><b>Multiple Products</b><br/>Sort out shops on the basis of products. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="1100">
-                                    <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
-                                        <i class="i i-hexagon2-o i-s-base text-info"></i>
-                                        <i class="i i-stack i-sm text-muted"></i>
-                                    </span>
-                                    <p class="clear m-b-lg"><b>Brand Specific Searches</b><br/>Explore shops selling up a particular brand of interest. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="1200">
-                                    <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
-                                        <i class="i i-hexagon2-o i-s-base text-info"></i>
-                                        <i class="i i-link2 i-1x text-muted"></i>
-                                    </span>
-                                    <p class="clear m-b-lg"><b>Negotiate The Price</b><br/>Get quotes and negotiate the price with the retailer on the go. </p>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-sm-6" data-ride="animated" data-animation="fadeInRight" data-delay="300">
-
-                            <div class="phone-img">
-                                <img src="images/phone-2.png" class="img-responsive">
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- Features Ends -->
-
-            <!-- Retail -->
-            <div id="retail" class="bg-light">
-
-                <div class="container">
-
-                    <div class="row m-t-xl m-b-xl">
-                        <div class="col-sm-6" data-ride="animated" data-animation="fadeInLeft" data-delay="300">
-                            <div class="phone-img">
-                                <img src="images/phone-3.png" class="img-responsive">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 wrapper-xl">
-                            <h3 class="text-dark text-u-c">Instano <b>RETAIL</b></h3>
-                            <p>INSTANO RETAIL is currently in beta phase. We will be launching soon. </p>
-
-                            <ul class="list-unstyled m-t-xl">
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="600">
-                                    <i class="i i-bookmark i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Setup Virtual Store</b><br/>Setup your virtual store in just a few seconds. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="900">
-                                    <i class="i i-bulb i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Location Based Discovery</b><br/>Get noticed once a customer is in your locality. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="1100">
-                                    <i class="i i-file-plus i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Products Inventory</b><br/>Show information about the various products available with you. </p>
-                                </li>
-
-                                <li data-ride="animated" data-animation="fadeInUp" data-delay="1200">
-                                    <i class="i i-domain3 i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
-                                    <p class="clear m-b-lg"><b>Direct Customer Interaction</b><br/>Interact with the customer while discussing the price. </p>
-                                </li>
-
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <div class="m-t-l m-b-l text-center wrapper">
-                        <h3 class="text-u-c text-dark"><b>We Put You On The Map</b></h3>
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- Retail Ends -->
-
-            <!-- Google Map -->
-            <div class="google-map">
-                <div data-address="Koramangala, Bangalore, India" data-text="Instano" id="map-canvas"></div>
-            </div>
-            <!-- End Google Map -->
-
-            <!-- Download -->
-            <div id="getinstano" class="bg-light clearfix wrapper-lg">
-
-                <div class="container wrapper text-center">
-
-                    <div class="m-t-xl m-b">
-                        <h3 class="font-thin text-dark text-u-c m-b-xl">Get <b>INSTANO</b></h3>
-                        <a href="#modal-form" data-toggle="modal" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
-                            <i class="fa fa-android fa-3x pull-left m-l-sm"></i>
-                            <span class="block clear m-t-xs text-left m-r m-l">
-                                Get it on <b class="text-lg block font-bold">Google Play</b>
-                            </span>
-                        </a>
-
-                        <a href="./" target="_blank" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
-                            <i class="fa fa-file-o fa-3x pull-left m-l-sm"></i>
-                            <span class="block clear m-t-xs text-left m-r m-l">
-                                Sign Up for <b class="text-lg block font-bold">Instano Retail</b>
-                            </span>
-                        </a>
-                    </div>
-
-                </div>
-
-                <div class="container text-center m-t-xl m-b-xl" data-ride="animated" data-animation="fadeInUp">
-                    <h3 class="font-thin text-dark text-u-c">Subscribe to our <b>newsletter</b> list</h3>
-                    <p>Do not want to miss anything? Subscribe to our newsletter box</p>
-
-                    <form class="form-inline m-t-xl m-b-xl text-center" action="mail/subscribe.php">
+                    <form class="form-inline m-t-lg m-b-xl text-center" action="mail/subscribe.php">
 
                         <div class="aside-xl inline">
 
@@ -294,163 +119,254 @@
                 </div>
 
             </div>
-            <!-- Download Ends -->
 
-            <!-- Contact -->
-            <div id="contact" class="bg-white-only">
+        </div>
 
-                <div class="container">
+    </div>
+    <!-- How It Works Ends -->
 
-                    <div class="row m-t-xl m-b-xl">
+    <!-- Features -->
+    <div id="features" class="bg-dark">
 
-                        <div class="col-sm-6 wrapper-xl">
-                            <h3 class="text-lt text-u-c">The <b>Team</b> Behind Instano</h3>
-                            <br/>
+        <div class="container">
 
-                            <div class="col-sm-5">
-                                <div class="team-member" data-ride="animated" data-animation="fadeInUp" data-delay="300">
-                                    <img src="images/team/1.jpg" class="img-responsive img-circle" alt="">
-                                    <h4>Rajesh Ranjan</h4>
-                                    <p class="text-muted">Co-Founder</p>
-                                    <!-- Social Media Icons -->
-                                    <div class="social">
-                                        <a href="https://www.facebook.com/rajesh.ranjan.712" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
-                                        <a href="https://twitter.com/Rajesh_IITKgp" class="twitter"><i class="fa fa-twitter"></i></a>
-                                        <a href="http://in.linkedin.com/in/rajeshranjan04" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row m-t-xl m-b-xl">
 
-                            <div class="col-sm-5">
-                                <div class="team-member" data-ride="animated" data-animation="fadeInUp" data-delay="600">
-                                    <img src="images/team/2.jpg" class="img-responsive img-circle" alt="">
-                                    <h4>Vedant Agarwala</h4>
-                                    <p class="text-muted">Co-Founder</p>
-                                    <!-- Social Media Icons -->
-                                    <div class="social">
-                                        <a href="https://www.facebook.com/ved.ag" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
-                                        <a href="https://twitter.com/vedant_ag" class="twitter"><i class="fa fa-twitter"></i></a>
-                                        <a href="http://in.linkedin.com/pub/vedant-agarwala/9b/254/850/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-sm-6 wrapper-xl">
+                    <h3 class="text-lt text-u-c">The <b>Features</b> You'll Love</h3>
+                    <p>Instano comes with a lot of features to enhance your virtual shopping experience.</p>
 
-                        </div>
+                    <ul class="list-unstyled m-t-xl">
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="600">
+                            <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
+                                <i class="i i-hexagon2-o i-s-base text-info"></i>
+                                <i class="i i-plus2 i-1x text-muted"></i>
+                            </span>
+                            <p class="clear m-b-lg"><b>Location Based Shopping</b><br/>Get access to all the local stores in the area. </p>
+                        </li>
 
-                        <div class="col-sm-6 wrapper-xl" data-ride="animated" data-animation="fadeInUp" data-delay="900">
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="900">
+                            <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
+                                <i class="i i-hexagon2-o i-s-base text-info"></i>
+                                <i class="i i-infinity i-sm text-muted"></i>
+                            </span>
+                            <p class="clear m-b-lg"><b>Multiple Products</b><br/>Sort out shops on the basis of products. </p>
+                        </li>
 
-                            <div class="contact-form-wrap">
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="1100">
+                            <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
+                                <i class="i i-hexagon2-o i-s-base text-info"></i>
+                                <i class="i i-stack i-sm text-muted"></i>
+                            </span>
+                            <p class="clear m-b-lg"><b>Brand Specific Searches</b><br/>Explore shops selling up a particular brand of interest. </p>
+                        </li>
 
-                                <!-- Form -->
-                                <form method="post" action="/contact" id="form" data-remote="true" role="form" class="form contact-form" >
-
-                                    <!-- Form Heading -->
-                                    <h3 class="text-lt text-u-c">Lets <b>Talk</b> !!</h3>
-
-                                    <!-- Name -->
-                                    <div class="form-group">
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name" min="3" max="100" required >
-                                    </div>
-
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <input type="email" name="email" id="email" class="form-control" id="" placeholder="Email" min="5" max="100" required >
-                                    </div>
-
-                                    <!-- Message -->
-                                    <div class="form-group">
-                                        <textarea name="message" id="message" class="form-control" rows="6" placeholder="Message" min="5" max="400" required ></textarea>
-                                    </div>
-
-                                    <!-- Send Button -->
-                                    <button type="submit" class="btn btn-default btn-full">
-                                        Send
-                                    </button>
-
-                                </form>
-                                <!-- End Form -->
-
-                                <!-- Success Message -->
-                                <div class="form-success"></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="1200">
+                            <span class="i-s i-s-2x pull-left m-r-sm m-t-n-xs">
+                                <i class="i i-hexagon2-o i-s-base text-info"></i>
+                                <i class="i i-link2 i-1x text-muted"></i>
+                            </span>
+                            <p class="clear m-b-lg"><b>Negotiate The Price</b><br/>Get quotes and negotiate the price with the retailer on the go. </p>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Contacts Form Container -->
-                <div class="container map-fix">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <div class="col-sm-6" data-ride="animated" data-animation="fadeInRight" data-delay="300">
 
-                        </div>
-                    </div>
-                </div>
-                <!-- End Contacts Form Container -->
-
-            </div>
-            <!-- Contact Ends -->
-
-        </section>
-
-        <!-- Footer -->
-        <footer id="footer" class="bg-dark">
-
-            <div class="dker">
-
-                <div class="container">
-
-                    <div class="row m-t-md m-b-md">
-
-                        <div class="col-sm-6">
-                            Copyright &copy; <b>Instano</b> 2014
-                        </div>
-
-                        <div class="social col-sm-6 text-right text-left-xs"> <span>Follow us on </span>
-                            <a href="#" target="_blank" class="facebook"><i class="fa fa-facebook m-l-xs"></i></a>
-                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                        </div>
-
+                    <div class="phone-img">
+                        <img src="images/phone-2.png" class="img-responsive">
                     </div>
 
                 </div>
 
             </div>
 
-        </footer>
-        <!-- Footer Ends -->
+        </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="modal-form">
+    </div>
+    <!-- Features Ends -->
 
-            <div class="modal-dialog">
+    <!-- Retail -->
+    <div id="retail" class="bg-light">
 
-                <div class="modal-content">
+        <div class="container">
 
-                    <div class="modal-body wrapper-lg">
+            <div class="row m-t-xl m-b-xl">
+                <div class="col-sm-6" data-ride="animated" data-animation="fadeInLeft" data-delay="300">
+                    <div class="phone-img">
+                        <img src="images/phone-3.png" class="img-responsive">
+                    </div>
+                </div>
 
-                        <div class="text-center">
-                            <h3 class="font-thin text-dark text-u-c">We are currently in <b>BETA</b> phase</h3>
-                            <p>For an early access preview share your email with us.</p>
+                <div class="col-sm-6 wrapper-xl">
+                    <h3 class="text-dark text-u-c">Instano <b>RETAIL</b></h3>
+                    <p>INSTANO RETAIL is currently in beta phase. We will be launching soon. </p>
 
-                            <%= form_tag(subscribe_path, remote: true, class: "form-inline m-t-xl m-b-xl text-center") do %>
+                    <ul class="list-unstyled m-t-xl">
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="600">
+                            <i class="i i-bookmark i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Setup Virtual Store</b><br/>Setup your virtual store in just a few seconds. </p>
+                        </li>
 
-                                <div class="aside-xl inline">
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="900">
+                            <i class="i i-bulb i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Location Based Discovery</b><br/>Get noticed once a customer is in your locality. </p>
+                        </li>
 
-                                    <div class="input-group">
-                                        <%= email_field_tag :email, nil, class: "form-control btn-rounded", placeholder: "Your email" %>
-                                        <span class="input-group-btn">
-                                            <%= submit_tag 'Subscribe', class: "btn btn-default btn-rounded", id: "modal-subscribe-submit" %>
-                                        </span>
-                                    </div>
-                                </div>
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="1100">
+                            <i class="i i-file-plus i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Products Inventory</b><br/>Show information about the various products available with you. </p>
+                        </li>
 
-                            <%end%>
+                        <li data-ride="animated" data-animation="fadeInUp" data-delay="1200">
+                            <i class="i i-domain3 i-1x b b-primary text-primary rounded wrapper pull-left m-r"></i>
+                            <p class="clear m-b-lg"><b>Direct Customer Interaction</b><br/>Interact with the customer while discussing the price. </p>
+                        </li>
 
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="m-t-l m-b-l text-center wrapper">
+                <h3 class="text-u-c text-dark"><b>We Put You On The Map</b></h3>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Retail Ends -->
+
+    <!-- Google Map -->
+    <div class="google-map">
+        <div data-address="Koramangala, Bangalore, India" data-text="Instano" id="map-canvas"></div>
+    </div>
+    <!-- End Google Map -->
+
+    <!-- Download -->
+    <div id="getinstano" class="bg-light clearfix wrapper-lg">
+
+        <div class="container wrapper text-center">
+
+            <div class="m-t-xl m-b">
+                <h3 class="font-thin text-dark text-u-c m-b-xl">Get <b>INSTANO</b></h3>
+                <a href="#modal-form" data-toggle="modal" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
+                    <i class="fa fa-android fa-3x pull-left m-l-sm"></i>
+                    <span class="block clear m-t-xs text-left m-r m-l">
+                        Get it on <b class="text-lg block font-bold">Google Play</b>
+                    </span>
+                </a>
+
+                <a href="./" target="_blank" class="text-sm btn btn-lg btn-rounded btn-dark m-sm">
+                    <i class="fa fa-file-o fa-3x pull-left m-l-sm"></i>
+                    <span class="block clear m-t-xs text-left m-r m-l">
+                        Sign Up for <b class="text-lg block font-bold">Instano Retail</b>
+                    </span>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="container text-center m-t-xl m-b-xl" data-ride="animated" data-animation="fadeInUp">
+            <h3 class="font-thin text-dark text-u-c">Subscribe to our <b>newsletter</b> list</h3>
+            <p>Do not want to miss anything? Subscribe to our newsletter box</p>
+
+            <form class="form-inline m-t-xl m-b-xl text-center" action="mail/subscribe.php">
+
+                <div class="aside-xl inline">
+
+                    <div class="input-group">
+                        <input type="text" id="address" name="address" class="form-control btn-rounded" placeholder="Your email">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-rounded" type="submit">Subscribe</button>
+                        </span>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    <!-- Download Ends -->
+
+    <!-- Contact -->
+    <div id="contact" class="bg-white-only">
+
+        <div class="container">
+
+            <div class="row m-t-xl m-b-xl">
+
+                <div class="col-sm-6 wrapper-xl">
+                    <h3 class="text-lt text-u-c">The <b>Team</b> Behind Instano</h3>
+                    <br/>
+
+                    <div class="col-sm-5">
+                        <div class="team-member" data-ride="animated" data-animation="fadeInUp" data-delay="300">
+                            <img src="images/team/1.jpg" class="img-responsive img-circle" alt="">
+                            <h4>Rajesh Ranjan</h4>
+                            <p class="text-muted">Co-Founder</p>
+                            <!-- Social Media Icons -->
+                            <div class="social">
+                                <a href="https://www.facebook.com/rajesh.ranjan.712" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="https://twitter.com/Rajesh_IITKgp" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="http://in.linkedin.com/in/rajeshranjan04" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="team-member" data-ride="animated" data-animation="fadeInUp" data-delay="600">
+                            <img src="images/team/2.jpg" class="img-responsive img-circle" alt="">
+                            <h4>Vedant Agarwala</h4>
+                            <p class="text-muted">Co-Founder</p>
+                            <!-- Social Media Icons -->
+                            <div class="social">
+                                <a href="https://www.facebook.com/ved.ag" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="https://twitter.com/vedant_ag" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="http://in.linkedin.com/pub/vedant-agarwala/9b/254/850/" target="_blank" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 wrapper-xl" data-ride="animated" data-animation="fadeInUp" data-delay="900">
+
+                    <div class="contact-form-wrap">
+
+                        <!-- Form -->
+                        <form method="post" action="/contact" id="form" data-remote="true" role="form" class="form contact-form" >
+
+                            <!-- Form Heading -->
+                            <h3 class="text-lt text-u-c">Lets <b>Talk</b> !!</h3>
+
+                            <!-- Name -->
+                            <div class="form-group">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" min="3" max="100" required >
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="form-control" id="" placeholder="Email" min="5" max="100" required >
+                            </div>
+
+                            <!-- Message -->
+                            <div class="form-group">
+                                <textarea name="message" id="message" class="form-control" rows="6" placeholder="Message" min="5" max="400" required ></textarea>
+                            </div>
+
+                            <!-- Send Button -->
+                            <button type="submit" class="btn btn-default btn-full">
+                                Send
+                            </button>
+
+                        </form>
+                        <!-- End Form -->
+
+                        <!-- Success Message -->
+                        <div class="form-success"></div>
 
                     </div>
 
@@ -459,19 +375,83 @@
             </div>
 
         </div>
-        <!-- Modal Ends -->
 
-        <!-- JS -->
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.appear.js"></script>
-        <script src="js/instano.js"></script>
-        <script src="js/bootstrap.plugin.js"></script>
-        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-        <script src="js/initmap.min.js"></script>
+        <!-- Contacts Form Container -->
+        <div class="container map-fix">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
 
-        <!-- Contact Form JavaScript -->
-        <script src="js/contact.js"></script>
+                </div>
+            </div>
+        </div>
+        <!-- End Contacts Form Container -->
 
-    </body>
+    </div>
+    <!-- Contact Ends -->
 
-</html>
+</section>
+
+<!-- Footer -->
+<footer id="footer" class="bg-dark">
+
+    <div class="dker">
+
+        <div class="container">
+
+            <div class="row m-t-md m-b-md">
+
+                <div class="col-sm-6">
+                    Copyright &copy; <b>Instano</b> 2014
+                </div>
+
+                <div class="social col-sm-6 text-right text-left-xs"> <span>Follow us on </span>
+                    <a href="#" target="_blank" class="facebook"><i class="fa fa-facebook m-l-xs"></i></a>
+                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+<!-- Footer Ends -->
+
+<!-- Modal -->
+<div class="modal fade" id="modal-form">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-body wrapper-lg">
+
+                <div class="text-center">
+                    <h3 class="font-thin text-dark text-u-c">We are currently in <b>BETA</b> phase</h3>
+                    <p>For an early access preview share your email with us.</p>
+
+                    <%= form_tag(subscribe_path, remote: true, class: "form-inline m-t-xl m-b-xl text-center") do %>
+
+                        <div class="aside-xl inline">
+
+                            <div class="input-group">
+                                <%= email_field_tag :email, nil, class: "form-control btn-rounded", placeholder: "Your email" %>
+                                <span class="input-group-btn">
+                                    <%= submit_tag 'Subscribe', class: "btn btn-default btn-rounded", id: "modal-subscribe-submit" %>
+                                </span>
+                            </div>
+                        </div>
+
+                    <%end%>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- Modal Ends -->
