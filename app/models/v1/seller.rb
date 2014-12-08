@@ -20,7 +20,7 @@ class V1::Seller < ActiveRecord::Base
   end
 
   def assign_categories(params)
-    begin
+    begin # a <try> block
       params.require(:seller).require(:categories)
       params.require(:seller).permit(:categories => []).permit(:name, :brands => [])
 
@@ -55,5 +55,4 @@ private
       self.api_key = SecureRandom.hex
     end while self.class.exists?(api_key: api_key)
   end
-
 end

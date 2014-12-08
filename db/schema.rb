@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201023205) do
+ActiveRecord::Schema.define(version: 20141208084850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20141201023205) do
     t.datetime "updated_at"
     t.integer  "quote_id",                     null: false
     t.integer  "seller_id",                    null: false
+    t.integer  "status",          default: 0
   end
 
   create_table "v1_quotes", force: true do |t|
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(version: 20141201023205) do
     t.datetime "updated_at"
     t.integer  "product_category", default: 0,   null: false
     t.integer  "seller_ids",       default: [0], null: false, array: true
+    t.integer  "status",           default: 0
   end
 
   add_index "v1_quotes", ["seller_ids"], name: "index_v1_quotes_on_seller_ids", using: :gin
@@ -100,8 +102,6 @@ ActiveRecord::Schema.define(version: 20141201023205) do
     t.string   "email",                                    default: "",      null: false
     t.string   "password_digest"
   end
-
-  add_index "v1_sellers", ["email"], name: "index_v1_sellers_on_email", unique: true, using: :btree
 
   create_table "v1_visitors", force: true do |t|
     t.string   "name"

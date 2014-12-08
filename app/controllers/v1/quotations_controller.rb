@@ -39,7 +39,7 @@ class V1::QuotationsController < ApplicationController
   def update
     @v1_quotation = V1::Quotation.find(params[:id])
 
-    if @v1_quotation.update(params[:v1_quotation])
+    if @v1_quotation.update(quotation_params)
       head :no_content
     else
       render json: @v1_quotation.errors, status: :unprocessable_entity
@@ -57,6 +57,6 @@ class V1::QuotationsController < ApplicationController
 
 private
   def quotation_params
-    params.require(:quotation).permit(:name_of_product, :price, :description, :seller_id, :quote_id)
+    params.require(:quotation).permit(:name_of_product, :price, :description, :seller_id, :quote_id, :status)
   end
 end

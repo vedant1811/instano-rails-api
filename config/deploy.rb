@@ -42,6 +42,7 @@ before 'deploy', 'rvm:install_ruby' # install Ruby and create gemset (both if mi
 set :bundle_dir, ''
 set :bundle_flags, '--system --quiet'
 
+after "deploy", "deploy:migrate"
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do

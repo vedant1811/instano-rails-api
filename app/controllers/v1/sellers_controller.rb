@@ -35,6 +35,7 @@ class V1::SellersController < ApplicationController
       @v1_seller.assign_categories(params)
       render json: @v1_seller.reload
     else
+      # TODO: send mail to us when this happens
       render json: @v1_seller.errors, status: :unprocessable_entity
     end
   end
