@@ -27,6 +27,11 @@ class V1::Seller < ActiveRecord::Base
       self.categories.clear
 
       params[:seller][:categories].each do |c|
+
+        if c[:brands].nil? || c[:brands].empty
+          next # skip the category if it has no brands associated with it
+        end
+
         category_name = c[:name]
         category = V1::Category.new
         category.category_name = V1::CategoryName.find_by(name: category_name)

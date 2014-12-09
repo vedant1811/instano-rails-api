@@ -12,4 +12,9 @@ class InstanoMailer < ActionMailer::Base
       format.html { render :text => 'Welcome to Instano' }
     end
   end
+
+  def signup_error(seller)
+    @seller = seller
+    mail(to: "vedant.kota@gmail.com", subject: "signup_error")
+  end
 end
