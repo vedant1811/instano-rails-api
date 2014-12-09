@@ -32,7 +32,11 @@ class V1::SellersController < ApplicationController
     @v1_seller = V1::Seller.new(seller_params)
 
     if @v1_seller.save
-      @v1_seller.assign_categories(params)
+      begin
+        @v1_seller.assign_categories(params)
+      rescue => e
+        InstanoMailer.error(e).deliver
+      end
       render json: @v1_seller.reload
     else
       InstanoMailer.signup_error(@v1_seller).deliver

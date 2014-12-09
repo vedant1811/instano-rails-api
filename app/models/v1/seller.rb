@@ -20,33 +20,29 @@ class V1::Seller < ActiveRecord::Base
   end
 
   def assign_categories(params)
-    begin # a <try> block
-      params.require(:seller).require(:categories)
-      params.require(:seller).permit(:categories => []).permit(:name, :brands => [])
+    params.require(:seller).require(:categories)
+    params.require(:seller).permit(:categories => []).permit(:name, :brands => [])
 
-      self.categories.clear
+    self.categories.clear
 
-      params[:seller][:categories].each do |c|
+    params[:seller][:categories].each do |c|
 
-        if c[:brands].nil? || c[:brands].empty
-          next # skip the category if it has no brands associated with it
-        end
+      if c[:brands].nil? || c[:brands].empty
+        next # skip the category if it has no brands associated with it
+      end
 
-        category_name = c[:name]
-        category = V1::Category.new
-        category.category_name = V1::CategoryName.find_by(name: category_name)
-        category.seller = self
-        category.save
-        c[:brands].each do |b|
-          begin
-            category.brand_names << V1::BrandName.find_by(name: b)
-          rescue ActiveRecord::RecordInvalid
-            # skip it. May happen if brand is already added to the particular category
-          end
+      category_name = c[:name]
+      category = V1::Category.new
+      category.category_name = V1::CategoryName.find_by(name: category_name)
+      category.seller = self
+      category.save
+      c[:brands].each do |b|
+        begin
+          category.brand_names << V1::BrandName.find_by(name: b)
+        rescue ActiveRecord::RecordInvalid
+          # skip it. May happen if brand is already added to the particular category
         end
       end
-    rescue ActionController::ParameterMissing # no categories key present in params
-      # do nothing
     end
   end
 

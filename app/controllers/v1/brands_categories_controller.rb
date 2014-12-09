@@ -34,6 +34,7 @@ class V1::BrandsCategoriesController < ApplicationController
 
       if c[:brands].nil? || c[:brands].empty
         next # skip the category if it has no brands associated with it
+      end
 
       # get the category if it already exists for the seller
       category_relation = seller.categories.eager_load(:category_name)
