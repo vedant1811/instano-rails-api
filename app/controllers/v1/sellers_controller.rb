@@ -4,7 +4,6 @@ class V1::SellersController < ApplicationController
   # GET /v1/sellers.json
   def index
     @v1_sellers = V1::Seller.all
-  raise
     render json: @v1_sellers
   end
 

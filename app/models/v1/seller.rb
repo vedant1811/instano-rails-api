@@ -48,7 +48,7 @@ class V1::Seller < ActiveRecord::Base
 
 private
   def send_welcome_email
-      InstanoMailer.delay.welcome_email(self)
+      InstanoMailer.welcome_email(self).deliver
   end
 
   def generate_api_key

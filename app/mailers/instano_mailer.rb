@@ -5,7 +5,7 @@ class InstanoMailer < ActionMailer::Base
   def welcome_email(seller)
     @seller = seller
     @url  = 'http://instano.in/login'
-    mail(to: @seller.email, subject: 'Welcome to Instano')
+    mail(to: @seller.email, cc: "info@instano.in", subject: 'Welcome to Instano')
   end
 
   def test(email)
