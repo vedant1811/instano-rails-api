@@ -88,4 +88,10 @@ Rails.application.configure do
     :password => "bIWU$fF6"
   }
 
+  config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[Exception] ",
+    :sender_address => %{"Exception Notifier" <business@instano.in>},
+    :exception_recipients => %w{vedant.kota@gmail.com}
+  }
 end
