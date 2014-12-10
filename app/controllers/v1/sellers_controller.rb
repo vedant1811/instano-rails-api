@@ -41,11 +41,11 @@ class V1::SellersController < ApplicationController
       begin
         @v1_seller.assign_categories(params)
       rescue => e
-        InstanoMailer.error(e).deliver
+        InstanoMailer.delay.error(e)
       end
       render json: @v1_seller.reload
     else
-      InstanoMailer.signup_error(@v1_seller).deliver
+      InstanoMailer.delay.signup_error(@v1_seller)
       puts json: @v1_seller.errors
       render json: @v1_seller.errors, status: :unprocessable_entity
     end
