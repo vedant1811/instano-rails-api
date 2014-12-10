@@ -27,7 +27,7 @@ class V1::Seller < ActiveRecord::Base
 
     params[:seller][:categories].each do |c|
 
-      if c[:brands].nil? || c[:brands].empty
+      if c[:brands].nil? || c[:brands].empty?
         next # skip the category if it has no brands associated with it
       end
 

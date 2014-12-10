@@ -24,7 +24,7 @@ class InstanoMailer < ActionMailer::Base
   def error(error)
     @error = error
     mail(subject: "An error has occoured") do |format|
-      format.html { render :inline => "seller: <%= debug @error %>" }
+      format.html { render :inline => "seller: <%= debug @error.inspect %> <%= debug @error.backtrace %>" }
     end
   end
 end
