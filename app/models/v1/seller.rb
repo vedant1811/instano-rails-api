@@ -2,6 +2,16 @@ class V1::Seller < ActiveRecord::Base
   has_many :categories, :class_name => 'V1::Category', dependent: :delete_all
   has_many :category_names, :class_name => 'V1::CategoryName', through: :categories
 
+  # important! do NOT reorder entries
+  enum status: [
+    # invisible in app
+    :removed,
+    :inactive,
+    # visible in app
+    :unverified,
+    :verified
+  ]
+
   validates :email, :uniqueness => true
 
   before_create :generate_api_key

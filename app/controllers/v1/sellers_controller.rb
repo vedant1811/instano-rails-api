@@ -7,6 +7,10 @@ class V1::SellersController < ApplicationController
     render json: @v1_sellers
   end
 
+  def visisble_index
+    @v1_sellers = V1::Seller.where
+  end
+
   # GET /v1/sellers/1
   # GET /v1/sellers/1.json
   def show
@@ -69,7 +73,7 @@ class V1::SellersController < ApplicationController
 private
 
   def seller_params # TODO make this stronger to require instead of permit
-    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password)
+    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password, :status)
   end
 
   def authenticate_params

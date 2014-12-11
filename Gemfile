@@ -18,6 +18,8 @@ gem 'rvm-capistrano', :group => :development
 gem 'delayed_job_active_record'
 gem 'thin', :group => :development
 gem 'active_model_serializers'
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   namespace :v1, defaults: {format: 'json'} do
     resources :sellers # secure this. as of now :new, :edit work without any authentication
     post 'sellers/exists'
