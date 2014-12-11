@@ -7,10 +7,6 @@ class V1::SellersController < ApplicationController
     render json: @v1_sellers
   end
 
-  def visisble_index
-    @v1_sellers = V1::Seller.where
-  end
-
   # GET /v1/sellers/1
   # GET /v1/sellers/1.json
   def show
