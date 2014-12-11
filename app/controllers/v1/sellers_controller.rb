@@ -20,9 +20,16 @@ class V1::SellersController < ApplicationController
   end
 
   def sign_in
-    seller = V1::Seller.find_by(:email => authenticate_params.require(:email))
-    authenticated = seller.authenticate(authenticate_params.require(:password))
-    render json: authenticated
+    begin
+      seller = V1::Seller.find_by(:email => authenticate_params.require(:email))
+      if seller && seller.authenticate(authenticate_params.require(:password))
+        render json: seller, root: "sign_in"
+      else
+        render json: { sign_in: false }
+      end
+    rescue ActionController::ParameterMissing => e
+      render json: e, status: :unprocessable_entity
+    end
   end
 
   # POST /v1/sellers
