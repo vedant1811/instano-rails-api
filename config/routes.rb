@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get 'staging' => 'welcome#staging'
 
-  post 'welcome/test_mail'
   post '/subscribe' => 'welcome#subscribe'
   post '/contact' => 'welcome#contact'
 

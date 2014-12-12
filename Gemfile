@@ -16,6 +16,7 @@ gem 'rvm-capistrano', :group => :development
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'thin', :group => :development
 gem 'active_model_serializers'
 gem 'activeadmin', github: 'activeadmin'

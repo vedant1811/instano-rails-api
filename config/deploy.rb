@@ -1,7 +1,6 @@
 # require "bundler/capistrano"            # install all the new missing plugins...
 # require "capistrano/ext/multistage"     # deploy on all the servers..
-# # require "delayed/recipes"               # load this for delayed job..
-# require "rvm/capistrano"                # if you are using rvm on your server..
+require "delayed/recipes"               # load this for delayed job..
 # require "bundler/setup"
 require "bundler/capistrano"
 require "rvm/capistrano"
@@ -10,6 +9,8 @@ server "ec2-54-69-81-124.us-west-2.compute.amazonaws.com", :app, :web, :db, :pri
 # set :stages, %w{testing production}
 # set :default_stage, "production"
 set :application, "instano-api"
+set :rails_env, "production" #added for delayed job
+set :delayed_job_command, "bin/delayed_job"
 
 set :repository,  "git@bitbucket.org:vedanta/instano-api.git"
 set :branch, `git rev-parse --abbrev-ref HEAD` # use current branch
@@ -44,6 +45,10 @@ set :bundle_flags, '--system --quiet'
 
 after "deploy", "deploy:migrate"
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
 
 namespace :deploy do
   %w[start stop restart].each do |command|
