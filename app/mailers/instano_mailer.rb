@@ -1,5 +1,5 @@
 class InstanoMailer < ActionMailer::Base
-  default from: "business@instano.in"
+  default from: "rajesh@instano.in"
   default to: "vedant.kota@gmail.com"
 
   def welcome_email(seller)
