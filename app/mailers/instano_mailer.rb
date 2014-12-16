@@ -1,6 +1,6 @@
 class InstanoMailer < ActionMailer::Base
   default from: "rajesh@instano.in"
-  default to: "vedant.kota@gmail.com"
+  default to: "instano@googlegroups.com"
 
   def welcome_email(seller)
     @seller = seller
@@ -17,8 +17,15 @@ class InstanoMailer < ActionMailer::Base
 
   def error(error)
     @error = error
-    mail(subject: "An error has occoured") do |format|
+    mail(to: "vedant@instano.in", subject: "An error has occoured") do |format|
       format.html { render :inline => "seller: <%= debug @error.inspect %> <%= debug @error.backtrace %>" }
+    end
+  end
+
+  def new_quote(quote)
+    @quote = quote
+    mail(subject: "New quote from buyer") do |format|
+      format.html { render :inline => "quote: <%= @quote.search_string %>" }
     end
   end
 end
