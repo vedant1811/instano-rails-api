@@ -80,18 +80,18 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :openssl_verify_mode => 'none',
-    :address => "smtp.zoho.com",
+    :address => "smtp.instano.in",
     :port => 587,
     :domain => "instano.in",
-    :authentication => :tls,
-    :user_name => "rajesh@instano.in",
-    :password => "instano.rajesh"
+    :authentication => :plain,
+    :user_name => "business@instano.in",
+    :password => "bIWU$fF6"
   }
 
   config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[Exception] ",
-    :sender_address => %{"Exception Notifier" <rajesh@instano.in>},
+    :sender_address => %{"Exception Notifier" <business@instano.in>},
     :exception_recipients => %w{vedant.kota@gmail.com}
   }
 end
