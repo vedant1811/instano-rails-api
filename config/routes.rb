@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :buyers, except: [:new, :edit]
     resources :quotes, except: [:new, :edit]
 
+    post 'buyers/exists'
+    post 'buyers/sign_in'
     post 'quotes/for_seller'
     post 'quotes/for_buyer'
 
