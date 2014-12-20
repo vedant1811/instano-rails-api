@@ -62,6 +62,7 @@ class V1::QuotesController < ApplicationController
 
 private
   def quote_params
-    params.require(:quote).permit(:buyer_id, :search_string, :brands, :price_range, :product_category, :seller_ids => [])
+    params.require(:quote).permit(:buyer_id, :search_string, :brands, :price_range, :product_category,
+                                  :latitude, :longitude, :address, :seller_ids => [])
   end
 end

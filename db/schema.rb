@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217195131) do
+ActiveRecord::Schema.define(version: 20141220061023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,15 +110,18 @@ ActiveRecord::Schema.define(version: 20141217195131) do
   end
 
   create_table "v1_quotes", force: true do |t|
-    t.integer  "buyer_id",                       null: false
-    t.string   "search_string",                  null: false
-    t.string   "brands",           default: "",  null: false
-    t.string   "price_range",      default: "",  null: false
+    t.integer  "buyer_id",                                                null: false
+    t.string   "search_string",                                           null: false
+    t.string   "brands",                                    default: "",  null: false
+    t.string   "price_range",                               default: "",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "product_category", default: 0,   null: false
-    t.integer  "seller_ids",       default: [0], null: false, array: true
-    t.integer  "status",           default: 0
+    t.integer  "product_category",                          default: 0,   null: false
+    t.integer  "seller_ids",                                default: [0], null: false, array: true
+    t.integer  "status",                                    default: 0
+    t.string   "address"
+    t.decimal  "latitude",         precision: 10, scale: 6
+    t.decimal  "longitude",        precision: 10, scale: 6
   end
 
   add_index "v1_quotes", ["seller_ids"], name: "index_v1_quotes_on_seller_ids", using: :gin
