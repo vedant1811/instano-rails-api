@@ -25,13 +25,18 @@ class InstanoMailer < ActionMailer::Base
 
   def new_quote(quote)
     @quote = quote
-    mail(subject: "[UPDATE]New quote from buyer") do |format|
+    mail(subject: "[UPDATE]New query from buyer") do |format|
       format.html { render :inline => "quote: <%= @quote.search_string %>" }
     end
   end
 
   def new_visitor(visitor)
     @visitor = visitor
-    mail(subject: "[UPDATE]New visitor")
+    mail(subject: "[UPDATE]New Visitor")
+  end
+
+  def new_seller(seller)
+    @seller = seller
+    mail(subject: "[UPDATE]New Seller")
   end
 end
