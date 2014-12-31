@@ -6,7 +6,7 @@ class InstanoMailer < ActionMailer::Base
   def welcome_email(seller)
     @seller = seller
     @url  = 'http://instano.in/login'
-    mail(to: seller.email, cc: "info@instano.in", subject: 'Welcome to Instano')
+    mail(to: seller.email, cc: "info@instano.in", subject: "Welcome to Instano")
   end
 
   def signup_error(seller)
@@ -25,8 +25,13 @@ class InstanoMailer < ActionMailer::Base
 
   def new_quote(quote)
     @quote = quote
-    mail(subject: "New quote from buyer") do |format|
+    mail(subject: "[UPDATE]New quote from buyer") do |format|
       format.html { render :inline => "quote: <%= @quote.search_string %>" }
     end
+  end
+
+  def new_visitor(visitor)
+    @visitor = visitor
+    mail(subject: "[UPDATE]New visitor")
   end
 end
