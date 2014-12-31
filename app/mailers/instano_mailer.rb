@@ -1,16 +1,17 @@
 class InstanoMailer < ActionMailer::Base
+  # make sure to update default settings (in production.rb) as well
   default from: "rajesh@instano.in"
-  default to: "instano@googlegroups.com"
+  default to: "ranjan.rajesh004@gmail.com"
 
   def welcome_email(seller)
     @seller = seller
     @url  = 'http://instano.in/login'
-    mail(to: @seller.email, cc: "info@instano.in", subject: 'Welcome to Instano')
+    mail(to: seller.email, cc: "info@instano.in", subject: 'Welcome to Instano')
   end
 
   def signup_error(seller)
     @seller = seller
-    mail(subject: "signup_error") do |format|
+    mail(to: "vedant@instano.in", subject: "signup_error") do |format|
       format.html { render :inline => "seller: <%= debug @seller.errors %>" }
     end
   end
