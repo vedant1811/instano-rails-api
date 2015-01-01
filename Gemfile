@@ -22,6 +22,8 @@ gem 'active_model_serializers'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
+gem 'rails_admin'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
