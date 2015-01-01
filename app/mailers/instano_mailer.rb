@@ -1,7 +1,7 @@
 class InstanoMailer < ActionMailer::Base
   # make sure to update default settings (in production.rb) as well
   default from: "rajesh@instano.in"
-  default to: "ranjan.rajesh004@gmail.com"
+  default to: "instano@googlegroups.com"
 
   def welcome_email(seller)
     @seller = seller
