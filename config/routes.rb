@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :admin_users
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   namespace :v1, defaults: {format: 'json'} do
     resources :sellers # secure this. as of now :new, :edit work without any authentication
     post 'sellers/exists'
