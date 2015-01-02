@@ -1,5 +1,5 @@
 class V1::Seller < ActiveRecord::Base
-  has_many :categories, :class_name => 'V1::Category', dependent: :destroy_all
+  has_many :categories, :class_name => 'V1::Category', dependent: :destroy
   has_many :category_names, :class_name => 'V1::CategoryName', through: :categories
 
   validates :latitude, presence: true
