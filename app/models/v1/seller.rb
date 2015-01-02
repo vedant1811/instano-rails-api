@@ -2,6 +2,12 @@ class V1::Seller < ActiveRecord::Base
   has_many :categories, :class_name => 'V1::Category', dependent: :delete_all
   has_many :category_names, :class_name => 'V1::CategoryName', through: :categories
 
+  validates :latitude, presence: true
+  validates :longitude, presence: true
+  validates :rating, presence: true
+  validates :email, presence: true
+  validates :email, :uniqueness => true
+
   # important! do NOT reorder entries
   enum status: [
     # invisible in app
@@ -12,13 +18,31 @@ class V1::Seller < ActiveRecord::Base
     :verified
   ]
 
-  validates :email, :uniqueness => true
-
   before_create :generate_api_key
-
   after_create :send_welcome_email
-
   has_secure_password
+
+  rails_admin do
+    list do
+      field :name_of_shop
+      field :category_names
+      field :phone
+      field :email
+      sort_by :created_at
+      items_per_page 100
+    end
+    show do
+      field :id
+      field :name_of_shop
+      field :name_of_seller
+      field :address
+      field :category_names
+      field :phone
+      field :email
+      field :created_at
+      field :updated_at
+    end
+  end
 
   def self.authenticate(email, password)
     seller = find_by_email(email)
