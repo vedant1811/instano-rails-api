@@ -22,10 +22,15 @@ class V1::Seller < ActiveRecord::Base
   after_create :send_welcome_email
   has_secure_password
 
+  def title
+    name_of_shop
+  end
+
   rails_admin do
     list do
       field :name_of_shop
       field :category_names
+      field :status, :enum
       field :phone
       field :email
       sort_by :created_at
@@ -33,6 +38,7 @@ class V1::Seller < ActiveRecord::Base
     end
     show do
       field :id
+      field :status, :enum
       field :name_of_shop
       field :name_of_seller
       field :address
@@ -41,6 +47,21 @@ class V1::Seller < ActiveRecord::Base
       field :email
       field :created_at
       field :updated_at
+    end
+    edit do # both edit and create
+      field :name_of_shop
+      field :name_of_seller
+      field :status
+      field :email
+      # TODO: fix: (also see: https://github.com/sferik/rails_admin/issues/2150)
+      field :password
+      field :password_confirmation
+      field :address
+      field :latitude
+      field :longitude
+      field :phone
+      field :categories
+      field :category_names
     end
   end
 
