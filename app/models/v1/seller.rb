@@ -60,8 +60,13 @@ class V1::Seller < ActiveRecord::Base
       field :latitude
       field :longitude
       field :phone
-      field :categories
-      field :category_names
+      field :categories do
+        label "edit brands"
+        help "Use only to edit brands. Do not add/remove categories"
+      end
+      field :category_names do
+        help "add/remove categories. then update. then add brands"
+      end
     end
   end
 
