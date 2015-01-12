@@ -15,7 +15,8 @@ class V1::Seller < ActiveRecord::Base
     :inactive,
     # visible in app
     :unverified,
-    :verified
+    :verified,
+    :deal_provider
   ]
 
   before_create :generate_api_key

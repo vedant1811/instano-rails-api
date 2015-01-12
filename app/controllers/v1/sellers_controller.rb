@@ -3,7 +3,10 @@ class V1::SellersController < ApplicationController
   # GET /v1/sellers
   # GET /v1/sellers.json
   def index
-    @v1_sellers = V1::Seller.where("status = ? OR status = ?", V1::Seller.statuses[:unverified], V1::Seller.statuses[:verified])
+    @v1_sellers = V1::Seller.where("status = ? OR status = ? OR status = ?",
+                                   V1::Seller.statuses[:unverified],
+                                   V1::Seller.statuses[:verified],
+                                   V1::Seller.statuses[:deal_provider])
     render json: @v1_sellers
   end
 
