@@ -46,3 +46,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'exception_notification'
+
+# to dump db
+gem 'yaml_db'
