@@ -49,3 +49,6 @@ gem 'exception_notification'
 
 # to dump db
 gem 'yaml_db'
+
+# to overview database
+# gem 'pghero'
