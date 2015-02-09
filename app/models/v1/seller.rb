@@ -28,11 +28,15 @@ class V1::Seller < ActiveRecord::Base
   end
 
   rails_admin do
+    configure :status do
+      searchable false
+    end
     list do
       field :name_of_shop
       field :category_names
       field :status, :enum
       field :phone
+      field :address
       field :email
       sort_by :created_at
       items_per_page 100
