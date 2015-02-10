@@ -1,6 +1,11 @@
 var CONFIG = {
-  appId: 3477,
-  authKey: 'ChRnwEJ3WzxH9O4',
-  authSecret: 'AS546kpUQ2tfbvv',
-  debug: false
+  appId: 19335,
+  authKey: 'Vk-UaYBtcBbQXER',
+  authSecret: 'EhWG29BLYMLwQzd',
+  debug: true
 };
+
+var TEST_USER = {
+  login: test1,
+  password: hello123
+}
