@@ -1,11 +1,11 @@
-var CONFIG = {
-  appId: 19335,
-  authKey: 'Vk-UaYBtcBbQXER',
-  authSecret: 'EhWG29BLYMLwQzd',
+window.CONFIG = {
+  appId: "19335",
+  authKey: 'UtcSpG3mWkLzVmU',
+  authSecret: 'zXx2uFdRXvr5eR-',
   debug: true
 };
 
-var TEST_USER = {
-  login: test1,
-  password: hello123
+window.TEST_USER = {
+  login: 'test1',
+  password: 'hello123'
 }
