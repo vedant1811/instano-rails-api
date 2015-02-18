@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :buyers, except: [:new, :edit]
     resources :quotes, except: [:new, :edit]
     resources :deals, except: [:new, :edit]
+    resources :online_buyers, except: [:new, :edit]
+    post 'online_buyers/exists'
 
     post 'buyers/exists'
     post 'buyers/sign_in'
