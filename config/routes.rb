@@ -8,11 +8,13 @@ Rails.application.routes.draw do
     post 'sellers/exists'
     post 'sellers/sign_in'
 
-    resources :quotations, except: [:new, :edit]
-    resources :devices, except: [:new, :edit]
-    resources :buyers, except: [:new, :edit]
-    resources :quotes, except: [:new, :edit]
-    resources :deals, except: [:new, :edit]
+    resources :quotations, except: [:new, :edit, :delete]
+    resources :devices, except: [:new, :edit, :delete]
+    resources :buyers, except: [:new, :edit, :delete]
+    resources :quotes, except: [:new, :edit, :delete]
+    resources :deals, except: [:new, :edit, :delete]
+    resources :online_buyers, except: [:new, :edit, :delete]
+    post 'online_buyers/exists'
 
     post 'buyers/exists'
     post 'buyers/sign_in'
