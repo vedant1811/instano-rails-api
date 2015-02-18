@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/newadmin', as: 'rails_admin'
   ActiveAdmin.routes(self)
   namespace :v1, defaults: {format: 'json'} do
-    resources :sellers # secure this. as of now :new, :edit work without any authentication
+    resources :sellers, except: [:new, :edit, :delete] # secure this. as of now :new, :edit work without any authentication
     post 'sellers/exists'
     post 'sellers/sign_in'
 
