@@ -23,7 +23,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
 gem 'rails_admin'
-gem 'paper_trail', '~> 3.0'
+gem 'paper_trail', '~> 3.0' # 4.0.beta is not supported by rails_admin
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
