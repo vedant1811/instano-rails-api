@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_seller
 
   # for non-signed in users, just use the IP. be sure to override this method in respective controllers
+  # rails admin controller already overrides this
   def current_user
     request.remote_ip
   end

@@ -1,6 +1,6 @@
 class V1::Quote < ActiveRecord::Base
-
-  belongs_to :buyer, :class_name => 'V1::Buyer', dependent: :destroy
+  belongs_to :buyer, :class_name => 'V1::Buyer'
+  has_many :quotations, :class_name => 'V1::Quotation' # not dependant. keep quotation for reuse!
 
   enum status: [ :active, :expired, :closed ]
 

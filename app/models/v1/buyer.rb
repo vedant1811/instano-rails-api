@@ -1,4 +1,6 @@
 class V1::Buyer < ActiveRecord::Base
+  has_many :quotes, :class_name => 'V1::Quote', dependent: :destroy
+
   before_create :generate_api_key
 
   validates :phone, :uniqueness => true
