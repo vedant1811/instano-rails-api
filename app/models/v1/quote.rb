@@ -11,6 +11,8 @@ class V1::Quote < ActiveRecord::Base
   validates :product_category, presence: true # do not access this. will be removed
   validates :seller_ids, presence: true
 
+  has_paper_trail
+
   scope :with_seller_id, -> (*seller_ids) { where('seller_ids @> ARRAY[:seller_ids]', seller_ids: seller_ids) }
 
   rails_admin do

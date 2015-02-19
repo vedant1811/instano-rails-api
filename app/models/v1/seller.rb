@@ -22,6 +22,7 @@ class V1::Seller < ActiveRecord::Base
   before_create :generate_api_key
   after_create :send_welcome_email
   has_secure_password
+  has_paper_trail
 
   def title
     "#{name_of_shop} (#{id})"

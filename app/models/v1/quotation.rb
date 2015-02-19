@@ -5,6 +5,8 @@ class V1::Quotation < ActiveRecord::Base
   validates :quote_id, presence: true
   validates :seller_id, presence: true
 
+  has_paper_trail
+
   rails_admin do
     configure :status do
       searchable false

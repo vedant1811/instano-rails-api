@@ -3,4 +3,6 @@ class V1::Deal < ActiveRecord::Base
   validates :heading, presence: true
   validates :expires_at, presence: true
   validates :seller, presence: true
+
+  has_paper_trail
 end

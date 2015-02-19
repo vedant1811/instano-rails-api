@@ -8,6 +8,8 @@ class V1::Category < ActiveRecord::Base
   validates :category_name, presence: true
   validates :seller, presence: true
 
+  has_paper_trail
+
   def title
     if category_name
       category_name.name

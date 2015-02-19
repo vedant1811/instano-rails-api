@@ -5,5 +5,7 @@ class V1::BrandName < ActiveRecord::Base
   validates :category_name, :uniqueness => {:scope => [:category_name, :name]}
   validates :category_name, presence: true
   validates :name, presence: true
+
+  has_paper_trail
 end
 

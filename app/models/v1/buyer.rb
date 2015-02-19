@@ -5,6 +5,8 @@ class V1::Buyer < ActiveRecord::Base
   validates :name, presence: true
   validates :phone, presence: true
 
+  has_paper_trail
+
 private
 
   def generate_api_key

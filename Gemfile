@@ -23,6 +23,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
 gem 'rails_admin'
+gem 'paper_trail', '~> 3.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
