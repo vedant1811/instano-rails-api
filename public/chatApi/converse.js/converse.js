@@ -5216,11 +5216,13 @@
                 var _transform = function (jid) {
                     var chatbox = converse.chatboxes.get(jid);
                     if (!chatbox) {
+                        /*
                         var roster_item = converse.roster.get(jid);
                         if (roster_item === undefined) {
                             converse.log('Could not get roster item for JID '+jid, 'error');
                             return null;
                         }
+                        */
                         chatbox = converse.chatboxes.create({
                             'id': jid,
                             'jid': jid,
