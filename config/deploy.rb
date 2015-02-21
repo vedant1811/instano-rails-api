@@ -5,7 +5,13 @@ require "delayed/recipes"               # load this for delayed job..
 require "bundler/capistrano"
 require "rvm/capistrano"
 
-server "ec2-54-69-81-124.us-west-2.compute.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
+task :production do
+  server "ec2-54-69-81-124.us-west-2.compute.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
+end
+
+task :staging do
+  server "ec2-52-10-131-228.us-west-2.compute.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
+end
 # set :stages, %w{testing production}
 # set :default_stage, "production"
 set :application, "instano-api"
