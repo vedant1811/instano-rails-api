@@ -1,3 +1,5 @@
+require 'net/http'
+require 'builder'
 class V1::OnlineBuyersController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
@@ -28,6 +30,32 @@ class V1::OnlineBuyersController < ApplicationController
   # POST /v1/online_buyers
   # POST /v1/online_buyers.json
   def create
+
+    phone = online_buyer_params[:name]
+    username = "user_#{phone}"
+
+    # create a xmpp user (or receive an error of it already existing)
+
+    uri = URI.parse('http://xmpp-server.instano.in:9090/plugins/userService/users')
+
+    xmlData = ''
+
+    xmlBuilder = Builder::XmlMarkup.new(:target => xmlData)
+    xmlBuilder.instruct! :xml,  :version => "1.0", :encoding => "UTF-8", :standalone => "yes"
+    xmlBuilder.user do |user|
+      user.username username
+      user.password 'hello123'
+    end
+
+    http = Net::HTTP.new(uri.host, uri.port)
+#     request = http.post('/plugins/userService/users', xmlData, {'Authorization' => '5AR3txuW', 'Content-Type' => 'application/xml'})
+    request = Net::HTTP::Post.new('/plugins/userService/users')
+    request.add_field('Authorization', '5AR3txuW')
+    request.add_field('Content-Type', 'application/xml')
+    request.body = xmlData
+    response = http.request(request)
+
+    puts response
 
     # now save in our db
     @v1_online_buyer = V1::OnlineBuyer.new(online_buyer_params)
@@ -70,7 +98,7 @@ class V1::OnlineBuyersController < ApplicationController
 
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = allowed_hosts
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+    headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
     headers['Access-Control-Max-Age'] = '1728000'
   end
@@ -78,7 +106,7 @@ class V1::OnlineBuyersController < ApplicationController
   def cors_preflight_check
     if request.method == 'OPTIONS'
       headers['Access-Control-Allow-Origin'] = allowed_hosts
-      headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+      headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
       headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, X-Requested-With, X-Prototype-Version, Token'
       headers['Access-Control-Max-Age'] = '1728000'
 
