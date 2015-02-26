@@ -10,7 +10,7 @@ task :production do
 end
 
 task :staging do
-  server "ec2-52-10-131-228.us-west-2.compute.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
+  server "#{staging_server}", :app, :web, :db, :primary => true #ip of the server
 end
 # set :stages, %w{testing production}
 # set :default_stage, "production"
