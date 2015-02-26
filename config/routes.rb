@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     post 'brands_categories' => 'brands_categories#add_category'
     post 'brands_categories/register_seller' => 'brands_categories#assign_to_seller'
 
+    match 'online_buyers', to: 'online_buyers#create', via: [:options, :post]
+
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
