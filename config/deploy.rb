@@ -6,7 +6,7 @@ require "bundler/capistrano"
 require "rvm/capistrano"
 
 task :production do
-  server "ec2-54-69-81-124.us-west-2.compute.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
+  server "ec2-52-1-14-239.compute-1.amazonaws.com", :app, :web, :db, :primary => true #ip of the server
 end
 
 task :staging do
