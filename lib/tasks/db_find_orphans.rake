@@ -1,13 +1,13 @@
 namespace :db do
-  desc "Find orphaned records. Set DELETE=true to delete any discovered orphans."
+  desc "Find orphaned records. Set DELETE=true to destroy any discovered orphans."
   task :find_orphans => :environment do
-    
+
     found = false
 
     model_base = Rails.root.join('app/models')
 
     Dir[model_base.join('**/*.rb').to_s].each do |filename|
-      
+
       # get namespaces based on dir name
       namespaces = (File.dirname(filename)[model_base.to_s.size+1..-1] || '').split('/').map{|d| d.camelize}.join('::')
 
@@ -55,7 +55,7 @@ namespace :db do
         found = true
         data.sort_by(&:first).each do |assoc_name, field_name|
           puts "#{record.class.name}##{record.id} #{field_name} is present, but #{assoc_name} doesn't exist" + (ENV['DELETE'] ? ' -- deleting' : '')
-          record.delete if ENV['DELETE']
+          record.destroy if ENV['DELETE']
         end
       end
     end
