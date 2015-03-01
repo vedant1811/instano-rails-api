@@ -14,7 +14,7 @@ class V1::Category < ActiveRecord::Base
     if category_name
       category_name.name
     else
-      self.destroy # hack, in case we have such categories
+      "ERROR-fixme id=#{id}"
     end
   end
 end

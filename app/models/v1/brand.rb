@@ -12,7 +12,7 @@ class V1::Brand < ActiveRecord::Base
     if brand_name
       brand_name.name
     else
-      self.destroy # hack, in case we have such brands
+      "ERROR-fixme id=#{id}"
     end
   end
 end
