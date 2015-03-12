@@ -5,7 +5,7 @@ stderr_path "#{root}/log/unicorn.log"
 stdout_path "#{root}/log/unicorn.log"
 
 listen "/tmp/unicorn.instano-api.sock"
-worker_processes 2
+worker_processes 4
 timeout 30
 
 # Force the bundler gemfile environment variable to
