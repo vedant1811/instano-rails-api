@@ -73,10 +73,11 @@ RailsAdmin.config do |config|
     show
     edit
     delete
-    show_in_app
+#     show_in_app
+    clone
 
-    ## With an audit adapter, you can add:
-    # history_index
-    # history_show
+    ## paper_trail:
+    history_index
+    history_show
   end
 end
