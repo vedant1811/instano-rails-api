@@ -1,93 +1,89 @@
-# require "bundler/capistrano"            # install all the new missing plugins...
-# require "capistrano/ext/multistage"     # deploy on all the servers..
-require "delayed/recipes"               # load this for delayed job..
-# require "bundler/setup"
-require "bundler/capistrano"
-require "rvm/capistrano"
+# config valid only for current version of Capistrano
+lock '3.4.0'
 
-task :production do
-  server "54.85.8.97", :app, :web, :db, :primary => true #ip of the server
-end
+set :application, 'instano-api'
+set :repo_url, 'git@bitbucket.org:vedanta/instano-api.git'
 
-task :staging do
-  server "#{staging_server}", :app, :web, :db, :primary => true #ip of the server
-end
-# set :stages, %w{testing production}
-# set :default_stage, "production"
-set :application, "instano-api"
-set :rails_env, "production" #added for delayed job
+# Default branch is :master
+ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :user, 'ubuntu'
+
+# Default deploy_to directory is /var/www/my_app_name
+set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
+
+# Default value for :scm is :git
+# set :scm, :git
+
+# Default value for :format is :pretty
+# set :format, :pretty
+
+# Default value for :log_level is :debug
+# set :log_level, :debug
+
+# Default value for :pty is false
+
+# Default value for :linked_files is []
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+
+# Default value for linked_dirs is []
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+set :keep_releases, 5
+
+set :chruby_ruby, 'ruby-2.2.1'
+
+# unicorn_nginx options
+# ==================
+
+
+# Custom SSH Options
+# ==================
+# You may pass any option but keep in mind that net/ssh understands a
+# limited set of options, consult the Net::SSH documentation.
+# http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start
+#
+# Global options
+# --------------
+set :ssh_options, {
+  keys: %w(/home/vedant/.ssh/xmpp-user.pem),
+  forward_agent: true
+}
+
 set :delayed_job_command, "bin/delayed_job"
+set :rails_env, "production" #added for delayed job
 
-set :repository,  "git@bitbucket.org:vedanta/instano-api.git"
-set :branch, `git rev-parse --abbrev-ref HEAD` # use current branch
-set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# set :migrate_target,  :current
-# set :ssh_options,     { :forward_agent => true }
-# set :normalize_asset_timestamps, false
-set :rails_env, "production"
-
-# set :rvm_ruby_string, '2.1.0'             # ruby version you are using...
-
-set :user, "ubuntu"
-
-set :port, 22
-set :deploy_to, "/home/#{user}/apps/#{application}"
-set :deploy_via, :remote_cache
-set :use_sudo, false
-
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
-ssh_options[:keys] = ["/home/vedant/.ssh/xmpp-user.pem"]
-
-set :rvm_ruby_string, :local        # use the same ruby as used locally for deployment
-
-# Does't work anyway:
-# before 'deploy', 'rvm:install_rvm'  # install/update RVM
-before 'deploy', 'rvm:install_ruby' # install Ruby and create gemset (both if missing)
-
-# Disabling bundle --deployment when using gemsets
-set :bundle_dir, ''
-set :bundle_flags, '--system --quiet'
-
-after "deploy:create_symlink", "deploy:migrate"
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
-
-after "deploy:stop",    "delayed_job:stop"
-after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
+before :deploy, 'deploy:check_revision'
 
 namespace :deploy do
-  %w[start stop restart].each do |command|
-    desc "#{command} unicorn server"
-    task command, roles: :app, except: {no_release: true} do
-      run "/etc/init.d/unicorn_#{application} #{command}"
+
+  after :finished, :restart_rpush do
+    on roles(:web) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, :exec, "rpush stop -e #{fetch(:rails_env)} ; true"
+          execute :bundle, :exec, "rpush start -e #{fetch(:rails_env)}"
+        end
+      end
     end
   end
 
-  task :setup_config, roles: :app do
-    sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
-    sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
-    run "mkdir -p #{shared_path}/config"
-    put File.read("config/database.yml"), "#{shared_path}/config/database.yml"
-    puts "Now edit the config files in #{shared_path}."
-  end
-  after "deploy:setup", "deploy:setup_config"
-
-  task :symlink_config, roles: :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  end
-  after "deploy:finalize_update", "deploy:symlink_config"
-
-  desc "Make sure local git is in sync with remote."
-  task :check_revision, roles: :web do
-    unless `git rev-parse HEAD` == `git rev-parse origin/#{branch}`
-      puts "WARNING: HEAD is not the same as origin/#{branch}"
-      puts "Run `git push` to sync changes."
-      exit # TODO make this a check to exit rather than exit
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
     end
   end
-  before "deploy", "deploy:check_revision"
-  before "deploy:setup", "deploy:check_revision"
-  before "deploy:cold", "deploy:check_revision"
-  # TODO combine above 3 lines
+
+  desc "build missing paperclip styles"
+  task :build_missing_paperclip_styles do
+    on roles(:app) do
+      execute "cd #{current_path}; RAILS_ENV=production bundle exec rake paperclip:refresh:missing_styles"
+    end
+  end
 end

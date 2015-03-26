@@ -19,7 +19,7 @@ class InstanoMailer < ActionMailer::Base
   def error(error)
     @error = error
     mail(to: "vedant@instano.in", subject: "An error has occoured") do |format|
-      format.html { render :inline => "seller: <%= debug @error.inspect %> <%= debug @error.backtrace %>" }
+      format.html { render :inline => "error: <%= debug @error.inspect %> <%= debug @error.backtrace %>" }
     end
   end
 

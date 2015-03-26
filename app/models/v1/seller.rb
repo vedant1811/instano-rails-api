@@ -3,12 +3,12 @@ class V1::Seller < ActiveRecord::Base
   has_many :deals, :class_name => 'V1::Deal', dependent: :destroy
   has_many :quotations, :class_name => 'V1::Quotation', dependent: :destroy
   has_many :category_names, :class_name => 'V1::CategoryName', through: :categories
+  has_many :devices, :class_name => 'V1::Device', dependent: :nullify
 
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :rating, presence: true
-  validates :email, presence: true
-  validates :email, :uniqueness => true
+  validates :email, presence: true, uniqueness: true
 
   # important! do NOT reorder entries
   enum status: [

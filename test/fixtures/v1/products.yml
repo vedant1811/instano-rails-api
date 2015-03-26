@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category_name_id: 1
+  brand_name_id: 1
+  status: 1
+  device_id: 1
+
+two:
+  name: MyString
+  category_name_id: 1
+  brand_name_id: 1
+  status: 1
+  device_id: 1

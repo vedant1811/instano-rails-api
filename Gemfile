@@ -9,8 +9,15 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 # Use unicorn as the app server
 gem 'unicorn'
 # Deploy with Capistrano
-gem 'capistrano', '2.15.5', :group => :development
-gem 'rvm-capistrano', :group => :development
+group :development do
+  gem 'capistrano3-delayed-job', '~> 1.4', require: false
+  gem 'capistrano', '~> 3.4', require: false
+  gem 'capistrano-chruby', require: false
+  gem 'capistrano-rails', '~> 1.1.1', require: false
+  gem 'capistrano-unicorn-nginx', '~> 3.3', require: false
+  gem 'capistrano-cookbook', require: false
+  gem 'capistrano-secrets-yml', '~> 1.0.0', require: false
+end
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -54,3 +61,9 @@ gem 'yaml_db'
 
 # to overview database
 # gem 'pghero'
+
+# gem for GCM:
+gem 'rpush'
+
+gem 'paperclip', '~> 4.2'
+gem 'aws-sdk', '<2.0'

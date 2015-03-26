@@ -4,48 +4,55 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/newadmin', as: 'rails_admin'
   ActiveAdmin.routes(self)
   namespace :v1, defaults: {format: 'json'} do
-    resources :sellers, except: [:new, :edit, :delete] # secure this. as of now :new, :edit work without any authentication
-    post 'sellers/exists'
-    post 'sellers/sign_in'
-
-    resources :quotations, except: [:new, :edit, :delete]
-    resources :devices, except: [:new, :edit, :delete]
-    resources :buyers, except: [:new, :edit, :delete]
-    resources :quotes, except: [:new, :edit, :delete]
-    resources :deals, except: [:new, :edit, :delete]
-    resources :online_buyers, except: [:new, :edit, :delete]
-    post 'online_buyers/exists'
-
-    post 'buyers/exists'
-    post 'buyers/sign_in'
-    post 'quotes/for_seller'
-    post 'quotes/for_buyer'
-
-    post 'quotations/for_buyer' => 'quotations#for_buyer'
-
+    # devies:
+    post 'devices' => 'devices#create'
     get 'brands_categories' => 'brands_categories#index'
-    post 'brands_categories' => 'brands_categories#add_category'
-    post 'brands_categories/register_seller' => 'brands_categories#assign_to_seller'
 
-    match 'online_buyers', to: 'online_buyers#create', via: [:options, :post]
+    scope :sellers do
+      post 'exists' => 'sellers#exists'
+      post 'sign_in' => 'sellers#sign_in'
+      post '' => 'sellers#create'
+      match '', to: 'sellers#update', via: [:patch, :put]
+      post 'quotations' => 'sellers#quotations_create'
+      match 'quotations/:id', to: 'sellers#quotations_update', via: [:patch, :put]
+      get 'quotes' => 'sellers#quotes'
+    end
+
+    scope :buyers do
+      get '' => 'buyers#show'
+      post '' => 'buyers#create'
+      post 'exists' => 'buyers#exists'
+      post 'sign_in' => 'buyers#sign_in'
+      match '', to: 'buyers#update', via: [:patch, :put]
+      get 'sellers' => 'buyers#sellers_index'
+      get 'sellers/:id' => 'buyers#sellers_show'
+      get 'deals' => 'buyers#deals_index'
+      get 'deals/:id' => 'buyers#deals_show'
+      get 'quotations' => 'buyers#quotations'
+      get 'quotes' => 'buyers#quotes'
+      post 'quotes' => 'buyers#quotes_create'
+      match 'quotes', to: 'buyers#quotes_update', via: [:patch, :put]
+    end
+
+    post 'products' => 'products#create'
+
+#     resources :online_buyers, except: [:new, :edit, :delete]
+#     post 'online_buyers/exists'
+#     match 'online_buyers', to: 'online_buyers#create', via: [:options, :post]
 
   end
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
   root 'welcome#index'
-  get 'staging' => 'welcome#staging'
 
   post '/subscribe' => 'welcome#subscribe'
   post '/contact' => 'welcome#contact'
-
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "sellers#new", :as => "sign_up"
-
-  get "profile" => "sellers#profile"
-  get "categories" => "sellers#categories"
-  resources :sellers
-  resources :sessions
-  resources :visitors
+#
+#   get "log_out" => "sessions#destroy", :as => "log_out"
+#   get "log_in" => "sessions#new", :as => "log_in"
+#   get "sign_up" => "sellers#new", :as => "sign_up"
+#
+#   get "profile" => "sellers#profile"
+#   get "categories" => "sellers#categories"
+#   resources :sellers
+#   resources :sessions
 end

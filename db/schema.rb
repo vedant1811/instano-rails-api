@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223141211) do
+ActiveRecord::Schema.define(version: 20150320123406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,72 @@ ActiveRecord::Schema.define(version: 20150223141211) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "outlets", force: true do |t|
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rpush_apps", force: true do |t|
+    t.string   "name",                                null: false
+    t.string   "environment"
+    t.text     "certificate"
+    t.string   "password"
+    t.integer  "connections",             default: 1, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type",                                null: false
+    t.string   "auth_key"
+    t.string   "client_id"
+    t.string   "client_secret"
+    t.string   "access_token"
+    t.datetime "access_token_expiration"
+  end
+
+  create_table "rpush_feedback", force: true do |t|
+    t.string   "device_token", limit: 64, null: false
+    t.datetime "failed_at",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "app_id"
+  end
+
+  add_index "rpush_feedback", ["device_token"], name: "index_rpush_feedback_on_device_token", using: :btree
+
+  create_table "rpush_notifications", force: true do |t|
+    t.integer  "badge"
+    t.string   "device_token",      limit: 64
+    t.string   "sound",                        default: "default"
+    t.string   "alert"
+    t.text     "data"
+    t.integer  "expiry",                       default: 86400
+    t.boolean  "delivered",                    default: false,     null: false
+    t.datetime "delivered_at"
+    t.boolean  "failed",                       default: false,     null: false
+    t.datetime "failed_at"
+    t.integer  "error_code"
+    t.text     "error_description"
+    t.datetime "deliver_after"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "alert_is_json",                default: false
+    t.string   "type",                                             null: false
+    t.string   "collapse_key"
+    t.boolean  "delay_while_idle",             default: false,     null: false
+    t.text     "registration_ids"
+    t.integer  "app_id",                                           null: false
+    t.integer  "retries",                      default: 0
+    t.string   "uri"
+    t.datetime "fail_after"
+    t.boolean  "processing",                   default: false,     null: false
+    t.integer  "priority"
+    t.text     "url_args"
+    t.string   "category"
+  end
+
+  add_index "rpush_notifications", ["delivered", "failed"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))", using: :btree
+
   create_table "v1_brand_names", force: true do |t|
     t.string  "name"
     t.integer "category_name_id"
@@ -105,6 +171,11 @@ ActiveRecord::Schema.define(version: 20150223141211) do
   create_table "v1_devices", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "gcm_registration_id", default: "Illegal state", null: false
+    t.string   "session_id"
+    t.integer  "buyer_id"
+    t.integer  "seller_id"
+    t.integer  "gcm_status",          default: 0
   end
 
   create_table "v1_online_buyers", force: true do |t|
@@ -115,6 +186,20 @@ ActiveRecord::Schema.define(version: 20150223141211) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+  end
+
+  create_table "v1_products", force: true do |t|
+    t.string   "name",                           null: false
+    t.integer  "category_name_id"
+    t.integer  "brand_name_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "status",             default: 0, null: false
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "v1_quotations", force: true do |t|

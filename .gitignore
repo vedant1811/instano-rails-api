@@ -17,3 +17,6 @@
 
 # Ignore KDE dolphin dir settings file:
 .directory
+
+# Do not put secrets.yml in version control
+/config/secrets.yml

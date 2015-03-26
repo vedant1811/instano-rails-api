@@ -1,22 +1,5 @@
-class V1::SellersController < ApplicationController
-
-  # GET /v1/sellers
-  # GET /v1/sellers.json
-  def index
-    @v1_sellers = V1::Seller.where("status = ? OR status = ? OR status = ?",
-                                   V1::Seller.statuses[:unverified],
-                                   V1::Seller.statuses[:verified],
-                                   V1::Seller.statuses[:deal_provider])
-    render json: @v1_sellers
-  end
-
-  # GET /v1/sellers/1
-  # GET /v1/sellers/1.json
-  def show
-    @v1_seller = V1::Seller.find(params[:id])
-
-    render json: @v1_seller
-  end
+class V1::SellersController < V1::ApiBaseController
+  before_filter :authorize_seller!, :except => [:exists, :create, :sign_in]
 
   def exists
     render json: { exists: V1::Seller.exists?(:email => params.require(:email)) }
@@ -24,9 +7,10 @@ class V1::SellersController < ApplicationController
 
   def sign_in
     begin
-      seller = V1::Seller.find_by(:email => authenticate_params.require(:email))
-      if seller && seller.authenticate(authenticate_params.require(:password))
-        render json: seller, root: "sign_in"
+      @current_seller = V1::Seller.find_by(:email => authenticate_params.require(:email))
+      if @current_seller && @current_seller.authenticate(authenticate_params.require(:password))
+        associate_device
+        render json: @current_seller, root: "sign_in"
       else
         render json: { sign_in: false }
       end
@@ -38,52 +22,108 @@ class V1::SellersController < ApplicationController
   # POST /v1/sellers
   # POST /v1/sellers.json
   def create
-    @v1_seller = V1::Seller.new(seller_params)
+    @current_seller = V1::Seller.new(seller_params)
+    @current_seller.status = "verified"
 
-    if @v1_seller.save
+    if @current_seller.save
       begin
-        @v1_seller.assign_categories(params)
+        @current_seller.assign_categories(params)
       rescue => e
         InstanoMailer.delay.error(e)
       end
-      render json: @v1_seller.reload
+      associate_device
+      render json: @current_seller.reload
     else
-      InstanoMailer.delay.signup_error(@v1_seller)
-      puts json: @v1_seller.errors
-      render json: @v1_seller.errors, status: :unprocessable_entity
+      InstanoMailer.delay.signup_error(@current_seller)
+      render json: @current_seller.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /v1/sellers/1
-  # PATCH/PUT /v1/sellers/1.json
+  # PATCH/PUT /v1/sellers
+  # PATCH/PUT /v1/sellers.json
   def update
-    @v1_seller = V1::Seller.find(params[:id])
-
-    if @v1_seller.update(seller_params)
-      @v1_seller.assign_categories(params)
-      render json: @v1_seller.reload
+    if @current_seller.update(seller_params)
+      @current_seller.assign_categories(params)
+      render json: @current_seller.reload
     else
-      render json: @v1_seller.errors, status: :unprocessable_entity
+      render json: @current_seller.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /v1/sellers/1
-  # DELETE /v1/sellers/1.json
-  def destroy
-    @v1_seller = V1::Seller.find(params[:id])
-    @v1_seller.destroy
+  # POST /v1/quotations
+  # POST /v1/quotations.json
+  def quotations_create
+    @v1_quotation = V1::Quotation.new(quotation_params)
+    @v1_quotation.seller = @current_seller
 
-    head :no_content
+    if @v1_quotation.save
+      render json: @v1_quotation, status: :created
+    else
+      render json: @v1_quotation.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /v1/quotations/1
+  # PATCH/PUT /v1/quotations/1.json
+  def quotations_update
+    @v1_quotation = V1::Quotation.find(params[:id])
+
+    if @v1_quotation.seller != @current_seller
+      render json: { error: "quotation does not belong to you" }, status: :forbidden
+    elsif @v1_quotation.update(quotation_params)
+      render json: @v1_quotation, status: :ok
+    else
+      render json: @v1_quotation.errors, status: :unprocessable_entity
+    end
+  end
+
+  # GET /v1/quotes
+  # GET /v1/quotes.json
+  def quotes
+    @v1_quotes_for_seller = V1::Quote.with_seller_id(@current_seller.id)
+    render json: @v1_quotes_for_seller
+  end
+
+protected
+  # for non-signed in users, just use the IP. be sure to override this method in respective controllers
+  # rails admin controller already overrides this
+  def current_user
+    if current_seller
+      "seller:(#{@current_seller.id})#{@current_seller.name_of_shop}"
+    else
+      super
+    end
   end
 
 private
+  def quotation_params
+    params.require(:quotation).permit(:name_of_product, :price, :description, :quote_id, :status)
+  end
 
-  def seller_params # TODO make this stronger to require instead of permit
-    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password, :status)
+  def seller_params
+    params.require(:seller).permit(:name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :password)
   end
 
   def authenticate_params
     params.require(:sign_in).permit(:email, :password)
   end
 
+  def associate_device
+    @current_device.seller = @current_seller
+    @current_device.save
+  end
+
+  def authorize_seller!
+    if current_seller.nil?
+      render json: { error: "no seller associated"}, status: :forbidden
+    end
+  end
+
+  # sets @current_seller unless it is already set and returns it
+  def current_seller
+    unless @current_seller
+      @current_seller = @current_device.seller if current_device
+    end
+    return @current_seller
+  end
 end

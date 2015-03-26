@@ -1,6 +1,6 @@
 require 'net/http'
 require 'builder'
-class V1::OnlineBuyersController < ApplicationController
+class V1::OnlineBuyersController < V1::ApiBaseController
 
   skip_before_filter :verify_authenticity_token
 
@@ -55,7 +55,6 @@ class V1::OnlineBuyersController < ApplicationController
     request.body = xmlData
     response = http.request(request)
 
-    puts response
 
     # now save in our db
     @v1_online_buyer = V1::OnlineBuyer.new(online_buyer_params)
