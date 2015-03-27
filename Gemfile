@@ -17,6 +17,7 @@ group :development do
   gem 'capistrano-unicorn-nginx', '~> 3.3', require: false
   gem 'capistrano-cookbook', require: false
   gem 'capistrano-secrets-yml', '~> 1.0.0', require: false
+  gem 'cap-deploy-tagger', require: false
 end
 
 # To use debugger

@@ -23,6 +23,7 @@ class V1::Seller < ActiveRecord::Base
 
   before_create :generate_api_key
   after_create :send_welcome_email
+  after_save :guess_brands_categories
   has_secure_password
   has_paper_trail
 
@@ -95,15 +96,16 @@ class V1::Seller < ActiveRecord::Base
 
     params[:seller][:categories].each do |c|
 
-      if c[:brands].nil? || c[:brands].empty?
-        next # skip the category if it has no brands associated with it
-      end
-
       category_name = c[:name]
       category = V1::Category.new
       category.category_name = V1::CategoryName.find_by(name: category_name)
       category.seller = self
       category.save
+
+      if c[:brands].nil? || c[:brands].empty?
+        next
+      end
+
       c[:brands].each do |b|
         begin
           category.brand_names << V1::BrandName.find_by(name: b)
@@ -115,6 +117,25 @@ class V1::Seller < ActiveRecord::Base
   end
 
 private
+  def guess_brands_categories
+    return unless self.categories.empty?
+    same_sellers = V1::Seller.where(name_of_shop: self.name_of_shop)
+    parent_seller = nil
+    same_sellers.each do |seller|
+      unless seller.categories.empty?
+        parent_seller = seller
+        break
+      end
+    end
+
+    # now assign parent_seller's categories to self:
+    parent_seller.categories.each do |parent_category|
+      self.categories.create!(category_name: parent_category.category_name,
+                              brands: parent_category.brands)
+    end
+
+  end
+
   def send_welcome_email
       InstanoMailer.delay.welcome_email(self)
   end
