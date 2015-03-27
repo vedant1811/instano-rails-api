@@ -333,7 +333,7 @@ DEPENDENCIES
   paper_trail (~> 3.0)
   paperclip (~> 4.2)
   pg
-  rails (~> 4.1)
+  rails (~> 4.2)
   rails_admin
   rails_admin_clone
   rpush
