@@ -26,15 +26,10 @@ class V1::SellersController < V1::ApiBaseController
     @current_seller.status = "verified"
 
     if @current_seller.save
-      begin
-        @current_seller.assign_categories(params)
-      rescue => e
-        InstanoMailer.delay.error(e)
-      end
+      @current_seller.assign_categories(params)
       associate_device
       render json: @current_seller.reload
     else
-      InstanoMailer.delay.signup_error(@current_seller)
       render json: @current_seller.errors, status: :unprocessable_entity
     end
   end

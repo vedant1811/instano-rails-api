@@ -1,4 +1,6 @@
 class V1::Quote < ActiveRecord::Base
+  include AdminNotifiable
+
   belongs_to :buyer, :class_name => 'V1::Buyer'
   has_many :quotations, :class_name => 'V1::Quotation' # not dependant. keep quotation for reuse!
 
@@ -63,12 +65,5 @@ class V1::Quote < ActiveRecord::Base
   def ids_raw=(values)
     self.seller_ids = []
     self.seller_ids=values.split(",")
-  end
-
-  after_create :new_quote
-
-private
-  def new_quote
-      InstanoMailer.delay.new_quote(self)
   end
 end

@@ -10,6 +10,7 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'unicorn'
 # Deploy with Capistrano
 group :development do
+  gem 'mailcatcher', require: false
   gem 'capistrano3-delayed-job', '~> 1.4', require: false
   gem 'capistrano', '~> 3.4', require: false
   gem 'capistrano-chruby', require: false
