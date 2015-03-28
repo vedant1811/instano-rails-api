@@ -130,12 +130,11 @@ private
       end
     end
 
-    # now assign parent_seller's categories to self:
+    # now assign parent_seller's categories to self only if parent_seller is not nil:
     parent_seller.categories.each do |parent_category|
       self.categories.create!(category_name: parent_category.category_name,
                               brands: parent_category.brands)
-    end
-
+    end if parent_seller
   end
 
   def send_welcome_email
