@@ -7,7 +7,9 @@ server "#{fetch(:staging_server, '52.1.202.4')}", user: 'ubuntu', roles: %w{app 
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-
+# unicorn_nginx options
+# ==================
+set :nginx_server_name, 'staging.instano.in'
 
 # role-based syntax
 # ==================
