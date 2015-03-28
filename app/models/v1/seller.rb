@@ -37,6 +37,9 @@ class V1::Seller < ActiveRecord::Base
     configure :status do
       searchable false
     end
+    clone_config do
+      custom_method :shallow_clone
+    end
     list do
       field :name_of_shop
       field :category_names
@@ -119,6 +122,14 @@ class V1::Seller < ActiveRecord::Base
   end
 
 private
+  def shallow_clone
+    self.dup.tap do |seller|
+      seller.password = 'hello123'
+      seller.password_confirmation = 'hello123'
+      seller.email = "#{self.email}2"
+    end
+  end
+
   def guess_brands_categories
     return unless self.categories.empty?
     same_sellers = V1::Seller.where(name_of_shop: self.name_of_shop)
