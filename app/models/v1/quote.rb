@@ -1,6 +1,4 @@
 class V1::Quote < ActiveRecord::Base
-  include AdminNotifiable
-
   belongs_to :buyer, :class_name => 'V1::Buyer'
   has_many :quotations, :class_name => 'V1::Quotation' # not dependant. keep quotation for reuse!
 

@@ -6,11 +6,13 @@ class WelcomeController < ApplicationController
 
   def subscribe
     visitor = V1::Visitor.create(visitor_params)
+    InstanoMailer.notification(visitor).deliver_later
     render 'subscribe', formats: [:js]
   end
 
   def contact
     visitor = V1::Visitor.create(visitor_params)
+    InstanoMailer.notification(visitor).deliver_later
     render 'contact', formats: [:js]
   end
 

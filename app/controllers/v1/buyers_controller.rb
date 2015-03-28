@@ -97,6 +97,7 @@ class V1::BuyersController < V1::ApiBaseController
     @v1_quote = V1::Quote.new(quote_params)
 
     if @v1_quote.save
+      InstanoMailer.notification(@v1_quote).deliver_later
       render json: @v1_quote, status: :created
     else
       render json: @v1_quote.errors, status: :unprocessable_entity

@@ -1,6 +1,4 @@
 class V1::Seller < ActiveRecord::Base
-  include AdminNotifiable
-
   has_many :categories, :class_name => 'V1::Category', dependent: :destroy
   has_many :deals, :class_name => 'V1::Deal', dependent: :destroy
   has_many :quotations, :class_name => 'V1::Quotation', dependent: :destroy
@@ -149,7 +147,7 @@ private
   end
 
   def send_welcome_email
-      InstanoMailer.welcome_email(self).deliver_later
+    InstanoMailer.welcome_email(self).deliver_later if verified?
   end
 
   def generate_api_key

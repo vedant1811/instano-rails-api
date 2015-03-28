@@ -76,23 +76,21 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = {:host => 'instano.in'}
+
+  # using mailcatcher (run in terminal):
+  # 1. gem install mailcatcher
+  # 2. mailcatcher
+  # Go to http://localhost:1080/
+  # mailcatcher settings:
   config.action_mailer.delivery_method = :smtp
-  # make sure to update default :from (in instano_mailer.rb) as well
-  config.action_mailer.smtp_settings = {
-    :openssl_verify_mode => 'none',
-    :address => "smtp.zoho.com",
-    :port => 587,
-    :domain => "instano.in",
-    :authentication => :plain,
-    :user_name => "rajesh@instano.in",
-    :password => "instano.rajesh"
-  }
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
   config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[Exception] ",
     :sender_address => %{"Exception Notifier" <rajesh@instano.in>},
-    :exception_recipients => %w{vedant.kota@gmail.com}
+    :exception_recipients => %w{vedant.kota@gmail.com},
+    delivery_method: :smtp,
+    smtp_settings: { :address => "localhost", :port => 1025 }
   }
 end
