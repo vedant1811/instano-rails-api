@@ -54,7 +54,7 @@ set :ssh_options, {
 }
 
 set :delayed_job_command, "bin/delayed_job"
-set :rails_env, "production" #added for delayed job
+set :rails_env, fetch(:stage) #added for delayed job
 
 before :deploy, 'deploy:check_revision'
 
