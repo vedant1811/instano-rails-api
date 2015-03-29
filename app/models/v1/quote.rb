@@ -15,6 +15,8 @@ class V1::Quote < ActiveRecord::Base
 
   scope :with_seller_id, -> (*seller_ids) { where('seller_ids @> ARRAY[:seller_ids]', seller_ids: seller_ids) }
 
+  before_create :assign_sellers
+
   rails_admin do
     configure :status do
       searchable false
@@ -63,5 +65,13 @@ class V1::Quote < ActiveRecord::Base
   def ids_raw=(values)
     self.seller_ids = []
     self.seller_ids=values.split(",")
+  end
+
+private
+  def assign_sellers
+    admin_seller_ids = V1::Seller
+        .select('id')
+        .joins('INNER JOIN admin_users ON v1_sellers.email = admin_users.email')
+    self.seller_ids = admin_seller_ids.map(&:id)
   end
 end
