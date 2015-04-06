@@ -23,7 +23,7 @@ class V1::Seller < ActiveRecord::Base
 
   before_create :generate_api_key
   after_create :send_welcome_email
-  after_save :guess_brands_categories
+  after_save :guess_brands_categories, :notify
   has_secure_password
   has_paper_trail
 
@@ -122,8 +122,8 @@ class V1::Seller < ActiveRecord::Base
 private
   def shallow_clone
     self.dup.tap do |seller|
-      seller.password = 'hello123'
-      seller.password_confirmation = 'hello123'
+      seller.password = Rails.application.secrets.placeholder_password
+      seller.password_confirmation = seller.password
       seller.email = "#{self.email}2"
     end
   end
@@ -144,6 +144,13 @@ private
       self.categories.create!(category_name: parent_category.category_name,
                               brands: parent_category.brands)
     end if parent_seller
+  end
+
+  # TODO: notify (and handle the case) if status is changed from visible to invisible in app
+  def notify
+    return unless verified? || unverified? || deal_provider?
+    require 'modules/gcm_notifier'
+    GcmNotifier.seller_updated(self)
   end
 
   def send_welcome_email

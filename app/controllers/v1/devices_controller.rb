@@ -1,3 +1,4 @@
+require 'modules/gcm_notifier'
 class V1::DevicesController < V1::ApiBaseController
   skip_before_filter :authorize_device!, :only => [:create]
 
@@ -34,7 +35,7 @@ private
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       request = Net::HTTP::Post.new('/gcm/send')
-      request.add_field('Authorization', "key=#{instano_buyer_gcm_app.auth_key}")
+      request.add_field('Authorization', "key=#{GcmNotifier.instano_buyer_gcm_app.auth_key}")
       request.add_field('Content-Type', 'application/json')
       request.body = jsonData
       response = http.request(request)
@@ -54,17 +55,5 @@ private
 
   def device_params
     params.require(:device).permit(:gcm_registration_id)
-  end
-
-  def instano_buyer_gcm_app
-    app = Rpush::Gcm::App.find_by(name: "com.instano.buyer")
-    if app.nil?
-      app = Rpush::Gcm::App.new
-      app.name = "com.instano.buyer"
-      app.auth_key = "AIzaSyDmnplvDn5Lpz88ovLLH3rYvXyOgR53O_I"
-      app.connections = 1
-      app.save!
-    end
-    return app
   end
 end
