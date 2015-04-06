@@ -32,6 +32,6 @@ private
     params.require(:product).permit(:brand_name, :category_name)
   end
   def product_params
-    params.require(:product).permit(:name, :image)
+    params.require(:product).permit(:name, :image, :mrp, :their_price, :url)
   end
 end

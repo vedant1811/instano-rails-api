@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320123406) do
+ActiveRecord::Schema.define(version: 20150406114432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,7 +200,12 @@ ActiveRecord::Schema.define(version: 20150320123406) do
     t.integer  "device_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "mrp"
+    t.integer  "their_price",                                null: false
+    t.string   "url",                                        null: false
   end
+
+  add_index "v1_products", ["name"], name: "index_v1_products_on_name", unique: true, using: :btree
 
   create_table "v1_quotations", force: :cascade do |t|
     t.string   "name_of_product", limit: 255,              null: false

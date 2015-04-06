@@ -15,7 +15,9 @@ class V1::Product < ActiveRecord::Base
   belongs_to :category_name, :class_name => 'V1::CategoryName'
   belongs_to :device, :class_name => 'V1::Device'
 
-  validates :name, uniqueness: {case_sensitive: false}
+  validates :name, uniqueness: {case_sensitive: false}, presence: true
+  validates :their_price, presence: true
+  validates :url, presence: true
 
   # paperclip:
   validates_with AttachmentFileNameValidator, :attributes => :image, :matches => [/png\Z/, /jpe?g\Z/]
