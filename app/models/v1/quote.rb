@@ -16,6 +16,7 @@ class V1::Quote < ActiveRecord::Base
   scope :with_seller_id, -> (*seller_ids) { where('seller_ids @> ARRAY[:seller_ids]', seller_ids: seller_ids) }
 
   before_create :assign_sellers
+  after_save :notify
 
   rails_admin do
     configure :status do
@@ -50,7 +51,9 @@ class V1::Quote < ActiveRecord::Base
       field :brands
       field :price_range
       field :status, :enum
-      field :seller_ids, :pg_int_array
+      field :seller_ids, :pg_int_array do
+        help "comma separated. if '0', it will be replaced with seller ids of admin sellers"
+      end
       field :latitude
       field :longitude
     end
@@ -68,7 +71,12 @@ class V1::Quote < ActiveRecord::Base
   end
 
 private
+  def notify
+    require 'modules/gcm_notifier'
+    GcmNotifier.quote_updated(self)
+  end
   def assign_sellers
+    return if self.seller_ids != [0]
     admin_seller_ids = V1::Seller
         .select('id')
         .joins('INNER JOIN admin_users ON v1_sellers.email = admin_users.email')

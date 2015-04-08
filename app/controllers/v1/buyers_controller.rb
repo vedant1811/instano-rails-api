@@ -16,7 +16,7 @@ class V1::BuyersController < V1::ApiBaseController
       associate_device
       render json: @current_buyer, status: :created
     else
-      render json: @current_buyer.errors, status: :ok
+      render json: @current_buyer.errors, status: :unprocessable_entity
     end
   end
 
@@ -25,7 +25,7 @@ class V1::BuyersController < V1::ApiBaseController
   end
 
   def sign_in
-    @current_buyer = V1::Buyer.find_by(api_key: params.require(:api_key))
+    @current_buyer = V1::Buyer.find_by(api_key: params.require(:sign_in)[:api_key])
     if @current_buyer.nil?
       render json: { error: "incorrect api_key" }, status: :not_acceptable
     else
@@ -58,7 +58,6 @@ class V1::BuyersController < V1::ApiBaseController
   # GET /v1/sellers/1.json
   def sellers_show
     @v1_seller = V1::Seller.find(params[:id])
-
     render json: @v1_seller
   end
 
@@ -95,7 +94,7 @@ class V1::BuyersController < V1::ApiBaseController
   # POST /v1/quotes.json
   def quotes_create
     @v1_quote = V1::Quote.new(quote_params)
-
+    @v1_quote.buyer = @current_buyer
     if @v1_quote.save
       InstanoMailer.notification(@v1_quote).deliver_later
       render json: @v1_quote, status: :created
@@ -108,7 +107,6 @@ class V1::BuyersController < V1::ApiBaseController
   # PATCH/PUT /v1/quotes/1.json
   def quotes_update
     @v1_quote = V1::Quote.find(params[:id])
-
 #     forbidden if quote doesn't belong to buyer
     if @v1_quote.buyer != @current_buyer
       render json: { error: "quote does not belong to you" }, status: :forbidden
@@ -156,7 +154,7 @@ private
   end
 
   def quote_params
-    params.require(:quote).permit(:buyer_id, :search_string, :brands, :price_range, :product_category,
+    params.require(:quote).permit(:search_string, :brands, :price_range, :product_category,
                                   :latitude, :longitude, :address, :seller_ids => [])
   end
 

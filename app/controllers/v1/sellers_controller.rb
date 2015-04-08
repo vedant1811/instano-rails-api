@@ -12,7 +12,7 @@ class V1::SellersController < V1::ApiBaseController
         associate_device
         render json: @current_seller, root: "sign_in"
       else
-        render json: { sign_in: false }, status: :not_acceptable
+        render json: { sign_in: "incorrect credentials" }, status: :not_acceptable
       end
     rescue ActionController::ParameterMissing => e
       render json: e, status: :unprocessable_entity

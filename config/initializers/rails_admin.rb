@@ -23,7 +23,7 @@ ActiveRecord::Base.send(:extend, ActiveRecord::RailsAdminEnum)
 
 class RailsAdminPgArray < RailsAdmin::Config::Fields::Base
   register_instance_option :formatted_value do
-    value.join(',')
+    value.join(',') if value
   end
 end
 

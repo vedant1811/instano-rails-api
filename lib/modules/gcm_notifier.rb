@@ -12,10 +12,22 @@ module GcmNotifier
   end
 
   def GcmNotifier.quote_updated(quote)
+    gcm_ids = V1::Device
+      .select('gcm_registration_id')
+      .joins(:seller)
+      .where(v1_sellers: { id: quote.seller_ids })
+      .map(&:gcm_registration_id)
+    notifiction = Rpush::Gcm::Notification.new
+    notifiction.app = instano_buyer_gcm_app
+    notifiction.registration_ids = gcm_ids
+    notifiction.data = {
+      type: 'quote',
+      quote: quote
+    }
+    notifiction.save!
   end
 
   def GcmNotifier.seller_updated(seller)
-
     gcm_ids = V1::Device
         .select('gcm_registration_id')
         .joins(:buyer)
