@@ -18,6 +18,7 @@ namespace :parse do
         v1_product.url = product['link']
         v1_product.features = product['features']
         if product['category']
+          Product.where('lower(name) = ?', name.downcase).first_or_create
           category_name = V1::CategoryName.find_or_create_by_name(product['category'], case_sensitive: false)
           v1_product.category_name = category_name
         else

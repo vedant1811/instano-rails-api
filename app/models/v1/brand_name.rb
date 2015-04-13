@@ -9,12 +9,13 @@ class V1::BrandName < ActiveRecord::Base
 
   has_paper_trail
 
-  def self.find_or_create_by_name(*args)
-    options = args.extract_options!
-    options[:name] = args[0] if args[0].is_a?(String)
-    case_sensitive = options.delete(:case_sensitive)
-    conditions = case_sensitive ? ['name = ?', options[:name]] :
-    ['UPPER(name) = ?', options[:name].upcase]
-    where(conditions).first || create(options)
+  rails_admin do
+    object_label_method do
+      :title
+    end
+  end
+
+  def title
+    "#{self.name} in #{self.category_name.name}"
   end
 end

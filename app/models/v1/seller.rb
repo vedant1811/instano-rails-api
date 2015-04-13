@@ -1,9 +1,12 @@
 class V1::Seller < ActiveRecord::Base
-  has_many :categories, :class_name => 'V1::Category', dependent: :destroy
   has_many :deals, :class_name => 'V1::Deal', dependent: :destroy
   has_many :quotations, :class_name => 'V1::Quotation', dependent: :destroy
-  has_many :category_names, :class_name => 'V1::CategoryName', through: :categories
+  has_many :brands, :class_name => 'V1::Brand', dependent: :destroy
+  has_many :brand_names, :class_name => 'V1::BrandName', through: :brands
+  has_many :category_names, :class_name => 'V1::CategoryName', through: :brand_names
   has_many :devices, :class_name => 'V1::Device', dependent: :nullify
+
+  accepts_nested_attributes_for :brands
 
   validates :latitude, presence: true
   validates :longitude, presence: true
@@ -40,7 +43,7 @@ class V1::Seller < ActiveRecord::Base
     end
     list do
       field :name_of_shop
-      field :category_names
+      field :brand_names
       field :status, :enum
       field :phone
       field :address
@@ -54,7 +57,7 @@ class V1::Seller < ActiveRecord::Base
       field :name_of_shop
       field :name_of_seller
       field :address
-      field :category_names
+      field :brand_names
       field :phone
       field :email
       field :created_at
@@ -72,12 +75,10 @@ class V1::Seller < ActiveRecord::Base
       field :latitude
       field :longitude
       field :phone
-      field :categories do
+      field :brands
+      field :brand_names do
         label "edit brands"
         help "Use only to edit brands. Do not add/remove categories"
-      end
-      field :category_names do
-        help "add/remove categories. then update. then add brands"
       end
     end
   end
@@ -95,26 +96,14 @@ class V1::Seller < ActiveRecord::Base
     params.require(:seller).require(:categories)
     params.require(:seller).permit(:categories => []).permit(:name, :brands => [])
 
-    self.categories.clear
+    self.brands.clear
 
     params[:seller][:categories].each do |c|
+      next if c[:brands].nil? || c[:brands].empty?
 
-      category_name = c[:name]
-      category = V1::Category.new
-      category.category_name = V1::CategoryName.find_by(name: category_name)
-      category.seller = self
-      category.save
-
-      if c[:brands].nil? || c[:brands].empty?
-        next
-      end
-
+      category_name = V1::CategoryName.find_by(name: c[:name])
       c[:brands].each do |b|
-        begin
-          category.brand_names << V1::BrandName.find_by(name: b)
-        rescue ActiveRecord::RecordInvalid
-          # skip it. May happen if brand is already added to the particular category
-        end
+        brand_name = V1::BrandName.find_by(name: b, category_name: category_name)
       end
     end
   end
@@ -129,20 +118,19 @@ private
   end
 
   def guess_brands_categories
-    return unless self.categories.empty?
+    return unless self.brands.empty?
     same_sellers = V1::Seller.where(name_of_shop: self.name_of_shop)
     parent_seller = nil
     same_sellers.each do |seller|
-      unless seller.categories.empty?
+      unless seller.brands.empty?
         parent_seller = seller
         break
       end
     end
 
-    # now assign parent_seller's categories to self only if parent_seller is not nil:
-    parent_seller.categories.each do |parent_category|
-      self.categories.create!(category_name: parent_category.category_name,
-                              brands: parent_category.brands)
+    # now assign parent_seller's brands to self only if parent_seller is not nil:
+    parent_seller.brands.each do |parent_brand|
+      self.brands.create!(brand_name: parent_brand.brand_name)
     end if parent_seller
   end
 
