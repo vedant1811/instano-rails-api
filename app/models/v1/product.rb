@@ -22,7 +22,7 @@ class V1::Product < ActiveRecord::Base
   # paperclip:
   validates_with AttachmentFileNameValidator, :attributes => :image, :matches => [/png\Z/, /jpe?g\Z/]
   validates_with AttachmentContentTypeValidator, :attributes => :image, :content_type => /\Aimage\/.*\Z/
-  validates_with AttachmentSizeValidator, :attributes => :image, :less_than => 1.megabytes
+  validates_with AttachmentSizeValidator, :attributes => :image, :less_than => 2.megabytes
 
   # important! do NOT reorder entries
   enum status: [

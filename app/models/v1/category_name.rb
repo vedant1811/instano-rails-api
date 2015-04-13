@@ -12,7 +12,6 @@ class V1::CategoryName < ActiveRecord::Base
   has_paper_trail
 
   def self.find_or_create_by_name(*args)
-    puts args.inspect
     options = args.extract_options!
     options[:name] = args[0] if args[0].is_a?(String)
     case_sensitive = options.delete(:case_sensitive)
