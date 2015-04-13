@@ -1,5 +1,5 @@
 namespace :parse do
-  desc "scrape flipkart products scraped by ravinder. Use FILE_PATH to specify input file. It is long running. Best to do `nohup rake parse:flipkart_products FILE_PATH=/home/vedant/android/instano/outputData.json &`"
+  desc "scrape flipkart products scraped by ravinder. Use FILE_PATH to specify input file. It is long running. Best to do `nohup rake parse:flipkart_products FILE_PATH=/home/ubuntu/outputData.json RAILS_ENV=staging &`"
   task :flipkart_products => :environment do
     file = open(ENV['FILE_PATH'])
     ruby_object = JSON.parse file.read
@@ -38,7 +38,8 @@ namespace :parse do
         else
           puts v1_product.errors.inspect
         end
-      rescue SocketError => error
+      rescue => error # rescue any standard error and try again after a delay
+        puts error.inspect
         if retry_attempts > 0
           retry_attempts -= 1
           sleep 5
