@@ -10,9 +10,17 @@ class V1::Quotation < ActiveRecord::Base
 
   has_paper_trail
 
+  after_save :notify
+
   rails_admin do
     configure :status do
       searchable false
     end
+  end
+
+private
+  def notify
+    require 'modules/gcm_notifier'
+    GcmNotifier.quotation_updated(self)
   end
 end

@@ -27,6 +27,24 @@ module GcmNotifier
     notifiction.save!
   end
 
+  def GcmNotifier.quotation_updated(quotation)
+    gcm_ids = quotation
+      .quote
+      .buyer
+      .devices
+      .select('gcm_registration_id')
+      .map(&:gcm_registration_id)
+
+    notifiction = Rpush::Gcm::Notification.new
+    notifiction.app = instano_buyer_gcm_app
+    notifiction.registration_ids = gcm_ids
+    notifiction.data = {
+      type: 'quotation',
+      quotation: quotation
+    }
+    notifiction.save!
+  end
+
   def GcmNotifier.seller_updated(seller)
     gcm_ids = V1::Device
         .select('gcm_registration_id')

@@ -113,7 +113,8 @@ Rpush.reflect do |on|
   # You will need to delete the registration_id from your records.
   on.gcm_invalid_registration_id do |app, error, registration_id|
     InstanoMailer.delay.error(error)
-    # TODO: do more
+    device = V1::Device.find_by(gcm_registration_id: registration_id)
+    device.error! if device
   end
 
   # Called when an SSL certificate will expire within 1 month.
