@@ -1,5 +1,5 @@
 class V1::BuyersController < V1::ApiBaseController
-  before_filter :authorize_buyer!, :except => [:exists, :create, :sign_in]
+  before_filter :authorize_buyer!, :except => [:exists, :create, :sign_in, :sellers]
 
   # GET /v1/buyers
   # GET /v1/buyers.json
@@ -25,7 +25,7 @@ class V1::BuyersController < V1::ApiBaseController
   end
 
   def sign_in
-    @current_buyer = V1::Buyer.find_by(api_key: params.require(:api_key))
+    @current_buyer = V1::Buyer.find_by(api_key: params.require(:sign_in)[:api_key])
     if @current_buyer.nil?
       render json: { error: "incorrect api_key" }, status: :not_acceptable
     else

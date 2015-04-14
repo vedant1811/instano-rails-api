@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       match 'quotes', to: 'buyers#quotes_update', via: [:patch, :put]
     end
 
-    post 'products' => 'products#create'
+#     post 'products' => 'products#create'
 
 #     resources :online_buyers, except: [:new, :edit, :delete]
 #     post 'online_buyers/exists'
