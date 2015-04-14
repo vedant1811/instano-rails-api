@@ -17,21 +17,27 @@ namespace :parse do
         v1_product.their_price = product['sellingprice']
         v1_product.url = product['link']
         v1_product.features = product['features']
+
+        category_name = nil
         if product['category']
-          Product.where('lower(name) = ?', name.downcase).first_or_create
-          category_name = V1::CategoryName.find_or_create_by_name(product['category'], case_sensitive: false)
-          v1_product.category_name = category_name
+          category_name = V1::CategoryName.where('lower(name) = ?', product['category'].downcase).first
+          category_name ||= V1::CategoryName.create!(name: product['category'])
         else
           status = "on_hold"
         end
+        brand = "" # empty string
         if product['brand']
-          brand_name = V1::BrandName.find_or_create_by_name(product['brand'], case_sensitive: false)
-          v1_product.brand_name = brand_name
+          brand = product['brand']
         else
           status = "on_hold"
         end
 
-        v1_product.device = V1::Device.find_or_create_by(gcm_registration_id: "ravidner")
+        if category_name
+          brand_name = V1::BrandName.where(category_name: category_name, name: brand).first_or_create!
+          v1_product.brand_name = brand_name
+        end
+
+        v1_product.device = V1::Device.find_or_create_by!(gcm_registration_id: "ravidner")
         v1_product.status = status
         if v1_product.save
           n+=1

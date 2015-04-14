@@ -1,6 +1,6 @@
 class V1::Product < ActiveRecord::Base
   has_attached_file :image, # paperclip options:
-        :preserve_files => "true",
+        :preserve_files => "false",
         :styles => { :medium => "300x300>", :thumb => "100x100>" },
         :url => "/:rails_env/#{table_name}/images/:style/:filename",
         :default_url => ":url/missing.png",
@@ -12,7 +12,6 @@ class V1::Product < ActiveRecord::Base
         :s3_storage_class => :reduced_redundancy
 
   belongs_to :brand_name, :class_name => 'V1::BrandName'
-  belongs_to :category_name, :class_name => 'V1::CategoryName'
   belongs_to :device, :class_name => 'V1::Device'
 
   validates :name, uniqueness: {case_sensitive: false}, presence: true

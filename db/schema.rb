@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413181826) do
+ActiveRecord::Schema.define(version: 20150414133924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(version: 20150413181826) do
 
   create_table "v1_products", force: :cascade do |t|
     t.string   "name",               limit: 255,             null: false
-    t.integer  "category_name_id"
     t.integer  "brand_name_id"
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
