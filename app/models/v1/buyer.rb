@@ -1,8 +1,8 @@
 class V1::Buyer < ActiveRecord::Base
+  before_create :generate_api_key
+
   has_many :quotes, :class_name => 'V1::Quote', dependent: :destroy
   has_many :devices, :class_name => 'V1::Device', dependent: :nullify
-
-  before_create :generate_api_key
 
   validates :phone, uniqueness: true
   validates :phone, presence: true

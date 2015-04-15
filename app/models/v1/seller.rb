@@ -1,4 +1,8 @@
 class V1::Seller < ActiveRecord::Base
+  before_create :generate_api_key
+  after_create :send_welcome_email
+  after_save :guess_brands_categories, :notify
+
   has_many :deals, :class_name => 'V1::Deal', dependent: :destroy
   has_many :quotations, :class_name => 'V1::Quotation', dependent: :destroy
   has_many :brands, :class_name => 'V1::Brand', dependent: :destroy
@@ -24,9 +28,6 @@ class V1::Seller < ActiveRecord::Base
     :deal_provider
   ]
 
-  before_create :generate_api_key
-  after_create :send_welcome_email
-  after_save :guess_brands_categories, :notify
   has_secure_password
   has_paper_trail
 

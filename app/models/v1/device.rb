@@ -1,4 +1,6 @@
 class V1::Device < ActiveRecord::Base
+  before_create :reset_session
+
   belongs_to :buyer, :class_name => 'V1::Buyer'
   belongs_to :seller, :class_name => 'V1::Seller'
 #   has_many :products, :class_name => 'V1::Product', dependent: :nullify
@@ -12,8 +14,6 @@ class V1::Device < ActiveRecord::Base
   ]
 
   has_paper_trail
-
-  before_create :reset_session
 
   # care: do not forget to save
   # TODO: reset sessions in case session id is really old

@@ -1,4 +1,7 @@
 class V1::Quote < ActiveRecord::Base
+  before_create :assign_sellers
+  after_save :notify
+
   belongs_to :buyer, :class_name => 'V1::Buyer'
   has_many :quotations, :class_name => 'V1::Quotation' # not dependant. keep quotation for reuse!
 
@@ -14,9 +17,6 @@ class V1::Quote < ActiveRecord::Base
   has_paper_trail
 
   scope :with_seller_id, -> (*seller_ids) { where('seller_ids @> ARRAY[:seller_ids]', seller_ids: seller_ids) }
-
-  before_create :assign_sellers
-  after_save :notify
 
   rails_admin do
     configure :status do

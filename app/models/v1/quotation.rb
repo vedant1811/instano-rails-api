@@ -1,4 +1,6 @@
 class V1::Quotation < ActiveRecord::Base
+  after_save :notify
+
   belongs_to :seller, :class_name => 'V1::Seller'
   belongs_to :quote, :class_name => 'V1::Quote'
 
@@ -9,8 +11,6 @@ class V1::Quotation < ActiveRecord::Base
   validates :seller_id, presence: true
 
   has_paper_trail
-
-  after_save :notify
 
   rails_admin do
     configure :status do

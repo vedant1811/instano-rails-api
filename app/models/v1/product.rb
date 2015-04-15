@@ -1,4 +1,6 @@
 class V1::Product < ActiveRecord::Base
+  before_create :sanitize_file_name
+
   has_attached_file :image, # paperclip options:
         :preserve_files => "false",
         :styles => { :medium => "300x300>", :thumb => "100x100>" },
@@ -39,8 +41,6 @@ class V1::Product < ActiveRecord::Base
       searchable false
     end
   end
-
-  before_create :sanitize_file_name
 
   private
   def sanitize_file_name
