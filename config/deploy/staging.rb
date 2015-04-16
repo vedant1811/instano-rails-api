@@ -3,7 +3,7 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server "#{fetch(:staging_server, '52.1.202.4')}", user: 'ubuntu', roles: %w{app db web}
+server "#{fetch(:staging_server, 'ec2-52-5-103-159.compute-1.amazonaws.com')}", user: 'ubuntu', roles: %w{app db web}
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 

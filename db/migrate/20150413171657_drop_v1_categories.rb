@@ -13,7 +13,7 @@ class DropV1Categories < ActiveRecord::Migration
 
     V1::Brand.reset_column_information
     V1::Brand.all.each do |brand|
-      if brand.category.seller
+      if brand.category && brand.category.seller
         brand.seller = brand.category.seller
         brand.save!
       else
