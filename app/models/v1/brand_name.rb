@@ -16,6 +16,10 @@ class V1::BrandName < ActiveRecord::Base
   end
 
   def title
-    "#{self.name} in #{self.category_name.name}"
+    if self.name && self.category_name && self.category_name.name
+      "#{self.name} in #{self.category_name.name}"
+    else
+      "FIXME"
+    end
   end
 end
