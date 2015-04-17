@@ -9,7 +9,7 @@ class V1::Brand < ActiveRecord::Base
   has_paper_trail
 
   def title
-    if brand_name
+    if brand_name && brand_name.name && brand_name.category_name && brand_name.category_name.name
       "#{brand_name.name} in #{brand_name.category_name.name}"
     else
       "ERROR-fixme id=#{id}"
