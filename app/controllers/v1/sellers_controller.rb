@@ -10,7 +10,7 @@ class V1::SellersController < V1::ApiBaseController
       @current_seller = V1::Seller.find_by(:email => authenticate_params.require(:email))
       if @current_seller && @current_seller.authenticate(authenticate_params.require(:password))
         associate_device
-        render json: @current_seller, root: "sign_in"
+        render json: @current_seller
       else
         render json: { sign_in: "incorrect credentials" }, status: :not_acceptable
       end
