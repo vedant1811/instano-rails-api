@@ -76,10 +76,11 @@ private
     GcmNotifier.quote_updated(self)
   end
   def assign_sellers
-    return if self.seller_ids != [0]
+    return true if self.seller_ids != [0]
     admin_seller_ids = V1::Seller
         .select('id')
         .joins('INNER JOIN admin_users ON v1_sellers.email = admin_users.email')
     self.seller_ids = admin_seller_ids.map(&:id)
+    return true
   end
 end
