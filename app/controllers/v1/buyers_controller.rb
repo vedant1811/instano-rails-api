@@ -155,7 +155,7 @@ private
 
   def quote_params
     params.require(:quote).permit(:search_string, :brands, :price_range, :product_category,
-                                  :latitude, :longitude, :address, :seller_ids => [])
+                                  :latitude, :longitude, :address)
   end
 
   def associate_device
