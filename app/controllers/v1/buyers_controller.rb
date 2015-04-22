@@ -95,6 +95,7 @@ class V1::BuyersController < V1::ApiBaseController
   def quotes_create
     @v1_quote = V1::Quote.new(quote_params)
     @v1_quote.buyer = @current_buyer
+    @v1_quote.save!
     if @v1_quote.save
       InstanoMailer.notification(@v1_quote).deliver_later
       render json: @v1_quote, status: :created
