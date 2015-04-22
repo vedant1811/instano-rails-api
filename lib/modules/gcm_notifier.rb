@@ -1,4 +1,5 @@
 module GcmNotifier
+
   def GcmNotifier.instano_buyer_gcm_app
     app = Rpush::Gcm::App.find_by(name: "com.instano.buyer")
     if app.nil?
@@ -17,14 +18,16 @@ module GcmNotifier
       .joins(:seller)
       .where(v1_sellers: { id: quote.seller_ids })
       .map(&:gcm_registration_id)
-    notifiction = Rpush::Gcm::Notification.new
-    notifiction.app = instano_buyer_gcm_app
-    notifiction.registration_ids = gcm_ids
-    notifiction.data = {
-      type: 'quote',
-      quote: quote
-    }
-    notifiction.save!
+    if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
+      notifiction = Rpush::Gcm::Notification.new
+      notifiction.app = instano_buyer_gcm_app
+      notifiction.registration_ids = gcm_ids
+      notifiction.data = {
+        type: 'quote',
+        quote: quote
+      }
+      notifiction.save!
+    end
   end
 
   def GcmNotifier.quotation_updated(quotation)
@@ -35,14 +38,16 @@ module GcmNotifier
       .select('gcm_registration_id')
       .map(&:gcm_registration_id)
 
-    notifiction = Rpush::Gcm::Notification.new
-    notifiction.app = instano_buyer_gcm_app
-    notifiction.registration_ids = gcm_ids
-    notifiction.data = {
-      type: 'quotation',
-      quotation: quotation
-    }
-    notifiction.save!
+    if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
+      notifiction = Rpush::Gcm::Notification.new
+      notifiction.app = instano_buyer_gcm_app
+      notifiction.registration_ids = gcm_ids
+      notifiction.data = {
+        type: 'quotation',
+        quotation: quotation
+      }
+      notifiction.save!
+    end
   end
 
   def GcmNotifier.seller_updated(seller)
@@ -50,13 +55,16 @@ module GcmNotifier
         .select('gcm_registration_id')
         .joins(:buyer)
         .map(&:gcm_registration_id)
-    notifiction = Rpush::Gcm::Notification.new
-    notifiction.app = instano_buyer_gcm_app
-    notifiction.registration_ids = gcm_ids
-    notifiction.data = {
-        type: 'seller',
-        seller: V1::SellerSerializer.new(seller)
-    }
-    notifiction.save!
+
+    if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
+      notifiction = Rpush::Gcm::Notification.new
+      notifiction.app = instano_buyer_gcm_app
+      notifiction.registration_ids = gcm_ids
+      notifiction.data = {
+          type: 'seller',
+          seller: V1::SellerSerializer.new(seller)
+      }
+      notifiction.save!
+    end
   end
 end
