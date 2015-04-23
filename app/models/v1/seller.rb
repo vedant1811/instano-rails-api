@@ -94,18 +94,25 @@ class V1::Seller < ActiveRecord::Base
   end
 
   def assign_categories(params)
-    params.require(:seller).require(:categories)
-    params.require(:seller).permit(:categories => []).permit(:name, :brands => [])
+    begin
+      puts 'starting assign_categories'
+      puts params.inspect
+      permitted = params.require(:seller).permit(brands: [:name, :category])
+      puts permitted.inspect
 
-    self.brands.clear
+      self.brands.clear
 
-    params[:seller][:categories].each do |c|
-      next if c[:brands].nil? || c[:brands].empty?
+      permitted[:brands].each do |c|
+        next if c[:name].nil? || c[:category].nil?
 
-      category_name = V1::CategoryName.find_by(name: c[:name])
-      c[:brands].each do |b|
-        brand_name = V1::BrandName.find_by(name: b, category_name: category_name)
+        category_name = V1::CategoryName.find_by(name: c[:category])
+        if category_name
+          brand_name = V1::BrandName.find_by(name: c[:name], category_name: category_name)
+          self.brand_names << brand_name if brand_name
+        end
       end
+    rescue ActionController::ParameterMissing => e
+      logger.error e
     end
   end
 
