@@ -31,12 +31,17 @@ module GcmNotifier
   end
 
   def GcmNotifier.quotation_updated(quotation)
-    gcm_ids = quotation
-      .quote
-      .buyer
-      .devices
-      .select('gcm_registration_id')
-      .map(&:gcm_registration_id)
+    gcm_ids = []
+
+    if quotation.quote # then only notify to this quote
+      gcm_ids << quotation.quote.buyer.devices
+                  .select('gcm_registration_id')
+                  .map(&:gcm_registration_id)
+    elsif quotation.product
+      gcm_ids << V1::Device.where(id: V1::Buyer.where(id: quotation.product.quotes))
+                      .select('gcm_registration_id')
+                      .map(&:gcm_registration_id)
+    end
 
     if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
       notifiction = Rpush::Gcm::Notification.new

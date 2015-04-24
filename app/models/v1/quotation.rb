@@ -3,12 +3,12 @@ class V1::Quotation < ActiveRecord::Base
 
   belongs_to :seller, :class_name => 'V1::Seller'
   belongs_to :quote, :class_name => 'V1::Quote'
+  belongs_to :product, :class_name => 'V1::Product'
 
   enum status: [ :unread, :read, :expired, :accepted, :cancelled ]
-  validates :name_of_product, presence: true
   validates :price, presence: true
-  validates :quote_id, presence: true
   validates :seller_id, presence: true
+  validates :product, presence: true
 
   has_paper_trail
 

@@ -15,6 +15,9 @@ class V1::Product < ActiveRecord::Base
 
   belongs_to :brand_name, :class_name => 'V1::BrandName'
   belongs_to :device, :class_name => 'V1::Device'
+  has_many :deals, :class_name => 'V1::Deal'
+  has_many :quotes, :class_name => 'V1::Quote'
+  has_many :quotations, :class_name => 'V1::Quotation'
 
   validates :name, uniqueness: {case_sensitive: false}, presence: true
   validates :their_price, presence: true

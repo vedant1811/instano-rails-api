@@ -203,14 +203,14 @@ ActiveRecord::Schema.define(version: 20150414133924) do
   add_index "v1_products", ["name"], name: "index_v1_products_on_name", unique: true, using: :btree
 
   create_table "v1_quotations", force: :cascade do |t|
-    t.string   "name_of_product", limit: 255,              null: false
-    t.integer  "price",                                    null: false
-    t.text     "description",                 default: "", null: false
+    t.integer  "price",                        null: false
+    t.text     "description",     default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "quote_id",                                 null: false
-    t.integer  "seller_id",                                null: false
-    t.integer  "status",                      default: 0
+    t.integer  "quote_id",                     null: false
+    t.integer  "seller_id",                    null: false
+    t.integer  "status",          default: 0
+    t.string   "name_of_product"
   end
 
   create_table "v1_quotes", force: :cascade do |t|
