@@ -4,7 +4,7 @@ gem 'rails', '~>4.2'
 gem 'pg'
 
 # To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'bcrypt', '~> 3.1.2'
 
 # Use unicorn as the app server
 gem 'unicorn'
