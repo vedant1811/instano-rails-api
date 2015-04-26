@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     end
 
 #     post 'products' => 'products#create'
+    get 'products/:id' => 'products#show'
 
 #     resources :online_buyers, except: [:new, :edit, :delete]
 #     post 'online_buyers/exists'

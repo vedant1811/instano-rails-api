@@ -1,3 +1,4 @@
 class V1::DealSerializer < ActiveModel::Serializer
-  attributes :id, :heading, :subheading, :updated_at, :expires_at, :seller_id
+  has_one :product
+  attributes :id, :product, :heading, :subheading, :expires_at, :seller_id, :updated_at
 end

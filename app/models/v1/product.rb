@@ -3,12 +3,12 @@ class V1::Product < ActiveRecord::Base
 
   has_attached_file :image, # paperclip options:
         :preserve_files => "false",
-        :styles => { :medium => "300x300>", :thumb => "100x100>" },
+        :styles => { :medium => '300x300>', :thumb => '100x100>'},
         :url => "/:rails_env/#{table_name}/images/:style/:filename",
         :default_url => ":url/missing.png",
         :path => ":url",
         :storage => :s3,
-        :s3_headers => { "Expires" => 1.year.from_now.httpdate },
+        :s3_headers => { 'Expires' => 1.year.from_now.httpdate },
         :s3_credentials => "#{Rails.root}/config/secrets.yml",
         :bucket => 'instano',
         :s3_storage_class => :reduced_redundancy
