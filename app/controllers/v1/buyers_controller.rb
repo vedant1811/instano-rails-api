@@ -44,35 +44,11 @@ class V1::BuyersController < V1::ApiBaseController
     end
   end
 
-  # GET /v1/sellers
-  # GET /v1/sellers.json
-  def sellers_index
-    @v1_sellers = V1::Seller.where("status = ? OR status = ? OR status = ?",
-                                   V1::Seller.statuses[:unverified],
-                                   V1::Seller.statuses[:verified],
-                                   V1::Seller.statuses[:deal_provider])
-    render json: @v1_sellers
-  end
-
   # GET /v1/sellers/1
   # GET /v1/sellers/1.json
   def sellers_show
     @v1_seller = V1::Seller.find(params[:id])
     render json: @v1_seller
-  end
-
-  # GET /v1/deals
-  # GET /v1/deals.json
-  def deals_index
-    @v1_deals = V1::Deal.all
-    render json: @v1_deals
-  end
-
-  # GET /v1/deals/1
-  # GET /v1/deals/1.json
-  def deals_show
-    @v1_deal = V1::Deal.find(params[:id])
-    render json: @v1_deal
   end
 
   # GET /v1/quotations
@@ -81,43 +57,6 @@ class V1::BuyersController < V1::ApiBaseController
     # TODO: optimize
     @v1_quotations = V1::Quotation.where(product: V1::Quote.select(:product_id).where(buyer: @current_buyer))
     render json: @v1_quotations
-  end
-
-  # GET /v1/quotes
-  # GET /v1/quotes.json
-  def quotes
-    @v1_quotes_for_buyer = V1::Quote.where(buyer: @current_buyer)
-    render json: @v1_quotes_for_buyer
-  end
-
-  # POST /v1/quotes
-  # POST /v1/quotes.json
-  def quotes_create
-    @v1_quote = V1::Quote.new(quote_params)
-    @v1_quote.buyer = @current_buyer
-    if @v1_quote.address.blank?
-      @v1_quote.address = request.remote_ip
-    end
-    if @v1_quote.save
-      InstanoMailer.notification(@v1_quote).deliver_later
-      render json: @v1_quote, status: :created
-    else
-      render json: @v1_quote.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /v1/quotes/1
-  # PATCH/PUT /v1/quotes/1.json
-  def quotes_update
-    @v1_quote = V1::Quote.find(params[:id])
-#     forbidden if quote doesn't belong to buyer
-    if @v1_quote.buyer != @current_buyer
-      render json: { error: "quote does not belong to you" }, status: :forbidden
-    elsif @v1_quote.update(quote_params)
-      render json: @v1_quote, status: :ok
-    else
-      render json: @v1_quote.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /v1/quotations/1

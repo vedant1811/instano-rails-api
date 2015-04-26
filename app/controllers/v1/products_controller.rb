@@ -1,7 +1,11 @@
 class V1::ProductsController < V1::ApiBaseController
 
-
-
+  #GET /products/1
+  #GET /products/1.json
+  def show
+    @v1_product = V1::Product.find(params[:id])
+    render json: @v1_product
+  end
 
   # POST /v1/products
   # POST /v1/products.json

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :admin_users, ActiveAdmin::Devise.config
   mount RailsAdmin::Engine => '/newadmin', as: 'rails_admin'
   ActiveAdmin.routes(self)
@@ -13,8 +12,8 @@ Rails.application.routes.draw do
       post 'sign_in' => 'sellers#sign_in'
       post '' => 'sellers#create'
       match '', to: 'sellers#update', via: [:patch, :put]
-      post 'quotations' => 'sellers#quotations_create'
-      match 'quotations/:id', to: 'sellers#quotations_update', via: [:patch, :put]
+      post 'quotations' => 'quotations#create'
+      match 'quotations/:id', to: 'quotations#update', via: [:patch, :put]
       get 'quotes' => 'sellers#quotes'
     end
 
@@ -24,14 +23,19 @@ Rails.application.routes.draw do
       post 'exists' => 'buyers#exists'
       post 'sign_in' => 'buyers#sign_in'
       match '', to: 'buyers#update', via: [:patch, :put]
-      get 'sellers' => 'buyers#sellers_index'
-      get 'sellers/:id' => 'buyers#sellers_show'
-      get 'deals' => 'buyers#deals_index'
+
+      get 'sellers' => 'sellers#index'
+      get 'sellers/:id' => 'sellers#show'
+
+      get 'deals' => 'deals#index'
       get 'deals/:id' => 'buyers#deals_show'
+
       get 'quotations' => 'buyers#quotations'
-      get 'quotes' => 'buyers#quotes'
-      post 'quotes' => 'buyers#quotes_create'
-      match 'quotes', to: 'buyers#quotes_update', via: [:patch, :put]
+
+      get 'quotes' => 'quotes#buyers_index'
+      get 'quotes/:id' => 'quotes#show'
+      post 'quotes' => 'quotes#create'
+      match 'quotes', to: 'quotes#update', via: [:patch, :put]
     end
 
 #     post 'products' => 'products#create'

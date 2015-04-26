@@ -23,6 +23,20 @@ protected
     @current_buyer
   end
 
+  def authorize_seller!
+    if current_seller.nil?
+      render json: { error: "no seller associated"}, status: :forbidden
+    end
+  end
+
+  # sets @current_seller unless it is already set and returns it
+  def current_seller
+    unless @current_seller
+      @current_seller = @current_device.seller if current_device
+    end
+    @current_seller
+  end
+
   # for non-signed in users, just use the IP. be sure to override this method in respective controllers
   # rails admin controller already overrides this
   def current_user
