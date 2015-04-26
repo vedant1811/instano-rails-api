@@ -13,31 +13,28 @@ module GcmNotifier
   end
 
   def GcmNotifier.quote_updated(quote)
-    gcm_ids = V1::Device
-      .select('gcm_registration_id')
-      .joins(:seller)
-      .where(v1_sellers: { id: quote.seller_ids })
-      .map(&:gcm_registration_id)
-    if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
-      notifiction = Rpush::Gcm::Notification.new
-      notifiction.app = instano_buyer_gcm_app
-      notifiction.registration_ids = gcm_ids
-      notifiction.data = {
-        type: 'quote',
-        quote: quote
-      }
-      notifiction.save!
-    end
+    # TODO:
+    # gcm_ids = V1::Device
+    #   .select('gcm_registration_id')
+    #   .joins(:seller)
+    #   .where(v1_sellers: { id: quote.seller_ids })
+    #   .map(&:gcm_registration_id)
+    # if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
+    #   notifiction = Rpush::Gcm::Notification.new
+    #   notifiction.app = instano_buyer_gcm_app
+    #   notifiction.registration_ids = gcm_ids
+    #   notifiction.data = {
+    #     type: 'quote',
+    #     quote: quote
+    #   }
+    #   notifiction.save!
+    # end
   end
 
   def GcmNotifier.quotation_updated(quotation)
     gcm_ids = []
 
-    if quotation.quote # then only notify to this quote
-      gcm_ids << quotation.quote.buyer.devices
-                  .select('gcm_registration_id')
-                  .map(&:gcm_registration_id)
-    elsif quotation.product
+    if quotation.product
       gcm_ids << V1::Device.where(id: V1::Buyer.where(id: quotation.product.quotes))
                       .select('gcm_registration_id')
                       .map(&:gcm_registration_id)

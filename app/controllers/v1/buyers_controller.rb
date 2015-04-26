@@ -1,5 +1,5 @@
 class V1::BuyersController < V1::ApiBaseController
-  before_filter :authorize_buyer!, :except => [:exists, :create, :sign_in, :sellers]
+  before_filter :authorize_buyer!, :except => [:exists, :create, :sign_in, :sellers_index]
 
   # GET /v1/buyers
   # GET /v1/buyers.json
@@ -79,14 +79,14 @@ class V1::BuyersController < V1::ApiBaseController
   # GET /v1/quotations.json
   def quotations
     # TODO: optimize
-    @v1_quotations = V1::Quotation.where(quote_id: V1::Quote.select(:id).where(buyer_id: @current_buyer.id))
+    @v1_quotations = V1::Quotation.where(product: V1::Quote.select(:product_id).where(buyer: @current_buyer))
     render json: @v1_quotations
   end
 
   # GET /v1/quotes
   # GET /v1/quotes.json
   def quotes
-    @v1_quotes_for_buyer = V1::Quote.where(buyer_id: @current_buyer.id)
+    @v1_quotes_for_buyer = V1::Quote.where(buyer: @current_buyer)
     render json: @v1_quotes_for_buyer
   end
 
@@ -164,18 +164,5 @@ private
   def associate_device
     @current_device.buyer = @current_buyer
     @current_device.save
-  end
-
-  def authorize_buyer!
-    if current_buyer.nil?
-      render json: { error: "no buyer associated"}, status: :forbidden
-    end
-  end
-
-  def current_buyer
-    unless @current_buyer
-      @current_buyer = @current_device.buyer if current_device
-    end
-    return @current_buyer
   end
 end

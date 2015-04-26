@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414133924) do
+ActiveRecord::Schema.define(version: 20150424084513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 20150414133924) do
     t.integer  "seller_id",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "product_id"
   end
 
   create_table "v1_devices", force: :cascade do |t|
@@ -203,32 +204,25 @@ ActiveRecord::Schema.define(version: 20150414133924) do
   add_index "v1_products", ["name"], name: "index_v1_products_on_name", unique: true, using: :btree
 
   create_table "v1_quotations", force: :cascade do |t|
-    t.integer  "price",                        null: false
-    t.text     "description",     default: "", null: false
+    t.integer  "price",                    null: false
+    t.text     "description", default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "quote_id",                     null: false
-    t.integer  "seller_id",                    null: false
-    t.integer  "status",          default: 0
-    t.string   "name_of_product"
+    t.integer  "seller_id",                null: false
+    t.integer  "status",      default: 0
+    t.integer  "product_id",               null: false
   end
 
   create_table "v1_quotes", force: :cascade do |t|
-    t.integer  "buyer_id",                                                            null: false
-    t.string   "search_string",    limit: 255,                                        null: false
-    t.string   "brands",           limit: 255,                          default: "",  null: false
-    t.string   "price_range",      limit: 255,                          default: "",  null: false
+    t.integer  "buyer_id",                                                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "product_category",                                      default: 0,   null: false
-    t.integer  "seller_ids",                                            default: [0], null: false, array: true
-    t.integer  "status",                                                default: 0
-    t.string   "address",          limit: 255
-    t.decimal  "latitude",                     precision: 10, scale: 6
-    t.decimal  "longitude",                    precision: 10, scale: 6
+    t.integer  "status",                                          default: 0
+    t.string   "address",    limit: 255
+    t.decimal  "latitude",               precision: 10, scale: 6
+    t.decimal  "longitude",              precision: 10, scale: 6
+    t.integer  "product_id",                                                  null: false
   end
-
-  add_index "v1_quotes", ["seller_ids"], name: "index_v1_quotes_on_seller_ids", using: :gin
 
   create_table "v1_sellers", force: :cascade do |t|
     t.string   "api_key",         limit: 255

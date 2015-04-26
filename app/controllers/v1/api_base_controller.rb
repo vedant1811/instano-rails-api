@@ -10,6 +10,19 @@ class V1::ApiBaseController < ApplicationController
   end
 
 protected
+  def authorize_buyer!
+    if current_buyer.nil?
+      render json: { error: "no buyer associated"}, status: :forbidden
+    end
+  end
+
+  def current_buyer
+    unless @current_buyer
+      @current_buyer = @current_device.buyer if current_device
+    end
+    @current_buyer
+  end
+
   # for non-signed in users, just use the IP. be sure to override this method in respective controllers
   # rails admin controller already overrides this
   def current_user
@@ -26,7 +39,7 @@ protected
       session_id = request.headers["Session-Id"]
       @current_device = V1::Device.find_by(session_id: session_id) unless session_id.nil?
     end
-    return @current_device
+    @current_device
   end
 private
   # makes sure session id exists in database. renders 403 if it fails, halting any further rendering by any controller
