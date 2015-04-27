@@ -33,7 +33,7 @@ class V1::QuotesController < V1::ApiBaseController
     @v1_quote = V1::Quote.find(params[:id])
     # forbidden if quote doesn't belong to buyer
     if @v1_quote.buyer != @current_buyer
-      render json: {error: 'quote does not belong to you'}, status: :forbidden
+      render json: {error: 'does not belong to you'}, status: :forbidden
     else
       render json: @v1_quote
     end
@@ -45,7 +45,7 @@ class V1::QuotesController < V1::ApiBaseController
     @v1_quote = V1::Quote.find(params[:id])
     # forbidden if quote doesn't belong to buyer
     if @v1_quote.buyer != @current_buyer
-      render json: {error: 'quote does not belong to you'}, status: :forbidden
+      render json: {error: 'does not belong to you'}, status: :forbidden
     elsif @v1_quote.update(quote_params)
       render json: @v1_quote, status: :ok
     else

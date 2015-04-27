@@ -12,9 +12,14 @@ Rails.application.routes.draw do
       post 'sign_in' => 'sellers#sign_in'
       post '' => 'sellers#create'
       match '', to: 'sellers#update', via: [:patch, :put]
+
+      post 'deals' => 'deals#create'
+      match 'deals/:id', to: 'deals#update', via: [:patch, :put]
+
       post 'quotations' => 'quotations#create'
       match 'quotations/:id', to: 'quotations#update', via: [:patch, :put]
-      get 'quotes' => 'sellers#quotes'
+
+#     post 'products' => 'products#create'
     end
 
     scope :buyers do
@@ -28,9 +33,10 @@ Rails.application.routes.draw do
       get 'sellers/:id' => 'sellers#show'
 
       get 'deals' => 'deals#index'
-      get 'deals/:id' => 'buyers#deals_show'
+      get 'deals/:id' => 'deals#show'
 
-      get 'quotations' => 'buyers#quotations'
+      get 'quotations' => 'quotations#index'
+      get 'quotations/:id' => 'quotations#show'
 
       get 'quotes' => 'quotes#buyers_index'
       get 'quotes/:id' => 'quotes#show'
@@ -38,7 +44,6 @@ Rails.application.routes.draw do
       match 'quotes', to: 'quotes#update', via: [:patch, :put]
     end
 
-#     post 'products' => 'products#create'
     get 'products/:id' => 'products#show'
 
 #     resources :online_buyers, except: [:new, :edit, :delete]
