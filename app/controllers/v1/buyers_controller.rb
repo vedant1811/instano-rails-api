@@ -1,11 +1,5 @@
 class V1::BuyersController < V1::ApiBaseController
-  before_filter :authorize_buyer!, :except => [:exists, :create, :sign_in, :sellers_index]
-
-  # GET /v1/buyers
-  # GET /v1/buyers.json
-  def show
-    render json: @current_buyer
-  end
+  before_filter :authorize_buyer!, :only => [:show, :update]
 
   # POST /v1/buyers
   # POST /v1/buyers.json
@@ -34,6 +28,12 @@ class V1::BuyersController < V1::ApiBaseController
     end
   end
 
+  # GET /v1/buyers
+  # GET /v1/buyers.json
+  def show
+    render json: @current_buyer
+  end
+
   # PATCH/PUT /v1/buyers
   # PATCH/PUT /v1/buyers.json
   def update
@@ -41,37 +41,6 @@ class V1::BuyersController < V1::ApiBaseController
       render json: @current_buyer, status: :ok
     else
       render json: @current_buyer.errors, status: :unprocessable_entity
-    end
-  end
-
-  # GET /v1/sellers/1
-  # GET /v1/sellers/1.json
-  def sellers_show
-    @v1_seller = V1::Seller.find(params[:id])
-    render json: @v1_seller
-  end
-
-  # GET /v1/quotations
-  # GET /v1/quotations.json
-  def quotations
-    # TODO: optimize
-    @v1_quotations = V1::Quotation.where(product: V1::Quote.select(:product_id).where(buyer: @current_buyer))
-    render json: @v1_quotations
-  end
-
-  # PATCH/PUT /v1/quotations/1
-  # PATCH/PUT /v1/quotations/1.json
-  def quotations_update
-    @v1_quotation = V1::Quotation.find(params[:id])
-
-    if @v1_quotation.nil?
-      render json: { error: "no quotation with id" }, status: :unprocessable_entity
-    elsif @v1_quotation.quote.buyer != @current_buyer
-      render json: { error: "quotation is not for you" }, status: :forbidden
-    elsif @v1_quotation.update(quotation_params)
-      render json: @v1_quotation, status: :ok
-    else
-      render json: @v1_quotation.errors, status: :unprocessable_entity
     end
   end
 
@@ -93,11 +62,6 @@ private
 
   def buyer_params
     params.require(:buyer).permit(:name, :phone)
-  end
-
-  def quote_params
-    params.require(:quote).permit(:search_string, :brands, :price_range, :product_category,
-                                  :latitude, :longitude, :address)
   end
 
   def associate_device

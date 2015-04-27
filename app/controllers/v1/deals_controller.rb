@@ -26,6 +26,7 @@ class V1::DealsController < V1::ApiBaseController
     render json: @v1_deal
   end
 
+
   def update
     @v1_deal = V1::Deal.find(params[:id])
     if @v1_deal.seller != @current_seller
@@ -36,6 +37,7 @@ class V1::DealsController < V1::ApiBaseController
       render json: @v1_deal.errors, status: :unprocessable_entity
     end
   end
+
 private
   def deal_params
     params.require(:deal).permit(:product_id, :heading, :subheading, :expires_at)

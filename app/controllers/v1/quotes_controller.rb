@@ -52,4 +52,9 @@ class V1::QuotesController < V1::ApiBaseController
       render json: @v1_quote.errors, status: :unprocessable_entity
     end
   end
+
+private
+  def quote_params
+    params.require(:quote).permit(:product_id, :latitude, :longitude, :address, :status)
+  end
 end

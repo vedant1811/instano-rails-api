@@ -7,10 +7,9 @@ class V1::Quote < ActiveRecord::Base
   enum status: [ :active, :expired, :closed ]
 
   validates :product, presence: true
+  validates :buyer, presence: true
 
   has_paper_trail
-
-  scope :with_seller_id, -> (*seller_ids) { where('seller_ids @> ARRAY[:seller_ids]', seller_ids: seller_ids) }
 
   rails_admin do
     configure :status do
