@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       match 'quotes', to: 'quotes#update', via: [:patch, :put]
     end
 
+    get 'products' => 'products#index'
     get 'products/:id' => 'products#show'
 
 #     resources :online_buyers, except: [:new, :edit, :delete]
