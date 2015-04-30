@@ -32,6 +32,8 @@ Rails.application.routes.draw do
       get 'sellers' => 'sellers#index'
       get 'sellers/:id' => 'sellers#show'
 
+      get 'outlets/:id' => 'outlets#show'
+
       get 'deals' => 'deals#index'
       get 'deals/:id' => 'deals#show'
 
