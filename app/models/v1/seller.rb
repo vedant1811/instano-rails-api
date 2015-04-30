@@ -1,7 +1,7 @@
 class V1::Seller < ActiveRecord::Base
   before_create :generate_api_key
   after_create :send_welcome_email
-  after_save :guess_brands_categories, :notify
+  after_save :notify
 
   has_many :deals, :class_name => 'V1::Deal', dependent: :destroy
   has_many :quotations, :class_name => 'V1::Quotation', dependent: :destroy
@@ -9,6 +9,7 @@ class V1::Seller < ActiveRecord::Base
   has_many :brand_names, :class_name => 'V1::BrandName', through: :brands
   has_many :category_names, :class_name => 'V1::CategoryName', through: :brand_names
   has_many :devices, :class_name => 'V1::Device', dependent: :nullify
+  has_many :outlets, :class_name => 'V1::Outlet'
 
   accepts_nested_attributes_for :brands
 
@@ -47,7 +48,6 @@ class V1::Seller < ActiveRecord::Base
       field :brand_names
       field :status, :enum
       field :phone
-      field :address
       field :email
       sort_by :created_at
       items_per_page 100
@@ -56,8 +56,7 @@ class V1::Seller < ActiveRecord::Base
       field :id
       field :status, :enum
       field :name_of_shop
-      field :name_of_seller
-      field :address
+      field :outlets
       field :brand_names
       field :phone
       field :email
@@ -66,15 +65,11 @@ class V1::Seller < ActiveRecord::Base
     end
     edit do # both edit and create
       field :name_of_shop
-      field :name_of_seller
       field :status
       field :email
       # TODO: fix: (also see: https://github.com/sferik/rails_admin/issues/2150)
       field :password
       field :password_confirmation
-      field :address
-      field :latitude
-      field :longitude
       field :phone
       field :brands
       field :brand_names do
@@ -123,23 +118,6 @@ private
       seller.password_confirmation = seller.password
       seller.email = "#{self.email}2"
     end
-  end
-
-  def guess_brands_categories
-    return unless self.brands.empty?
-    same_sellers = V1::Seller.where(name_of_shop: self.name_of_shop)
-    parent_seller = nil
-    same_sellers.each do |seller|
-      unless seller.brands.empty?
-        parent_seller = seller
-        break
-      end
-    end
-
-    # now assign parent_seller's brands to self only if parent_seller is not nil:
-    parent_seller.brands.each do |parent_brand|
-      self.brands.create!(brand_name: parent_brand.brand_name)
-    end if parent_seller
   end
 
   # TODO: notify (and handle the case) if status is changed from visible to invisible in app

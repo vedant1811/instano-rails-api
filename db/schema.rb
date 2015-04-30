@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424084513) do
+ActiveRecord::Schema.define(version: 20150430153309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,16 @@ ActiveRecord::Schema.define(version: 20150424084513) do
     t.string   "username",   limit: 255
   end
 
+  create_table "v1_outlets", force: :cascade do |t|
+    t.integer "seller_id",                                        null: false
+    t.string  "address",                                          null: false
+    t.decimal "latitude",    precision: 10, scale: 6
+    t.decimal "longitude",   precision: 10, scale: 6
+    t.string  "seller_name"
+    t.string  "phone"
+    t.integer "status",                               default: 0, null: false
+  end
+
   create_table "v1_products", force: :cascade do |t|
     t.string   "name",               limit: 255,             null: false
     t.integer  "brand_name_id"
@@ -226,18 +236,14 @@ ActiveRecord::Schema.define(version: 20150424084513) do
 
   create_table "v1_sellers", force: :cascade do |t|
     t.string   "api_key",         limit: 255
-    t.text     "address"
-    t.decimal  "latitude",                    precision: 10, scale: 6, default: -1000.0, null: false
-    t.decimal  "longitude",                   precision: 10, scale: 6, default: -1000.0, null: false
     t.string   "phone",           limit: 255
-    t.integer  "rating",                                               default: -1,      null: false
+    t.integer  "rating",                      default: -1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name_of_shop",    limit: 255
-    t.string   "name_of_seller",  limit: 255
-    t.string   "email",           limit: 255,                          default: "",      null: false
+    t.string   "email",           limit: 255, default: "", null: false
     t.string   "password_digest", limit: 255
-    t.integer  "status",                                               default: 0
+    t.integer  "status",                      default: 0
   end
 
   create_table "v1_visitors", force: :cascade do |t|
