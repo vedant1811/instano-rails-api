@@ -2,7 +2,7 @@ class V1::ProductsController < V1::ApiBaseController
 
   def index
     # TODO: improve the searching algorithm
-    @v1_products = V1::Product.where('name ILIKE ?', "%#{params[:search]}%")
+    @v1_products = V1::Product.where('name ILIKE ?', "%#{params[:q]}%") # search anywhere in :name, ignoring case
                        .select(:id, :name)
                        .order(updated_at: :desc).limit(5)
     render json: @v1_products, :only => [:id, :name]

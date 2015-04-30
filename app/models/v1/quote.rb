@@ -41,17 +41,6 @@ class V1::Quote < ActiveRecord::Base
     end
   end
 
-  # for active admin
-  def ids_raw
-    self.seller_ids.join(',') unless self.seller_ids.nil?
-  end
-
-  # for active admin
-  def ids_raw=(values)
-    self.seller_ids = []
-    self.seller_ids=values.split(',')
-  end
-
 private
   def notify
     require 'modules/gcm_notifier'

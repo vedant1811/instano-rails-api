@@ -1,5 +1,11 @@
 class V1::QuotationsController < V1::ApiBaseController
   before_filter :authorize_seller!, :only => [:create, :update]
+  before_filter :authorize_buyer!, :only => [:index]
+
+  def index
+    @v1_quotations = V1::Quotation.where(product_id: params[:p])
+    render json: @v1_quotations
+  end
 
   # POST /v1/quotations
   # POST /v1/quotations.json
