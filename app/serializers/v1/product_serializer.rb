@@ -3,6 +3,6 @@ class V1::ProductSerializer < ActiveModel::Serializer
   attributes :id, :name, :brand_name, :image, :features
 
   def image
-    object.image.url(:medium)
+    object.image.url(:medium) if object.image.exists?
   end
 end

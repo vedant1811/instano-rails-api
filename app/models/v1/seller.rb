@@ -1,7 +1,19 @@
 class V1::Seller < ActiveRecord::Base
-  before_create :generate_api_key
+  before_create :generate_api_key, :sanitize_file_name
   after_create :send_welcome_email
   after_save :notify
+
+  has_attached_file :image, # paperclip options:
+                    :preserve_files => "false",
+                    :styles => {:card => '427x240>'},
+                    :url => "/:rails_env/#{table_name}/images/:style/:filename",
+                    :default_url => ":url/missing.png",
+                    :path => ":url",
+                    :storage => :s3,
+                    :s3_headers => { 'Expires' => 1.year.from_now.httpdate },
+                    :s3_credentials => "#{Rails.root}/config/secrets.yml",
+                    :bucket => 'instano',
+                    :s3_storage_class => :reduced_redundancy
 
   has_many :deals, :class_name => 'V1::Deal', dependent: :destroy
   has_many :quotations, :class_name => 'V1::Quotation', dependent: :destroy
@@ -13,10 +25,13 @@ class V1::Seller < ActiveRecord::Base
 
   accepts_nested_attributes_for :brands
 
-  validates :latitude, presence: true
-  validates :longitude, presence: true
   validates :rating, presence: true
   validates :email, presence: true, uniqueness: true
+
+  # paperclip:
+  validates_with AttachmentFileNameValidator, :attributes => :image, :matches => [/png\Z/, /jpe?g\Z/]
+  validates_with AttachmentContentTypeValidator, :attributes => :image, :content_type => /\Aimage\/.*\Z/
+  validates_with AttachmentSizeValidator, :attributes => :image, :less_than => 2.megabytes
 
   # important! do NOT reorder entries
   enum status: [
@@ -45,6 +60,7 @@ class V1::Seller < ActiveRecord::Base
     end
     list do
       field :name_of_shop
+      field :image
       field :brand_names
       field :status, :enum
       field :phone
@@ -56,6 +72,7 @@ class V1::Seller < ActiveRecord::Base
       field :id
       field :status, :enum
       field :name_of_shop
+      field :image
       field :outlets
       field :brand_names
       field :phone
@@ -65,6 +82,7 @@ class V1::Seller < ActiveRecord::Base
     end
     edit do # both edit and create
       field :name_of_shop
+      field :image
       field :status
       field :email
       # TODO: fix: (also see: https://github.com/sferik/rails_admin/issues/2150)
@@ -112,6 +130,13 @@ class V1::Seller < ActiveRecord::Base
   end
 
 private
+  def sanitize_file_name
+    if image_file_name
+      extension = File.extname(image_file_name).downcase
+      self.image.instance_write(:file_name, "#{self.name.parameterize('_')}#{extension}")
+    end
+  end
+
   def shallow_clone
     self.dup.tap do |seller|
       seller.password = Rails.application.secrets.placeholder_password

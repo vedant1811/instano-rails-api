@@ -51,7 +51,7 @@ protected
   def current_device
     unless @current_device
       session_id = request.headers["Session-Id"]
-      @current_device = V1::Device.find_by(session_id: session_id) unless session_id.nil?
+      @current_device = V1::Device.find_by(session_id: session_id) if session_id
     end
     @current_device
   end

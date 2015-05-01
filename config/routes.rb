@@ -16,8 +16,7 @@ Rails.application.routes.draw do
       post 'deals' => 'deals#create'
       match 'deals/:id', to: 'deals#update', via: [:patch, :put]
 
-      post 'quotations' => 'quotations#create'
-      match 'quotations/:id', to: 'quotations#update', via: [:patch, :put]
+      resources :quotations, only: [:create, :update]
 
 #     post 'products' => 'products#create'
     end
@@ -29,21 +28,17 @@ Rails.application.routes.draw do
       post 'sign_in' => 'buyers#sign_in'
       match '', to: 'buyers#update', via: [:patch, :put]
 
-      get 'sellers' => 'sellers#index'
-      get 'sellers/:id' => 'sellers#show'
+      resources :sellers, only: [:index, :show]
 
       get 'outlets/:id' => 'outlets#show'
 
-      get 'deals' => 'deals#index'
-      get 'deals/:id' => 'deals#show'
+      resources :deals, only: [:index, :show]
 
-      get 'quotations' => 'quotations#index'
-      get 'quotations/:id' => 'quotations#show'
+      resources :quotations, only: [:index, :show]
 
       get 'quotes' => 'quotes#buyers_index'
-      get 'quotes/:id' => 'quotes#show'
-      post 'quotes' => 'quotes#create'
-      match 'quotes', to: 'quotes#update', via: [:patch, :put]
+
+      resources :quotes, only: [:create, :show, :update]
     end
 
     get 'products' => 'products#index '
