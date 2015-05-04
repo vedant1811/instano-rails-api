@@ -71,3 +71,5 @@ gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '<2.0'
 
 gem 'nokogiri', '1.6.5' # trying to fig bug of nokogiri not being installed
+
+gem 'geocoder'

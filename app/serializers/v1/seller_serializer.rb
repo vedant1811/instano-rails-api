@@ -1,5 +1,5 @@
 class V1::SellerSerializer < ActiveModel::Serializer
-  attributes :id, :name_of_shop, :image, :status, :outlets
+  attributes :id, :name_of_shop, :image, :outlets
   has_many :brands
 
   def image

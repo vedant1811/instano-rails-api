@@ -1,8 +1,13 @@
 class V1::Outlet < ActiveRecord::Base
+  # TODO:
+  # after_validation :geocode, if: ->(obj){ obj.latitude.nil? }
+
   belongs_to :seller, :class_name => 'V1::Seller'
 
   validates :seller, presence: true
   validates :address, presence: true
+
+  reverse_geocoded_by :latitude, :longitude
 
   # important! do NOT reorder entries
   enum status: [
@@ -16,4 +21,5 @@ class V1::Outlet < ActiveRecord::Base
        ]
 
   has_paper_trail
+
 end
