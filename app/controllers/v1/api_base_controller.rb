@@ -12,7 +12,7 @@ class V1::ApiBaseController < ApplicationController
 protected
   def authorize_buyer!
     if current_buyer.nil?
-      render json: { error: "no buyer associated"}, status: :forbidden
+      render json: { error: 'no buyer associated'}, status: :forbidden
     end
   end
 
@@ -25,7 +25,7 @@ protected
 
   def authorize_seller!
     if current_seller.nil?
-      render json: { error: "no seller associated"}, status: :forbidden
+      render json: { error: 'no seller associated'}, status: :forbidden
     end
   end
 
@@ -50,7 +50,7 @@ protected
   # sets @current_device unless it is already set
   def current_device
     unless @current_device
-      session_id = request.headers["Session-Id"]
+      session_id = request.headers['Session-Id']
       @current_device = V1::Device.find_by(session_id: session_id) if session_id
     end
     @current_device
@@ -59,7 +59,7 @@ private
   # makes sure session id exists in database. renders 403 if it fails, halting any further rendering by any controller
   def authorize_device!
     if current_device.nil?
-      render json: { error: "incorrect session_id"}, status: :forbidden
+      render json: { error: 'incorrect session_id'}, status: :forbidden
     end
   end
 end

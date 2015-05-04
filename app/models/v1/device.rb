@@ -21,6 +21,5 @@ class V1::Device < ActiveRecord::Base
     begin
       self.session_id = SecureRandom.hex
     end while self.class.exists?(session_id: session_id)
-    puts self.session_id
   end
 end

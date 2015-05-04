@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     scope :buyers do
       get '' => 'buyers#show'
       post '' => 'buyers#create'
-      post 'exists' => 'buyers#exists'
+      # post 'exists' => 'buyers#exists'
       post 'sign_in' => 'buyers#sign_in'
       match '', to: 'buyers#update', via: [:patch, :put]
 

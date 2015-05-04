@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501080202) do
+ActiveRecord::Schema.define(version: 20150504101652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,9 +144,9 @@ ActiveRecord::Schema.define(version: 20150501080202) do
   create_table "v1_buyers", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "api_key",    limit: 255
-    t.string   "name",       limit: 255
-    t.string   "phone",      limit: 255
+    t.string   "name",             limit: 255
+    t.string   "phone",            limit: 255
+    t.integer  "facebook_user_id"
   end
 
   create_table "v1_category_names", force: :cascade do |t|
@@ -172,6 +172,17 @@ ActiveRecord::Schema.define(version: 20150501080202) do
     t.integer  "buyer_id"
     t.integer  "seller_id"
     t.integer  "gcm_status",                      default: 0
+  end
+
+  create_table "v1_facebook_users", force: :cascade do |t|
+    t.string   "user_id",         null: false
+    t.string   "name",            null: false
+    t.string   "email"
+    t.boolean  "verified"
+    t.string   "gender"
+    t.datetime "user_updated_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "v1_online_buyers", force: :cascade do |t|

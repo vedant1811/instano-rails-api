@@ -19,12 +19,19 @@ class V1::BuyersController < V1::ApiBaseController
   end
 
   def sign_in
-    @current_buyer = V1::Buyer.find_by(api_key: params.require(:sign_in)[:api_key])
-    if @current_buyer.nil?
-      render json: { error: "incorrect api_key" }, status: :not_acceptable
+    facebook_user = V1::FacebookUser.find_by user_id: params.require(:sign_in)[:user_id]
+    if facebook_user
+      @current_buyer = V1::Buyer.find_by facebook_user: facebook_user
     else
+      @current_buyer = nil
+      associate_device
+    end
+
+    if @current_buyer
       associate_device
       render json: @current_buyer, status: :ok
+    else
+      render json: { error: "no such facebook user id" }, status: :not_acceptable
     end
   end
 
@@ -61,7 +68,8 @@ private
   end
 
   def buyer_params
-    params.require(:buyer).permit(:name, :phone)
+    params.require(:buyer).permit(facebook_user_attributes:
+                                           [:user_id, :name, :email, :verified, :gender, :user_updated_at])
   end
 
   def associate_device
