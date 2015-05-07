@@ -22,4 +22,10 @@ class V1::Outlet < ActiveRecord::Base
 
   has_paper_trail
 
+  rails_admin do
+    configure :status do
+      searchable false
+    end
+  end
+
 end

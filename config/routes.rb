@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       resources :quotes, only: [:create, :show, :update]
     end
 
-    get 'products' => 'products#index '
+    get 'products' => 'products#index'
     get 'products/:id' => 'products#show'
 
 #     resources :online_buyers, except: [:new, :edit, :delete]
