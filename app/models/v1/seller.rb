@@ -61,6 +61,7 @@ class V1::Seller < ActiveRecord::Base
     list do
       field :name_of_shop
       field :image
+      field :description
       field :brand_names
       field :status, :enum
       field :phone
@@ -73,6 +74,7 @@ class V1::Seller < ActiveRecord::Base
       field :status, :enum
       field :name_of_shop
       field :image
+      field :description
       field :outlets
       field :brand_names
       field :phone
@@ -83,6 +85,7 @@ class V1::Seller < ActiveRecord::Base
     edit do # both edit and create
       field :name_of_shop
       field :image
+      field :description, :ck_editor
       field :status
       field :email
       # TODO: fix: (also see: https://github.com/sferik/rails_admin/issues/2150)

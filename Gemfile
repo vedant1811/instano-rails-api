@@ -33,6 +33,7 @@ gem 'devise'
 
 gem 'rails_admin_clone'
 gem 'rails_admin'
+gem 'ckeditor'
 gem 'paper_trail', '~> 3.0' # 4.0.beta is not supported by rails_admin
 
 # Use SCSS for stylesheets
