@@ -10,7 +10,9 @@ class V1::QuotesController < V1::ApiBaseController
   end
 
   def sellers_index
-    @v1_quotes = V1::Quot
+    # TODO: fix
+    @v1_quotes = V1::Quote.all
+    render json: @v1_quotes
   end
 
   # POST /v1/buyers/quotes

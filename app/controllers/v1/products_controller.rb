@@ -1,4 +1,5 @@
 class V1::ProductsController < V1::ApiBaseController
+  before_filter :authorize_seller!, only: [:sellers_index]
 
   def index
     # TODO: improve the searching algorithm
@@ -6,6 +7,12 @@ class V1::ProductsController < V1::ApiBaseController
                        .select(:id, :name)
                        .order(updated_at: :desc).limit(5)
     render json: @v1_products, :only => [:id, :name]
+  end
+
+  def sellers_index
+    # select products that have quotes
+    @v1_products = V1::Product.where(id: V1::Quote.all.select(:product_id)).uniq
+    render json: @v1_products
   end
 
   #GET /products/1

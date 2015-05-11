@@ -14,29 +14,29 @@ module GcmNotifier
 
   def GcmNotifier.quote_updated(quote)
     # TODO:
-    # gcm_ids = V1::Device
-    #   .select('gcm_registration_id')
-    #   .joins(:seller)
-    #   .where(v1_sellers: { id: quote.seller_ids })
-    #   .map(&:gcm_registration_id)
-    # if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
-    #   notifiction = Rpush::Gcm::Notification.new
-    #   notifiction.app = instano_buyer_gcm_app
-    #   notifiction.registration_ids = gcm_ids
-    #   notifiction.data = {
-    #     type: 'quote',
-    #     quote: quote
-    #   }
-    #   notifiction.save!
-    # end
+    gcm_ids = V1::Device
+      .select('gcm_registration_id')
+      .joins(:seller)
+      .map(&:gcm_registration_id)
+    if gcm_ids.any? # throws a Registration ids can't be blank error otherwise
+      notifiction = Rpush::Gcm::Notification.new
+      notifiction.app = instano_buyer_gcm_app
+      notifiction.registration_ids = gcm_ids
+      notifiction.data = {
+        type: 'quote',
+        quote: quote
+      }
+      notifiction.save!
+    end
   end
 
   def GcmNotifier.quotation_updated(quotation)
     gcm_ids = []
 
     if quotation.product
-      gcm_ids << V1::Device.where(id: V1::Buyer.where(id: quotation.product.quotes))
-                      .select('gcm_registration_id')
+      gcm_ids << V1::Device.where(buyer_id:
+                                V1::Quote.where(product: quotation.product).select(:buyer_id))
+      .select('gcm_registration_id')
                       .map(&:gcm_registration_id)
     end
 

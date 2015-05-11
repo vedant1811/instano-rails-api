@@ -36,6 +36,6 @@ class V1::QuotationsController < V1::ApiBaseController
 
 private
   def quotation_params
-    params.require(:quotation).permit(:name_of_product, :price, :description, :quote_id, :status)
+    params.require(:quotation).permit(:product_id, :price, :description, :status)
   end
 end

@@ -18,7 +18,10 @@ Rails.application.routes.draw do
 
       resources :quotations, only: [:create, :update]
 
+      get 'quotes' => 'quotes#sellers_index'
+
 #     post 'products' => 'products#create'
+      get 'products' => 'products#sellers_index'
     end
 
     scope :buyers do
