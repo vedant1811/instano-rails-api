@@ -9,4 +9,18 @@ class V1::Buyer < ActiveRecord::Base
   validates :facebook_user, presence: true # not done at db level
 
   has_paper_trail
+
+  rails_admin do
+    object_label_method do
+      :title
+    end
+  end
+
+  def title
+    if self.facebook_user && self.facebook_user.name
+      "FB: #{self.facebook_user.name}"
+    else
+      "FIXME"
+    end
+  end
 end
