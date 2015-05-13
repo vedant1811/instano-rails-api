@@ -5,11 +5,13 @@ class V1::SellersController < V1::ApiBaseController
   # GET /v1/buyers/sellers
   # GET /v1/buyers/sellers.json
   def index
-    @v1_sellers = V1::Seller.where("status = ? OR status = ? OR status = ?",
-                                   V1::Seller.statuses[:unverified],
-                                   V1::Seller.statuses[:verified],
-                                   V1::Seller.statuses[:deal_provider])
-    render json: @v1_sellers
+    product_id = params[:p]
+    @v1_sellers = V1::Seller.visible # select verified sellers
+                      .joins(:brands).where(v1_brands: {brand_name_id: V1::Product.where(id: product_id).select(:brand_name_id)}) # that match brand_name
+                      .where.not(id: V1::Quotation.where(product_id: product_id).select(:seller_id)) # and have no quotations for said product
+                      .select(:id, :updated_at)
+
+    render json: @v1_sellers, only: [:id, :updated_at]
   end
 
   def show

@@ -3,6 +3,7 @@ class V1::Brand < ActiveRecord::Base
   belongs_to :seller, :class_name => 'V1::Seller'
 
   validates :brand_name, presence: true
+  validates :brand_name, :uniqueness => {:scope => [:brand_name, :seller]}
   # there is database limitation but rails_admin is unable to create for new sellers if this line is present:
 #   validates :seller, presence: true
 

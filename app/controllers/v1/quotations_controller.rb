@@ -26,7 +26,7 @@ class V1::QuotationsController < V1::ApiBaseController
     @v1_quotation = V1::Quotation.find(params[:id])
 
     if @v1_quotation.seller != @current_seller
-      render json: { error: "does not belong to you" }, status: :forbidden
+      render json: { error: 'does not belong to you'}, status: :forbidden
     elsif @v1_quotation.update(quotation_params)
       render json: @v1_quotation, status: :ok
     else
