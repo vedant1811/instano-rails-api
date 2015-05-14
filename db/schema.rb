@@ -132,13 +132,14 @@ ActiveRecord::Schema.define(version: 20150514082437) do
   add_index "rpush_notifications", ["delivered", "failed"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))", using: :btree
 
   create_table "v1_bookings", force: :cascade do |t|
-    t.integer  "status",     default: 0,                     null: false
-    t.integer  "price",                                      null: false
-    t.integer  "quote_id",                                   null: false
-    t.integer  "outlet_id",                                  null: false
-    t.datetime "expires_at", default: '2015-05-16 09:27:58', null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.integer  "status",       default: 0,                     null: false
+    t.integer  "price",                                        null: false
+    t.integer  "buyer_id",                                     null: false
+    t.integer  "quotation_id"
+    t.integer  "deal_id"
+    t.datetime "expires_at",   default: '2015-05-16 10:30:59', null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
   end
 
   create_table "v1_brand_names", force: :cascade do |t|
