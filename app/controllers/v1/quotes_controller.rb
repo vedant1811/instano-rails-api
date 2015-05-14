@@ -9,9 +9,9 @@ class V1::QuotesController < V1::ApiBaseController
     render json: @v1_quotes
   end
 
+  # renders quotes matching seller based on brand name
   def sellers_index
-    # TODO: fix
-    @v1_quotes = V1::Quote.all
+    @v1_quotes = V1::Quote.joins(:product).where(v1_products: { brand_name_id: @current_seller.brand_name_ids })
     render json: @v1_quotes
   end
 

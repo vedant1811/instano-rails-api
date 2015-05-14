@@ -4,9 +4,9 @@ class V1::Quote < ActiveRecord::Base
   belongs_to :buyer, :class_name => 'V1::Buyer'
   belongs_to :product, :class_name => 'V1::Product'
 
-  enum status: [ :active, :expired, :closed ]
+  enum status: [ :active, :expired, :closed ] # unused for now
 
-  validates :product, presence: true
+  validates :product, presence: true # TODO:, uniqueness: { scope: [:product, :buyer] }
   validates :buyer, presence: true
 
   has_paper_trail
