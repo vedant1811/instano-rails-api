@@ -1,5 +1,5 @@
 class V1::BuyersController < V1::ApiBaseController
-  before_filter :authorize_buyer!, :only => [:show, :update]
+  before_filter :authorize_buyer!, :only => [:show, :update, :sign_out]
 
   # POST /v1/buyers
   # POST /v1/buyers.json
@@ -33,6 +33,12 @@ class V1::BuyersController < V1::ApiBaseController
     else
       render json: { error: "no such facebook user id" }, status: :not_acceptable
     end
+  end
+
+  def delete
+    @current_buyer = nil
+    associate_device
+    head :no_content
   end
 
   # GET /v1/buyers

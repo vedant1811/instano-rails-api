@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
 #     post 'products' => 'products#create'
       get 'products' => 'products#sellers_index'
+
+      get 'bookings' => 'bookings#sellers_index'
     end
 
     scope :buyers do
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
       # post 'exists' => 'buyers#exists'
       post 'sign_in' => 'buyers#sign_in'
       match '', to: 'buyers#update', via: [:patch, :put]
+      delete '' => 'buyers#delete'
 
       resources :sellers, only: [:index, :show]
 
@@ -40,8 +43,11 @@ Rails.application.routes.draw do
       resources :quotations, only: [:index, :show]
 
       get 'quotes' => 'quotes#buyers_index'
-
       resources :quotes, only: [:create, :show, :update]
+
+      get 'bookings' => 'bookings#buyers_index'
+      resources :bookings, only: [:create, :show, :update]
+
     end
 
     get 'products' => 'products#index'

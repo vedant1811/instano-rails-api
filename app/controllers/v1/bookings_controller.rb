@@ -1,16 +1,20 @@
-class V1::BookingsController < ApiBaseController
-  before_action :authorize_seller!, only: [:seller_index]
-  before_action :authorize_buyer!, only: [:buyer_index]
+class V1::BookingsController < V1::ApiBaseController
+  before_action :authorize_seller!, only: [:sellers_index]
+  before_action :authorize_buyer!, only: [:buyers_index, :create, :update]
   before_action :set_v1_booking, only: [:show, :update, :destroy]
 
   # GET /v1/bookings
   # GET /v1/bookings.json
-  def seller_index
-    @v1_bookings = V1::Booking.where('quotation_id in ? OR deal_id in ?', V1::Quo).
+  def sellers_index
+    # TODO: fix
+    @v1_bookings = V1::Booking.where('(quotation_id in (?)) OR (deal_id in (?))',
+                                     V1::Quotation.where(seller: @current_seller).select(:id),
+                                     V1::Deal.where(seller: @current_seller).select(:id))
     render json: @v1_bookings
   end
 
-  def buyer_index
+  def buyers_index
+    @v1_bookings = @current_buyer.bookings
     render json: @v1_bookings
   end
 
