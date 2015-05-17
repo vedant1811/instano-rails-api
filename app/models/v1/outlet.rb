@@ -22,6 +22,8 @@ class V1::Outlet < ActiveRecord::Base
 
   has_paper_trail
 
+  scope :visible, -> { where('v1_outlets.status >= ?', V1::Outlet.statuses[:unverified]) }
+
   rails_admin do
     configure :status do
       searchable false

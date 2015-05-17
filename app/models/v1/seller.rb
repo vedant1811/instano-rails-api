@@ -44,7 +44,7 @@ class V1::Seller < ActiveRecord::Base
     :deal_provider
   ]
 
-  scope :visible, -> {where('status >= ?', V1::Seller.statuses[:unverified])}
+  scope :visible, -> { where('status >= ?', V1::Seller.statuses[:unverified]) }
 
   has_secure_password
   has_paper_trail

@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
       resources :sellers, only: [:index, :show]
 
-      get 'outlets/:id' => 'outlets#show'
+      resources :outlets, only: [:index, :show]
 
       resources :deals, only: [:index, :show]
 
