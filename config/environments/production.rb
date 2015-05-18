@@ -96,3 +96,5 @@ Rails.application.configure do
     :exception_recipients => %w{vedant.kota@gmail.com}
   }
 end
+
+Rack::Utils.multipart_part_limit = 0
