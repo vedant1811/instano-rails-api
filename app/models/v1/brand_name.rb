@@ -1,5 +1,6 @@
 class V1::BrandName < ActiveRecord::Base
   has_many :brands, :class_name => 'V1::Brand', dependent: :destroy
+  has_many :sellers, :class_name => 'V1::Seller', through: :brands
   has_many :products, :class_name => 'V1::Product', dependent: :nullify
   belongs_to :category_name, :class_name => 'V1::CategoryName'
 
