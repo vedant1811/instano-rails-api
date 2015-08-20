@@ -1,58 +1,85 @@
-class V1::BuyersController < ApplicationController
-  # GET /v1/buyers
-  # GET /v1/buyers.json
-  def index
-    @v1_buyers = V1::Buyer.all
-
-    render json: @v1_buyers
-  end
-
-  # GET /v1/buyers/1
-  # GET /v1/buyers/1.json
-  def show
-    @v1_buyer = V1::Buyer.find(params[:id])
-
-    render json: @v1_buyer
-  end
+class V1::BuyersController < V1::ApiBaseController
+  before_filter :authorize_buyer!, :only => [:show, :update, :sign_out]
 
   # POST /v1/buyers
   # POST /v1/buyers.json
   def create
-    @v1_buyer = V1::Buyer.find_by(api_key: buyer_params[:api_key])
-    if @v1_buyer.nil?
-      @v1_buyer = V1::Buyer.new
-    end
+    @current_buyer = V1::Buyer.new(buyer_params)
 
-    if @v1_buyer.save
-      render json: @v1_buyer, status: :created, location: @v1_buyer
+    if @current_buyer.save
+      associate_device
+      render json: @current_buyer, status: :created
     else
-      render json: @v1_buyer.errors, status: :unprocessable_entity
+      render json: @current_buyer.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /v1/buyers/1
-  # PATCH/PUT /v1/buyers/1.json
-  def update
-    @v1_buyer = V1::Buyer.find(params[:id])
+  def exists
+    render json: { exists: V1::Buyer.exists?(:phone => params.require(:phone)) }
+  end
 
-    if @v1_buyer.update(params[:v1_buyer])
-      head :no_content
+  def sign_in
+    facebook_user = V1::FacebookUser.find_by user_id: params.require(:sign_in)[:user_id]
+    if facebook_user
+      @current_buyer = V1::Buyer.find_by facebook_user: facebook_user
     else
-      render json: @v1_buyer.errors, status: :unprocessable_entity
+      @current_buyer = nil
+      associate_device
+    end
+
+    if @current_buyer
+      associate_device
+      render json: @current_buyer, status: :ok
+    else
+      render json: { error: "no such facebook user id" }, status: :not_acceptable
     end
   end
 
-  # DELETE /v1/buyers/1
-  # DELETE /v1/buyers/1.json
-  def destroy
-    @v1_buyer = V1::Buyer.find(params[:id])
-    @v1_buyer.destroy
-
+  def delete
+    @current_buyer = nil
+    associate_device
     head :no_content
   end
 
+  # GET /v1/buyers
+  # GET /v1/buyers.json
+  def show
+    render json: @current_buyer
+  end
+
+  # PATCH/PUT /v1/buyers
+  # PATCH/PUT /v1/buyers.json
+  def update
+    if @current_buyer.update(buyer_params)
+      render json: @current_buyer, status: :ok
+    else
+      render json: @current_buyer.errors, status: :unprocessable_entity
+    end
+  end
+
+protected
+  # for non-signed in users, just use the IP. be sure to override this method in respective controllers
+  # rails admin controller already overrides this
+  def current_user
+    if current_buyer
+      "buyer:(#{@current_buyer.id})#{@current_buyer.name}"
+    else
+      super
+    end
+  end
+
 private
+  def quotation_params
+    params.require(:quotation).permit(:status)
+  end
+
   def buyer_params
-    params.require(:buyer).permit(:api_key)
+    params.require(:buyer).permit(facebook_user_attributes:
+                                           [:user_id, :name, :email, :verified, :gender, :user_updated_at])
+  end
+
+  def associate_device
+    @current_device.buyer = @current_buyer
+    @current_device.save
   end
 end

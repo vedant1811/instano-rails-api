@@ -1,42 +1,75 @@
 Rails.application.routes.draw do
-
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  mount RailsAdmin::Engine => '/newadmin', as: 'rails_admin'
+  ActiveAdmin.routes(self)
   namespace :v1, defaults: {format: 'json'} do
-    resources :sellers # secure this. as of now :new, :edit work without any authentication
-    post 'sellers/exists'
-    post 'sellers/sign_in'
-
-    resources :quotations, except: [:new, :edit]
-    resources :devices, except: [:new, :edit]
-    resources :buyers, except: [:new, :edit]
-    resources :quotes, except: [:new, :edit]
-
-    post 'quotes/for_seller'
-    post 'quotes/for_buyer'
-
-    post 'quotations/for_buyer' => 'quotations#for_buyer'
-
+    # devies:
+    post 'devices' => 'devices#create'
     get 'brands_categories' => 'brands_categories#index'
-    post 'brands_categories' => 'brands_categories#add_category'
-    post 'brands_categories/register_seller' => 'brands_categories#assign_to_seller'
+
+    scope :sellers do
+      post 'exists' => 'sellers#exists'
+      post 'sign_in' => 'sellers#sign_in'
+      post '' => 'sellers#create'
+      match '', to: 'sellers#update', via: [:patch, :put]
+
+      post 'deals' => 'deals#create'
+      match 'deals/:id', to: 'deals#update', via: [:patch, :put]
+
+      resources :quotations, only: [:create, :update]
+
+      get 'quotes' => 'quotes#sellers_index'
+
+#     post 'products' => 'products#create'
+      get 'products' => 'products#sellers_index'
+
+      get 'bookings' => 'bookings#sellers_index'
+    end
+
+    scope :buyers do
+      get '' => 'buyers#show'
+      post '' => 'buyers#create'
+      # post 'exists' => 'buyers#exists'
+      post 'sign_in' => 'buyers#sign_in'
+      match '', to: 'buyers#update', via: [:patch, :put]
+      delete '' => 'buyers#delete'
+
+      resources :sellers, only: [:index, :show]
+
+      resources :outlets, only: [:index, :show]
+
+      resources :deals, only: [:index, :show]
+
+      resources :quotations, only: [:index, :show]
+
+      get 'quotes' => 'quotes#buyers_index'
+      resources :quotes, only: [:create, :show, :update]
+
+      get 'bookings' => 'bookings#buyers_index'
+      resources :bookings, only: [:create, :show, :update]
+
+    end
+
+    get 'products' => 'products#index'
+    get 'products/:id' => 'products#show'
+
+#     resources :online_buyers, except: [:new, :edit, :delete]
+#     post 'online_buyers/exists'
+#     match 'online_buyers', to: 'online_buyers#create', via: [:options, :post]
 
   end
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
   root 'welcome#index'
-  get 'staging' => 'welcome#staging'
 
-  post 'welcome/test_mail'
   post '/subscribe' => 'welcome#subscribe'
   post '/contact' => 'welcome#contact'
-
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "sellers#new", :as => "sign_up"
-
-  get "profile" => "sellers#profile"
-  get "categories" => "sellers#categories"
-  resources :sellers
-  resources :sessions
-  resources :visitors
+#
+#   get "log_out" => "sessions#destroy", :as => "log_out"
+#   get "log_in" => "sessions#new", :as => "log_in"
+#   get "sign_up" => "sellers#new", :as => "sign_up"
+#
+#   get "profile" => "sellers#profile"
+#   get "categories" => "sellers#categories"
+#   resources :sellers
+#   resources :sessions
 end

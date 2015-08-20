@@ -20,7 +20,7 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -78,14 +78,23 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = {:host => 'instano.in'}
   config.action_mailer.delivery_method = :smtp
+  # make sure to update default :from (in instano_mailer.rb) as well
   config.action_mailer.smtp_settings = {
     :openssl_verify_mode => 'none',
-    :address => "smtp.instano.in",
+    :address => "smtp.zoho.com",
     :port => 587,
     :domain => "instano.in",
     :authentication => :plain,
-    :user_name => "business@instano.in",
-    :password => "bIWU$fF6"
+    :user_name => "rajesh@instano.in",
+    :password => "instano.rajesh"
   }
 
+  config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[Exception] ",
+    :sender_address => %{"Exception Notifier" <rajesh@instano.in>},
+    :exception_recipients => %w{vedant.kota@gmail.com}
+  }
 end
+
+Rack::Utils.multipart_part_limit = 0

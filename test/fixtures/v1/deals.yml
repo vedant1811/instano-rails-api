@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  heading: MyString
+  subheading: MyString
+  expires_at: 2015-01-08 01:24:38
+  seller_id: 1
+
+two:
+  heading: MyString
+  subheading: MyString
+  expires_at: 2015-01-08 01:24:38
+  seller_id: 1

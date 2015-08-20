@@ -1,4 +1,8 @@
 class V1::SellerSerializer < ActiveModel::Serializer
-  attributes :id, :name_of_shop, :name_of_seller, :latitude, :longitude, :address, :phone, :email, :rating
-  has_many :categories, :class_name => 'V1::Category'
+  attributes :id, :name_of_shop, :image, :outlets, :description, :updated_at
+  has_many :brands
+
+  def image
+    object.image.url(:card) if object.image.exists?
+  end
 end

@@ -12,7 +12,7 @@ default: &default
 development:
   adapter: postgresql
   encoding: unicode
-  database: instano_development
+  database: instano_production # we use a common db to test the production env in the same db
   host: localhost
   pool: 5
   username: username
@@ -25,6 +25,15 @@ test:
   adapter: postgresql
   encoding: unicode
   database: instano_test
+  host: localhost
+  pool: 5
+  username: username
+  password: password
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: instano_production # we use a common db to test the production env in the same db
   host: localhost
   pool: 5
   username: username

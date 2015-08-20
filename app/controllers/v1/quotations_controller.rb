@@ -1,34 +1,20 @@
-class V1::QuotationsController < ApplicationController
-  # GET /v1/quotations
-  # GET /v1/quotations.json
+class V1::QuotationsController < V1::ApiBaseController
+  before_filter :authorize_seller!, :only => [:create, :update]
+  before_filter :authorize_buyer!, :only => [:index]
+
   def index
-    @v1_quotations = V1::Quotation.all
-
+    @v1_quotations = V1::Quotation.where(product_id: params[:p])
     render json: @v1_quotations
-  end
-
-  def for_buyer
-    buyer_id = params.require(:id)
-
-    @v1_quotations_for_buyer_id = V1::Quotation.where(quote_id: V1::Quote.select(:id).where(buyer_id: buyer_id))
-    render json: @v1_quotations_for_buyer_id
-  end
-
-  # GET /v1/quotations/1
-  # GET /v1/quotations/1.json
-  def show
-    @v1_quotation = V1::Quotation.find(params[:id])
-
-    render json: @v1_quotation
   end
 
   # POST /v1/quotations
   # POST /v1/quotations.json
   def create
     @v1_quotation = V1::Quotation.new(quotation_params)
+    @v1_quotation.seller = @current_seller
 
     if @v1_quotation.save
-      render json: @v1_quotation, status: :created, location: @v1_quotation
+      render json: @v1_quotation, status: :created
     else
       render json: @v1_quotation.errors, status: :unprocessable_entity
     end
@@ -39,24 +25,17 @@ class V1::QuotationsController < ApplicationController
   def update
     @v1_quotation = V1::Quotation.find(params[:id])
 
-    if @v1_quotation.update(params[:v1_quotation])
-      head :no_content
+    if @v1_quotation.seller != @current_seller
+      render json: { error: 'does not belong to you'}, status: :forbidden
+    elsif @v1_quotation.update(quotation_params)
+      render json: @v1_quotation, status: :ok
     else
       render json: @v1_quotation.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /v1/quotations/1
-  # DELETE /v1/quotations/1.json
-  def destroy
-    @v1_quotation = V1::Quotation.find(params[:id])
-    @v1_quotation.destroy
-
-    head :no_content
-  end
-
 private
   def quotation_params
-    params.require(:quotation).permit(:name_of_product, :price, :description, :seller_id, :quote_id)
+    params.require(:quotation).permit(:product_id, :price, :description, :status)
   end
 end
